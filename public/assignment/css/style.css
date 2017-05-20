@@ -1,7 +1,76 @@
-input.form-control {
-    margin-bottom: 5px;
+input.form-control,
+textarea.form-control,
+select.form-control{
+    margin-bottom:15px;
 }
 
+.list-group-item {
+    border:none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+head {
+    position: static;
+}
+footer {
+    position: static;
+
+}
 body {
-    padding-top: 36px;
+    padding-top: 55px;
+    padding-bottom:55px;
+
+}
+.wd-widget {
+    position:relative;
+    margin-bottom:10px;
+}
+.wd-toolbar {
+    position:absolute;
+    background-color: white;
+    top:0px;
+    right:0px;
+    padding-left:5px;
+    padding-bottom:5px;
+    border-bottom-left-radius:10px;
+    opacity: 0.8;
+}
+
+.navbar-default {
+    background-color: #3f8fce;
+}
+
+.navbar-default .glyphicon {
+    color: white;
+}
+
+.navbar-default .navbar-brand {
+    color: white;
+    text-decoration: none;
+}
+
+.navbar-default .navbar-fixed-top {
+    position: absolute;
+}
+
+.navbar-default .navbar-fixed-bottom {
+    position:absolute;
+}
+.navbar-brand:hover {
+    background-color: transparent;
+    text-decoration: none;
+}
+.btn-danger {
+    margin-top: 15px;
+}
+.sidebar {
+    display: none;
+}
+
+.div .container {
+    position:relative;
+    min-height: 50%
 }
