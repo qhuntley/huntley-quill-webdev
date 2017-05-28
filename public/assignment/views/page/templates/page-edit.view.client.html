@@ -1,0 +1,48 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <p class="navbar-text pull-left">
+            <a class="navbar-link" href="#/page-list">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+        </p>
+        <a class="navbar-brand">Edit Page</a>
+        <p class="navbar-text pull-right">
+            <a class="navbar-link" href="#/page-list">
+                <span class="glyphicon glyphicon-ok"></span>
+            </a>
+        </p>
+    </div>
+</nav>
+<div class="container-fluid">
+    <label for="Name">Name</label>
+    <input id="Name"
+           type="text"
+           ng-model = "model.page.name"
+           class="form-control"
+           placeholder="Blog Post">
+    <label for="Page Title">Page Title</label>
+    <input id="Page Title"
+           ng-model="model.page.title"
+           class="form-control"
+           placeholder="Page Title">
+    <a ng-click="model.updatePage(model.page._id, model.page)"
+       class="btn btn-block btn-success">
+        Update
+    </a>
+
+    <a ng-click="model.deletePage(model.page._id, model.page)"
+       class="btn btn-block btn-danger">
+        Delete
+    </a>
+</div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <p class="navbar-text pull-right">
+            <a class="navbar-link" href="#!/user/{{model.userId}}">
+                <span class="glyphicon glyphicon-user">
+                </span>
+            </a>
+        </p>
+    </div>
+</nav>

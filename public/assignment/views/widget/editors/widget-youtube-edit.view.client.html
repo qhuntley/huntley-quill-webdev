@@ -1,0 +1,54 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <p class="navbar-text pull-left">
+            <a class="navbar-link" href="/assignment/widgets/widget-list.html">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+        </p>
+        <a class="navbar-brand">Widget Edit</a>
+        <p class="navbar-text pull-right">
+            <a ng-click="model.updateWidget(model.widgetId,model.widget)"
+               class="navbar-link">
+                <span class="glyphicon glyphicon-ok"></span>
+            </a>
+        </p>
+    </div>
+</nav>
+<div class="container-fluid">
+    <label for="Name" style="font-weight: normal">Name</label>
+    <input id="Name"
+           type="text"
+           class="form-control">
+    <label for="Text" style="font-weight: normal">Text</label>
+    <input id="Text"
+           type="text"
+           class="form-control">
+    <label for="URL" style="font-weight: normal">URL</label>
+    <input id="URL"
+           class="form-control"
+           ng-model = "model.widget.url"
+           type="url"
+           placeholder="https://www.sitebuilderreport.com/assets/facebook-stock-up-446fff24fb11820517c520c4a5a4c032.jpg">
+    <label for="Width" style="font-weight: normal">Width</label>
+    <input id="Width"
+           type="text"
+           ng-model = "model.widget.width"
+           placeholder="100%"
+           class="form-control">
+
+    <a ng-click="model.deleteWidget(model.widgetId)"
+       class="btn btn-block btn-danger">
+        Delete
+    </a>
+
+</div>
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <p class="navbar-text pull-right">
+            <a class="navbar-link" href="/assignment/login/profile.html" href="/assignment/profile.html" class="navbar-link">
+                <span class="glyphicon glyphicon-user">
+                </span>
+            </a>
+        </p>
+    </div>
+</nav>

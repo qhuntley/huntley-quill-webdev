@@ -1,0 +1,48 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <p class="navbar-text pull-left">
+            <a class="navbar-link" href="/assignment/widgets/widget-list.html">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+        </p>
+        <a class="navbar-brand">Widget Edit</a>
+        <p class="navbar-text pull-right">
+            <a ng-click="model.updateWidget(model.widgetId,model.widget)"
+                class="navbar-link">
+                <span class="glyphicon glyphicon-ok"></span>
+            </a>
+        </p>
+    </div>
+</nav>
+<div class="container-fluid">
+    <label for="Name">Name</label>
+    <input id="Name"
+           ng-model = "model.widget.text"
+           type="text"
+           class="form-control">
+    <label for="Text">Text</label>
+    <input id="Text"
+           type="text"
+           class="form-control"
+           placeholder="US Senate">
+    <label for="Size">Size</label>
+    <input id="Size"
+           ng-model = "model.widget.size"
+           class="form-control">
+
+    <a ng-click="model.deleteWidget(model.widgetId)"
+       class="btn btn-block btn-danger">
+        Delete
+    </a>
+
+</div>
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <p class="navbar-text pull-right">
+            <a class="navbar-link" href="/assignment/login/profile.html">
+                <span class="glyphicon glyphicon-user">
+                </span>
+            </a>
+        </p>
+    </div>
+</nav>

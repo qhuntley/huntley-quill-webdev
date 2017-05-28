@@ -1,0 +1,45 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <p class="navbar-text pull-left">
+            <a class="navbar-link" href="#/page-list">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+        </p>
+        <a class="navbar-brand">New Page</a>
+        <p class="navbar-text pull-right">
+            <a class="navbar-link" href="#/page-list">
+                <span class="glyphicon glyphicon-ok"></span>
+            </a>
+        </p>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <label for="name">Name</label>
+    <input id="name"
+           ng-model = "page.name"
+           type="text"
+           class="form-control"
+           placeholder="Page Name">
+    <label for="title">Title</label>
+    <input id="title"
+           ng-model="page.title"
+           type="text"
+           class="form-control"
+           placeholder="Page Title">
+    <a ng-click = "model.createPage(page)"
+       class="btn btn-block btn-success">
+        Create
+    </a>
+</div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <p class="navbar-text pull-right">
+            <a class="navbar-link" href="#!/user/{{model.userId}}">
+                <span class="glyphicon glyphicon-user">
+                </span>
+            </a>
+        </p>
+    </div>
+</nav>

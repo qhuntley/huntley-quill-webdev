@@ -1,117 +1,27 @@
 <!DOCTYPE html>
-<html>
-<title>Web Dev Homepage</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<style>
-  body,h1,h2{font-family: "Raleway", sans-serif}
-  body, html {height: 100%}
-  p {line-height: 2}
-  .bgimg {
-    min-height: 100%;
-    margin: auto;
-    background-position: center;
-    background-size: cover;
-    background-image: url("http://quillhuntley-com.webs.com/photos/Abstract/IMG_6622.JPG");
-  }
-  .profileimg {
-    width: 265px;
-    height: 340px;
-    float: left;
-    padding: 10px;
-    margin-top: 10px;
-    margin-left: 15px;
-    margin-bottom:60px;
-    background-image: url("https://scontent.fzty2-1.fna.fbcdn.net/v/t31.0-8/18358608_1556427791034742_1369472169407061581_o.jpg?oh=cde2fa669e0de7a2de8676bf52cfaa9b&oe=59B79C26");
-  }
-  .paragraph {
-    float: inherit;
-    padding-left: 300px;
-    width: auto;
-    text-align: center;
-  }
-
-  .button {
-    display: inline-block;
-    border-radius: 15px;
-    background-color: black;
-    border: none;
-    color: #FFFFFF;
-    text-align: center;
-    font-family: "Raleway", sans-serif;
-    font-size: 20px;
-    transition: all 0.5s;
-    cursor: pointer;
-    padding: 10px;
-    margin:20px;
-    margin-top:40px;
-  }
-  .button span {
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    transition: 0.5s;
-  }
-  .button span:after {
-    content: '\00bb';
-    position: absolute;
-    opacity: 0;
-    right: -20px;
-    transition: 0.5s;
-  }
-
-  .button:hover span {
-    padding-right: 25px;
-  }
-
-  .button:hover span:after {
-    opacity: 1;
-    right: 0;
-    margin-top: 1px;
-  }
-  .w3-bottom w3-hide-small {
-    padding-bottom: 40px;
-  }
-  .w3-dropdown-content {
-    margin-top:-116px;
-  }
-
-</style>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Dev Course Home Page</title>
+</head>
 <body>
+<h1>Quill Huntley</h1>
+<h2>Web Dev Course Home Page</h2>
 
-<header class="w3-display-container w3-wide bgimg w3-grayscale-min" id="home">
-  <div class="w3-display-middle w3-text-white w3-center">
-    <h1 class="w3-jumbo">QUILL HUNTLEY</h1>
-    <h4>~ Web Development ~</h4>
-    <h5>C S 5 6 1 0</h5>
-  </div>
-</header>
-
-<div class="w3-bottom w3-hide-small">
-  <div class="w3-bar w3-white w3-center w3-padding w3-opacity-min w3-hover-opacity-off">
-    <a href="project/index.html" style="width:25%" class="w3-bar-item w3-button">Project</a>
-    <a href="/assignment/login/login.html" style="width:25%" class="w3-bar-item w3-button">Assignments</a>
-    <a href="test/index.html" style="width:25%" class="w3-bar-item w3-button">MongoDB</a>
-    <a href="https://github.com/qhuntley/huntley-quill-webdev" style="width:25%" class="w3-bar-item w3-button w3-hover-transparent">Github</a>
-  </div>
-</div>
-
-<div>
-    <div>
-      <img class="profileimg" src="https://scontent.fzty2-1.fna.fbcdn.net/v/t31.0-8/18358608_1556427791034742_1369472169407061581_o.jpg?oh=cde2fa669e0de7a2de8676bf52cfaa9b&oe=59B79C26"></div>
-    <div class ="div">
-      <h1 class="paragraph"><b>About Me</b></h1>
-      <p class="paragraph"><i>My name is Quill Huntley and I am a third-year undergraduate student at Northeastern University. I am pursuing a BS in Computer Science and English, with a minor in Journalism.
-        In my freshman year, I took Intro to Web Development and during my first co-op I did some Web Development work. Besides this, I have had very little experience, but am excited to learn more!
-        I am not currently working on any projects, but hope to bring the knowledge I learn here to my second co-op, working as part of a User Experience team. This repository is intended for my work during Web Development Summer 1 2017.</i>
-        <br>
-        <button class="button" style="text-align: center"><span>My Resumé</span></button>
-        <br>
-      </p>
-    </div>
-  </div>
-</div>
+<h2>Required links</h2>
+<ul>
+    <li>
+        <a href="project/index.html">Project</a>
+    </li>
+    <li>
+        <a href="assignment/#!/login">Assignment</a>
+    </li>
+    <li>
+        <a href="test/index.html">Test MongoDB</a>
+    </li>
+    <li>
+        <a href="https://github.com/qhuntley/huntley-quill-webdev">My public repository at GitHub.com</a>
+    </li>
+</ul>
 </body>
 </html>

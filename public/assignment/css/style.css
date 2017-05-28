@@ -27,6 +27,7 @@ body {
 .wd-widget {
     position:relative;
     margin-bottom:10px;
+    padding-bottom:2px;
 }
 .wd-toolbar {
     position:absolute;
@@ -70,7 +71,18 @@ body {
     display: none;
 }
 
+.glyphicon-plus {
+    color:white;
+}
 .div .container {
     position:relative;
-    min-height: 50%
+    min-height: 50%;
+
+}
+.bgimg {
+    min-height: 100%;
+    margin: auto;
+    background-position: center;
+    background-size: cover;
+    background-image: url("http://quillhuntley-com.webs.com/photos/Abstract/IMG_6622.JPG");
 }

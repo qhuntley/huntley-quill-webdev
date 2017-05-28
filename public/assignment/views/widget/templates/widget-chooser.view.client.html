@@ -1,0 +1,69 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <p class="navbar-text pull-left">
+            <a class="navbar-link" href="#/widget-list">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+        </p>
+        <a class="navbar-brand">Choose Widget</a>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <ul class="list-group">
+        <li class ="list-group-item">
+            <a ng-click = "model.widgetType(1); model.createWidget(model.widget)"
+               class="navbar-link">
+                Header
+            </a>
+        </li>
+        <li class ="list-group-item">
+            <a href="#">
+                Label </a>
+        </li>
+        <li class ="list-group-item">
+            <a href="#!/user/{{model.userId}}/website/{{page.websiteId}}/page/{{page._id}}/widget/{{model.widgetId}}">
+                HTML</a>
+        </li>
+        <li class ="list-group-item">
+            <a href="#">
+                Text Input</a>
+        </li>
+        <li class ="list-group-item">
+            <a href="#">
+                Link</a>
+        </li>
+        <li class ="list-group-item">
+            <a href="#">
+                Button</a>
+        </li>
+        <li class ="list-group-item">
+            <a ng-click = "model.widgetType(2); model.createWidget(model.widget)"
+               class="navbar-link">
+                Image</a>
+        </li>
+        <li class ="list-group-item">
+            <a ng-click = "model.widgetType(3); model.createWidget(model.widget)"
+               class="navbar-link">
+                YouTube</a>
+        </li>
+        <li class ="list-group-item">
+            <a href="#">
+                Data Table</a>
+        </li>
+        <li class ="list-group-item">
+            <a href="#">
+                Repeater</a>
+        </li>
+    </ul>
+</div>
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <p class="navbar-text pull-right">
+            <a class="navbar-link" href="#/profile">
+                <span class="glyphicon glyphicon-user">
+                </span>
+            </a>
+        </p>
+    </div>
+</nav>
