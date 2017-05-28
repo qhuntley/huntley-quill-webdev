@@ -76,6 +76,10 @@ body {
 .glyphicon-plus {
     color:white;
 }
+
+.glyphicon-play {
+    padding-right: 10px;
+}
 .div .container {
     position:relative;
     min-height: 50%;
