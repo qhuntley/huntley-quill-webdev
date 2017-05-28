@@ -8,11 +8,15 @@
         var model = this;
 
         model.login = function (username, password) {
-            var found = userService.findUserByCredentials(username, password);
+            var found = userService.findUserByUsername(username);
+            var validUser = userService.findUserByCredentials(username, password);
 
-            if(found !== null) {
+            if(validUser !== null) {
                 $location.url('/user/' + found._id);
-               // $scope.message ="Welcome " + username;
+            }
+
+            else if(found !== null) {
+                model.message = "Password incorrect, please try again!";
             }
             else {
                 model.message = "Username " + username + " not found, please try again!";

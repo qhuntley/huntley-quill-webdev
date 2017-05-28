@@ -19,10 +19,9 @@
             deletePage: deletePage
         };
 
-        function createPage(page) {
+        function createPage(websiteId, page) {
             page._id = (new Date()).getTime() + "";
-            page.created = new Date();
-            page.updated = new Date();
+            page.websiteId = websiteId;
             pages.push(page);
         }
 
@@ -50,7 +49,7 @@
             pages.push(index);
         }
 
-        function deletePage(pageId, page) {
+        function deletePage(pageId) {
             var page = pages.find(function (page) {
                 return page._id === pageId;
             });

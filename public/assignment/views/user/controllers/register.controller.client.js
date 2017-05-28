@@ -6,8 +6,6 @@
     function registerController($location, userService) {
 
         var model = this;
-
-        // event handlers
         model.register = register;
 
         //implementation
