@@ -10,5 +10,12 @@
 
         model.user = userService.findUserById(userId);
 
+        model.deleteUser = deleteUser;
+
+        function deleteUser(userId) {
+            userService.deleteUser(model.user._id);
+            $location.url('/login');
+        }
+
     }
 }) ();
