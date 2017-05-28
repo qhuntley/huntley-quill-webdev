@@ -7,6 +7,7 @@
 
         var model = this;
         model.userId = $routeParams['userId'];
+        model.websiteId= $routeParams['websiteId'];
 
 
         function init() {

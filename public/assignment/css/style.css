@@ -6,6 +6,7 @@ select.form-control{
 
 .list-group-item {
     border:none;
+    position: relative;
 }
 
 a:hover {
@@ -51,6 +52,7 @@ body {
 .navbar-default .navbar-brand {
     color: white;
     text-decoration: none;
+    position:absolute;
 }
 
 .navbar-default .navbar-fixed-top {

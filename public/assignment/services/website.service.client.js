@@ -25,8 +25,6 @@
 
         function createWebsite(website) {
             website._id = (new Date()).getTime() + "";
-            website.created = new Date();
-            website.updated = new Date();
             websites.push(website);
         }
 

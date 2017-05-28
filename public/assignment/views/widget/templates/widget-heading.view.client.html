@@ -1,48 +1,8 @@
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-        <p class="navbar-text pull-left">
-            <a class="navbar-link" href="#/widget-list">
-                <span class="glyphicon glyphicon-chevron-left"></span>
-            </a>
-        </p>
-        <a class="navbar-brand">Widget Edit</a>
-        <p class="navbar-text pull-right">
-            <a ng-click="model.createWidget(widget)"
-               class="navbar-link">
-                <span class="glyphicon glyphicon-ok"></span>
-            </a>
-        </p>
-    </div>
-</nav>
-<div class="container-fluid">
-    <label for="Name">Name</label>
-    <input id="Name"
-           ng-model="widget.text"
-           type="text"
-           class="form-control">
-    <label for="Text">Text</label>
-    <input id="Text"
-           ng-model="widget.name"
-           type="text"
-           class="form-control"
-           placeholder="US Senate">
-    <label for="Size">Size</label>
-    <input id="Size"
-           class="form-control"
-           ng-model="widget.size"
-           placeholder="3">
-    <a class="btn btn-block btn-danger" href="#/widget-list">
-        Delete
-    </a>
+<div ng-switch="widget.size">
+    <h1 ng-switch-when="1">{{widget.text}}</h1>
+    <h2 ng-switch-when="2">{{widget.text}}</h2>
+    <h3 ng-switch-when="3">{{widget.text}}</h3>
+    <h4 ng-switch-when="4">{{widget.text}}</h4>
+    <h5 ng-switch-when="5">{{widget.text}}</h5>
+    <h6 ng-switch-when="6">{{widget.text}}</h6>
 </div>
-
-<nav class="navbar navbar-default navbar-fixed-bottom">
-    <div class="container-fluid">
-        <p class="navbar-text pull-right">
-            <a class="navbar-link" href="#/profile">
-                <span class="glyphicon glyphicon-user">
-                </span>
-            </a>
-        </p>
-    </div>
-</nav>

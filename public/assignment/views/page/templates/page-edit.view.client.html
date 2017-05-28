@@ -1,40 +1,60 @@
 <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-        <p class="navbar-text pull-left">
-            <a class="navbar-link" href="#/page-list">
-                <span class="glyphicon glyphicon-chevron-left"></span>
-            </a>
-        </p>
-        <a class="navbar-brand">Edit Page</a>
-        <p class="navbar-text pull-right">
-            <a class="navbar-link" href="#/page-list">
+    <div class="container-fluid row">
+        <div class="col-xs-4 hidden-xs">
+            <a class="navbar-brand" href="#/page-list">Pages</a>
+            <p class="navbar-text pull-right">
+                <a href = "#!/user/{{model.userId}}/website/{{model.websiteId}}/page/new">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </a>
+            </p>
+        </div>
+        <div class="col-xs-12 col-sm-8">
+            <a class="navbar-brand">Edit Page</a>
+            <p class="navbar-text pull-right">
+                <a ng-click="model.updatePage(model.page._id, model.page)">
                 <span class="glyphicon glyphicon-ok"></span>
-            </a>
-        </p>
+                </a>
+            </p>
+        </div>
     </div>
 </nav>
-<div class="container-fluid">
-    <label for="Name">Name</label>
-    <input id="Name"
-           type="text"
-           ng-model = "model.page.name"
-           class="form-control"
-           placeholder="Blog Post">
-    <label for="Page Title">Page Title</label>
-    <input id="Page Title"
-           ng-model="model.page.title"
-           class="form-control"
-           placeholder="Page Title">
-    <a ng-click="model.updatePage(model.page._id, model.page)"
-       class="btn btn-block btn-success">
-        Update
-    </a>
 
-    <a ng-click="model.deletePage(model.page._id, model.page)"
-       class="btn btn-block btn-danger">
-        Delete
-    </a>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-4 hidden-xs">
+            <ul class="list-group">
+                <li ng-repeat = "page in model.pages" class="list-group-item">
+                    <div>
+                        <a href="#!/user/{{model.userId}}/website/{{page.websiteId}}/page/{{page._id}}/widget">
+                            {{page.name}}
+                        </a>
+                        <a href="#!/user/{{model.userId}}/website/{{page.websiteId}}/page/{{page._id}}">
+                            <span class="glyphicon glyphicon-cog pull-right"></span>
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col-xs-12 col-sm-8">
+            <label for="Name">Name</label>
+            <input id="Name"
+                   type="text"
+                   ng-model = "model.page.name"
+                   class="form-control"
+                   placeholder="Blog Post">
+            <label for="Page Title">Page Title</label>
+            <input id="Page Title"
+                   ng-model="model.page.title"
+                   class="form-control"
+                   placeholder="Page Title">
+            <a ng-click="model.deletePage(model.page._id, model.page)"
+               class="btn btn-block btn-danger">
+                Delete
+            </a>
+        </div>
+    </div>
 </div>
+
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
