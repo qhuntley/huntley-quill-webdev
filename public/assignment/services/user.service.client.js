@@ -3,7 +3,7 @@
         .module('WebAppMaker')
         .factory('userService', userService);
 
-    function userService() {
+    function userService($http) {
 
         var users = [
             {_id: "123", username: "alice",    password: "alice",    firstName: "Alice",  lastName: "Wonder"  },
@@ -22,8 +22,11 @@
         };
 
         function createUser(user) {
-            user._id = (new Date()).getTime() + "";
-            users.push(user);
+            var url = "/api/assignment/user"
+            return $http.post(url, user)
+                .then(function (response) {
+                    return response.data;
+                });
         }
 
         function findUserByUsername(username) {
@@ -36,11 +39,17 @@
         }
 
         function updateUser(userId, user) {
-            var user = users.find(function (user) {
-                return user._id === userId;
-            });
-            var index = users.indexOf(user);
-            users.push(index);
+            var url = "/api/assignment/" + user;
+            return $http.put(url, user)
+                .then(function (response) {
+                    return response.data;
+                });
+
+            //var user = users.find(function (user) {
+              //  return user._id === userId;
+            //});
+           // var index = users.indexOf(user);
+           // users.push(index);
         }
 
         function deleteUser(userId) {
@@ -52,19 +61,19 @@
         }
 
         function findUserByCredentials(username, password) {
-            for(var u in users) {
-                var user = users[u];
-                if (user.username === username && user.password === password) {
-                    return user;
-                }
-            }
-            return null;
+            var url = "/api/assignment/user?username=" + username + "&password=" + password;
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+                });
         }
 
         function findUserById(userId) {
-            return users.find(function (user) {
-                return user._id === userId;
-            });
+            var url = "/api/assignment/user/" + userId;
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+                });
         }
     }
 })();

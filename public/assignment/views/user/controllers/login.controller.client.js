@@ -9,18 +9,28 @@
 
         model.login = function (username, password) {
             var found = userService.findUserByUsername(username);
-            var validUser = userService.findUserByCredentials(username, password);
+            //var validUser = userService.findUserByCredentials(username, password);
+            userService
+                .findUserByCredentials(username, password)
+                .then(login, handleError);
 
-            if(validUser !== null) {
-                $location.url('/user/' + found._id);
-            }
-
-            else if(found !== null) {
-                model.message = "Password incorrect, please try again!";
-            }
-            else {
+            function handleError(error) {
                 model.message = "Username " + username + " not found, please try again!";
             }
+
+            function login(validUser) {
+                if(validUser !== null) {
+                    $location.url('/user/' + found._id);
+                }
+
+                else if(found !== null) {
+                    model.message = "Password incorrect, please try again!";
+                }
+                else {
+                    model.message = "Username " + username + " not found, please try again!";
+                }
+            }
+
         };
     }
 }) ();
