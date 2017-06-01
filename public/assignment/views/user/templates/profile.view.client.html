@@ -11,6 +11,11 @@
 </nav>
 
 <div class="container">
+
+    <div ng-show="model.message" class = "alert alert-info">
+        {{model.message}}
+    </div>
+
     <form>
             <div class="form-group">
                 <label for="username">Username</label>
@@ -22,7 +27,11 @@
             </div>
             <div class="form-group">
                 <label for="email">Email address</label>
-                <input type="email" class="form-control" id="email" placeholder="alice@wonderland.com">
+                <input ng-model="model.user.email"
+                       type="email"
+                       class="form-control"
+                       id="email"
+                       placeholder="alice@wonderland.com">
             </div>
             <div class="form-group">
                 <label for="first-name">First Name</label>
@@ -41,16 +50,21 @@
                        placeholder="Wonderland">
             </div>
         </form>
+        <a ng-click = "model.updateUser(model.user)"
+            class = "btn btn-warning btn-block">
+             Update</a>
+
         <a class="btn btn-primary btn-block"
            href = "#!/user/{{model.user._id}}/website">Websites</a>
 
         <a class="btn btn-danger btn-block"
            href="#!/login">Logout</a>
 
-        <a ng-click = "model.deleteUser(userId)"
+        <a ng-click = "model.deleteUser(model.user)"
             class = "btn btn-warning btn-block">
             Delete
         </a>
+
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
