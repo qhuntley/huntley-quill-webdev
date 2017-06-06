@@ -12,6 +12,10 @@
 </nav>
 
 <div class="container-fluid">
+    <div class="alert alert-danger" ng-show="model.error">
+        {{model.error}}
+    </div>
+
     <ul class="list-group">
         <li ng-repeat = "website in model.websites" class="list-group-item">
             <div class="row">

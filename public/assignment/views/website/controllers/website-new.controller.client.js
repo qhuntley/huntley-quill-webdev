@@ -13,13 +13,21 @@
         model.createWebsite = createWebsite;
 
         function init() {
-            model.websites = websiteService.findAllWebsitesForUser(model.userId);
+           websiteService
+               .findAllWebsitesForUser(model.userId)
+               .then(function (websites) {
+                   model.websites = websites;
+               })
         }
         init();
 
         function createWebsite (website) {
-            websiteService.createWebsite(model.userId, website);
-            $location.url('/user/' + model.userId + '/website');
+            //website.developerId = model.userId;
+            websiteService
+                .createWebsite(model.userId, website)
+                .then(function (response) {
+                    $location.url('/user/' + model.userId + '/website');
+                });
         }
     }
 }) ();

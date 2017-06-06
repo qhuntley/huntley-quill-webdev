@@ -1,10 +1,5 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
-        <p class="navbar-text pull-left">
-            <a class="navbar-link" href="/assignment/widgets/widget-list.html">
-                <span class="glyphicon glyphicon-chevron-left"></span>
-            </a>
-        </p>
         <a class="navbar-brand">Widget Edit</a>
         <p class="navbar-text pull-right">
             <a ng-click="model.updateWidget(model.widgetId,model.widget)"
@@ -29,20 +24,27 @@
            type="url"
            class="form-control"
            placeholder="https://www.sitebuilderreport.com/assets/facebook-stock-up-446fff24fb11820517c520c4a5a4c032.jpg">
+    <div class="form-group">
+        <a class="btn btn-info btn-block" href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{model.widgetId}}/search">
+            Search
+        </a>
+    </div>
     <label for="Width">Width</label>
     <input id="Width"
            ng-model = "model.widget.width"
            type="text"
            class="form-control"
            placeholder="100%">
-    <label for="Upload">Upload</label>
-    <input id="Upload"
-           type="file"
-           class="form-control">
-    <a href="../websites/website-list.html"
-       class="btn btn-block btn-primary">
-        Upload
-    </a>
+    <form action="/api/assignment/uploads"   method="post" enctype="multipart/form-data">
+        <input  name="myFile"    type="file" class="form-control"/>
+        <input  name="width"     value="{{model.widget.width}}" style="display: none"/>
+        <input  name="userId"    value="{{model.userId}}"       style="display: none"/>
+        <input  name="websiteId" value="{{model.websiteId}}"    style="display: none"/>
+        <input  name="pageId"    value="{{model.pageId}}"       style="display: none"/>
+        <input  name="widgetId"  value="{{model.widgetId}}"   style="display: none"/>
+        <button type="submit"    class="btn btn-block btn-primary">Upload Image</button>
+    </form>
+
     <a ng-click="model.deleteWidget(model.widgetId)"
        class="btn btn-block btn-danger">
         Delete

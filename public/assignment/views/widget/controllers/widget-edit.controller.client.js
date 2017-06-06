@@ -18,19 +18,34 @@
         model.getWidgetEditorForType = getWidgetEditorForType;
 
         function init() {
-            model.widgets = widgetService.findWidgetsByPageId(model.pageId);
-            model.widget = widgetService.findWidgetById(model.widgetId);
+            widgetService
+                .findWidgetsByPageId(model.pageId)
+                .then(function(widgets) {
+                    model.widgets = widgets;
+                });
+
+            widgetService
+                .findWidgetById(model.widgetId)
+                .then(function (widget) {
+                    model.widget = widget;
+                })
         }
         init();
 
         function updateWidget(widgetId, widget) {
-            widgetService.updateWidget(widgetId, widget);
-            $location.url('/user/' + model.userId + '/website/' + model.websiteId + '/page/' + model.pageId + '/widget');
+            widgetService
+                .updateWidget(widgetId, widget)
+                .then(function (response) {
+                    $location.url('/user/' + model.userId + '/website/' + model.websiteId + '/page/' + model.pageId + '/widget');
+                });
         }
 
         function deleteWidget(widgetId) {
-            widgetService.deleteWidget(widgetId);
-            $location.url('/user/' + model.userId + '/website/' + model.websiteId + '/page/' + model.pageId + '/widget');
+            widgetService
+                .deleteWidget(widgetId)
+                .then(function(response) {
+                    $location.url('/user/' + model.userId + '/website/' + model.websiteId + '/page/' + model.pageId + '/widget');
+                });
         }
 
         function getWidgetEditorForType(type) {

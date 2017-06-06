@@ -13,13 +13,20 @@
         model.createPage = createPage;
 
         function init() {
-            model.pages = pageService.findPageByWebsiteId(model.websiteId);
+            pageService
+                .findPageByWebsiteId(model.websiteId)
+                .then(function (pages) {
+                    model.pages = pages;
+                });
         }
         init();
 
         function createPage (page) {
-            pageService.createPage(model.websiteId, page);
-            $location.url('/user/' + model.userId + '/website/' + page.websiteId + '/page');
+            pageService
+                .createPage(model.websiteId, page)
+                .then(function (response) {
+                    $location.url('/user/' + model.userId + '/website/' + page.websiteId + '/page');
+                });
         }
     }
 }) ();

@@ -16,8 +16,17 @@
         model.widgetByType = widgetByType;
 
         function init() {
-            model.widgets = widgetService.findWidgetsByPageId(model.pageId);
-            model.widget = widgetService.findWidgetById(model.widgetId);
+            widgetService
+                .findWidgetsByPageId(model.pageId)
+                .then(function(widgets) {
+                    model.widgets = widgets;
+                });
+
+            widgetService
+                .findWidgetById(model.widgetId)
+                .then(function(widget) {
+                    model.widget = widget;
+                })
         }
         init();
 
@@ -49,9 +58,12 @@
                     "url": "" };
                 widget.widgetType = "YOUTUBE";
             }
-            widgetService.createWidget(model.pageId, widget);
-            $location.url('/user/' + model.user_id + '/website/' + model.websiteId + '/page/' + model.pageId + '/widget/' + widget._id);
-            console.log(model.widgets);
+            widgetService
+                .createWidget(model.pageId, widget)
+                .then(function (widget) {
+                    console.log(widget._id);
+                    $location.url('/user/' + model.user_id + '/website/' + model.websiteId + '/page/' + model.pageId + '/widget/' + widget._id);
+                });
         }
     }
 }) ();

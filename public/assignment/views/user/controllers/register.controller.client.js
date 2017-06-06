@@ -16,22 +16,25 @@
                 return;
             }
 
-            var found = null; //userService.findUserByUsername(username);
+            userService
+                .findUserByUsername(username)
+                .then (function () {
 
-            if(found !== null) {
                 model.error = "Username is not available";
-            } else {
+            },
+
+            function () {
                 var user = {
                     username: username,
                     password: password
                 };
-                //model.message = user;
-                userService
-                    .createUser(user)
-                    .then(function (user) {
-                        $location.url('/user/' + user._id);
-                    });
-            }
+                return userService
+                    .createUser(user);
+                }
+                )
+                .then(function (user) {
+                    $location.url('/user/' + user._id);
+            });
         }
     }
 }) ();
