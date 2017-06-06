@@ -110,6 +110,8 @@ module.exports = function(app) {
     function createWebsite(req, res) {
         var website = req.body;
         website._id = (new Date ()).getTime() + "";
+        var userId = req.params.userId;
+        website.developerId = userId;
         websites.push(website);
         res.json(website);
     }
@@ -178,6 +180,8 @@ module.exports = function(app) {
     function createPage(req, res) {
         var page = req.body;
         page._id = (new Date()).getTime() + "";
+        var websiteId = req.params.websiteId;
+        page.websiteId = websiteId;
         pages.push(page);
         res.send(page);
     }
@@ -238,6 +242,7 @@ module.exports = function(app) {
     app.delete('/api/assignment/widget/:widgetId', deleteWidget);
 
 
+
     var widgets = [
         { "_id": "123", "widgetType": "HEADING", "pageId": "321", "size": 2, "text": "GIZMODO"},
         { "_id": "234", "widgetType": "HEADING", "pageId": "321", "size": 4, "text": "Lorem ipsum"},
@@ -251,7 +256,7 @@ module.exports = function(app) {
     ];
 
     var multer = require('multer');
-    var upload = multer({ dest: __dirname+ '/../public/assignment/uploads' });
+    var upload = multer({ dest: __dirname+ '/../public/assignment/uploads'});
 
     app.post ("/api/assignment/uploads", upload.single('myFile'), uploadImage);
 
@@ -281,7 +286,9 @@ module.exports = function(app) {
             }
         }
 
-        widget.url = '/assignment/uploads/'+filename;
+        widget.url = '/assignment/uploads/' + filename;
+
+        console.log(widgetId);
 
         var callbackUrl   = "/assignment/index.html#!/user/"+userId+"/website/"+websiteId+ "/page/"
         + pageId + "/widget/" + widgetId;

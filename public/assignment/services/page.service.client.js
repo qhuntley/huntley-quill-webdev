@@ -14,14 +14,11 @@
         };
 
         function createPage(websiteId, page) {
-            var url = "/api/assignment/website/" + websiteId + "/" + page;
+            var url = "/api/assignment/website/" + websiteId + "/page";
             return $http.post(url, page)
                 .then(function (response) {
                     return response.data;
                 });
-            //page._id = (new Date()).getTime() + "";
-            //page.websiteId = websiteId;
-            //pages.push(page);
         }
 
 

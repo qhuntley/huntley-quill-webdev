@@ -25,7 +25,7 @@
             //website.developerId = model.userId;
             websiteService
                 .createWebsite(model.userId, website)
-                .then(function (response) {
+                .then(function (website) {
                     $location.url('/user/' + model.userId + '/website');
                 });
         }

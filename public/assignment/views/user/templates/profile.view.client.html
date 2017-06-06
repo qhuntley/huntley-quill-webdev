@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <a class="navbar-brand">Profile</a>
         <p class="navbar-text pull-right">
-            <a class="navbar-link" href="#!/user/{{model.user._id}}">
+            <a ng-click = "model.updateUser(model.user)">
                 <span class="glyphicon glyphicon-ok">
                 </span>
             </a>
@@ -50,9 +50,6 @@
                        placeholder="Wonderland">
             </div>
         </form>
-        <a ng-click = "model.updateUser(model.user)"
-            class = "btn btn-warning btn-block">
-             Update</a>
 
         <a class="btn btn-primary btn-block"
            href = "#!/user/{{model.user._id}}/website">Websites</a>

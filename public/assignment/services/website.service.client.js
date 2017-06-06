@@ -19,16 +19,15 @@
             return $http.post(url, website)
                 .then(function (response) {
                     return response.data;
-                })
+                });
         }
-
 
         function updateWebsite(websiteId, website) {
             var url = "/api/assignment/website/" + websiteId;
             return $http.put(url, website)
                 .then(function (response) {
                     return response.data;
-                })
+                });
         }
 
         function deleteWebsite(websiteId) {
@@ -36,7 +35,7 @@
             return $http.delete(url)
                 .then(function (response) {
                     return response.data;
-                })
+                });
         }
 
         function findWebsiteById(websiteId) {
