@@ -47,9 +47,5 @@
                     $location.url('/user/' + model.userId + '/website/' + model.websiteId + '/page/' + model.pageId + '/widget');
                 });
         }
-
-        function getWidgetEditorForType(type) {
-            return 'views/widget/templates/widget-'+type.toLowerCase()+'-edit.view.client.html';
-        }
     }
 }) ();

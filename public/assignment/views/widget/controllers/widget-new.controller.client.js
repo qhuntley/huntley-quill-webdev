@@ -3,7 +3,7 @@
         .module('WebAppMaker')
         .controller('widgetNewController', widgetNewController);
 
-    function widgetNewController($sce, $routeParams,
+    function widgetNewController($routeParams,
                                   widgetService,
                                   $location) {
 
@@ -23,11 +23,11 @@
         init();
 
         model.createWidget = createWidget;
-        model.widgetByType = widgetByType;
+        model.widgetType = widgetType;
         model.type;
 
-        function widgetByType(type) {
-            model.widgetType === type;
+        function widgetType(type) {
+            model.type = type;
         }
 
         function createWidget(pageId, widget) {
@@ -48,7 +48,7 @@
             widgetService
                 .createWidget(pageId, widget)
                 .then(function (widget) {
-                    $location.url('/user/' + model.user_id + '/website/' + model.websiteId + '/page/' + pageId + '/widget/' + widget._id);
+                    $location.url('/user/' + model.userId + '/website/' + model.websiteId + '/page/' + pageId + '/widget/' + widget._id);
                 });
         }
     }
