@@ -14,13 +14,12 @@
         };
 
         function createPage(websiteId, page) {
-            var url = "/api/assignment/website/" + websiteId + "/page";
+            var url = "/api/website/" + websiteId + "/page";
             return $http.post(url, page)
                 .then(function (response) {
                     return response.data;
                 });
         }
-
 
 
         function findPageByWebsiteId(websiteId) {

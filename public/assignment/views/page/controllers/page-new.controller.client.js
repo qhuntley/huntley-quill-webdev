@@ -20,12 +20,20 @@
                 });
         }
         init();
+        function createWebsite (website) {
+            //website.developerId = model.userId;
+            websiteService
+                .createWebsite(model.userId, website)
+                .then(function (website) {
+                    $location.url('/user/' + model.userId + '/website');
+                });
+        }
 
-        function createPage (page) {
+        function createPage (websiteId, page) {
             pageService
-                .createPage(model.websiteId, page)
+                .createPage(websiteId, page)
                 .then(function (page) {
-                    $location.url('/user/' + model.userId + '/website/' + page.websiteId + '/page');
+                    $location.url('/user/' + model.userId + '/website/' + websiteId + '/page');
                 });
         }
     }
