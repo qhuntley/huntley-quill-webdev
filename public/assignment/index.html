@@ -1,49 +1,47 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="WebAppMaker">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="./../vendor/jquery/dist/jquery.min.js"></script>
+    <script src= "./../vendor/jquery/jquery-ui.js"></script>
+    <script src="../vendor/angular/angular.min.js"></script>
+    <script src="../vendor/angular/angular-route.min.js"></script>
+    <script src = "app.js"></script>
+    <script src = "config.js"></script>
 
-  <meta charset="UTF-8">
-  <script src="../vendor/angular/angular.min.js"></script>
-  <script src="../vendor/angular/angular-route.min.js"></script>
-  <script src = "app.js"></script>
-  <script src = "config.js"></script>
-
-  <script src="./../vendor/jquery/dist/jquery.min.js"></script>
-  <script src= "./../vendor/jquery/jquery-ui.js"></script>
     <script src="directives/wbdv-sortable.js"></script>
-
-
-  <script src="services/user.service.client.js"></script>
-  <script src="services/website.service.client.js"></script>
-  <script src="services/page.service.client.js"></script>
-  <script src="services/widget.service.client.js"></script>
+    <script src="services/user.service.client.js"></script>
+    <script src="services/website.service.client.js"></script>
+    <script src="services/page.service.client.js"></script>
+    <script src="services/widget.service.client.js"></script>
     <script src="services/flickr.service.client.js"></script>
 
-  <script src ="views/page/controllers/page-list.controller.client.js"></script>
-  <script src ="views/page/controllers/page-new.controller.client.js"></script>
-  <script src ="views/page/controllers/page-edit.controller.client.js"></script>
+    <script src="views/user/controllers/register.controller.client.js"></script>
+    <script src ="views/user/controllers/profile.controller.client.js"></script>
+    <script src ="views/user/controllers/login.controller.client.js"></script>
 
-  <script src ="views/widget/controllers/widget-list.controller.client.js"></script>
-  <script src ="views/widget/controllers/widget-edit.controller.client.js"></script>
-  <script src ="views/widget/controllers/widget-new.controller.client.js"></script>
+    <script src="views/website/controllers/website-edit.controller.client.js"></script>
+    <script src="views/website/controllers/website-new.controller.client.js"></script>
+    <script src="views/website/controllers/website-list.controller.client.js"></script>
+
+    <script src ="views/page/controllers/page-list.controller.client.js"></script>
+    <script src ="views/page/controllers/page-new.controller.client.js"></script>
+    <script src ="views/page/controllers/page-edit.controller.client.js"></script>
+
+    <script src ="views/widget/controllers/widget-list.controller.client.js"></script>
+    <script src ="views/widget/controllers/widget-edit.controller.client.js"></script>
+    <script src ="views/widget/controllers/widget-new.controller.client.js"></script>
     <script src="views/widget/controllers/widget-flickr-search.controller.client.js"></script>
 
-  <script src="views/website/controllers/website-edit.controller.client.js"></script>
-  <script src="views/website/controllers/website-new.controller.client.js"></script>
-  <script src="views/website/controllers/website-list.controller.client.js"></script>
-
-  <script src="views/user/controllers/register.controller.client.js"></script>
-  <script src ="views/user/controllers/profile.controller.client.js"></script>
-  <script src ="views/user/controllers/login.controller.client.js"></script>
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>Title</title>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-  <link href="../../../../assignment/css/style.css" rel="stylesheet"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Title</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../../../../assignment/css/style.css" rel="stylesheet"/>
 </head>
 <body>
 
-  <div ng-view></div>
+<div ng-view></div>
 
 </body>
 </html>

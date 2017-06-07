@@ -8,14 +8,11 @@
                                    $location) {
 
         var model = this;
+        model.userId = $routeParams['userId'];
         model.websiteId = $routeParams.websiteId;
-        model.userId = $routeParams.userId;
         model.widgetId = $routeParams.widgetId;
         model.pageId = $routeParams.pageId;
 
-        model.updateWidget = updateWidget;
-        model.deleteWidget = deleteWidget;
-        model.getWidgetEditorForType = getWidgetEditorForType;
 
         function init() {
             widgetService
@@ -32,10 +29,13 @@
         }
         init();
 
+        model.updateWidget = updateWidget;
+        model.deleteWidget = deleteWidget;
+
         function updateWidget(widgetId, widget) {
             widgetService
                 .updateWidget(widgetId, widget)
-                .then(function (response) {
+                .then(function () {
                     $location.url('/user/' + model.userId + '/website/' + model.websiteId + '/page/' + model.pageId + '/widget');
                 });
         }
@@ -43,7 +43,7 @@
         function deleteWidget(widgetId) {
             widgetService
                 .deleteWidget(widgetId)
-                .then(function(response) {
+                .then(function() {
                     $location.url('/user/' + model.userId + '/website/' + model.websiteId + '/page/' + model.pageId + '/widget');
                 });
         }

@@ -13,8 +13,6 @@
         model.pageId = $routeParams['pageId'];
         model.widgetId = $routeParams['widgetId'];
 
-        model.trustThisContent = trustThisContent;
-        model.getYouTubeEmbedUrl = getYouTubeEmbedUrl;
 
 
         function init() {
@@ -25,6 +23,14 @@
                 })
         }
         init();
+
+        model.trustThisContent = trustThisContent;
+        model.getYouTubeEmbedUrl = getYouTubeEmbedUrl;
+        model.getWidgetUrlForType = getWidgetUrlForType;
+
+        function getWidgetUrlForType(type) {
+            return 'views/widget/templates/widget-'+ type.toLowerCase()+'.view.client.html';
+        }
 
         function trustThisContent(html) {
             return $sce.trustAsHtml(html);

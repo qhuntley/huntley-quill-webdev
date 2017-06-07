@@ -3,7 +3,7 @@
         .module('WebAppMaker')
         .controller('widgetNewController', widgetNewController);
 
-    function widgetNewController($routeParams,
+    function widgetNewController($sce, $routeParams,
                                   widgetService,
                                   $location) {
 
@@ -11,9 +11,7 @@
         model.userId = $routeParams['userId'];
         model.websiteId = $routeParams['websiteId'];
         model.pageId = $routeParams['pageId'];
-
-        model.createWidget = createWidget;
-        model.widgetByType = widgetByType;
+        model.widgetId = $routeParams['widgetId'];
 
         function init() {
             widgetService
@@ -21,26 +19,15 @@
                 .then(function(widgets) {
                     model.widgets = widgets;
                 });
-
-            widgetService
-                .findWidgetById(model.widgetId)
-                .then(function(widget) {
-                    model.widget = widget;
-                })
         }
         init();
 
-        model.widgetType === null;
+        model.createWidget = createWidget;
+        model.widgetByType = widgetByType;
         model.type;
 
         function widgetByType(type) {
             model.widgetType === type;
-        }
-        model.widgetType = widgetType;
-        model.type;
-
-        function widgetType(type) {
-            model.type = type;
         }
 
         function createWidget(pageId, widget) {
@@ -59,10 +46,9 @@
                 widget.widgetType = "YOUTUBE";
             }
             widgetService
-                .createWidget(model.pageId, widget)
+                .createWidget(pageId, widget)
                 .then(function (widget) {
-                    console.log(widget._id);
-                    $location.url('/user/' + model.user_id + '/website/' + model.websiteId + '/page/' + model.pageId + '/widget/' + widget._id);
+                    $location.url('/user/' + model.user_id + '/website/' + model.websiteId + '/page/' + pageId + '/widget/' + widget._id);
                 });
         }
     }
