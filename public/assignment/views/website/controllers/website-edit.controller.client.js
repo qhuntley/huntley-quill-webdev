@@ -27,7 +27,7 @@
                 .findWebsiteById(model.websiteId)
                 .then(function(website) {
                     model.website = website;
-                })
+                });
         }
         init();
 
@@ -36,25 +36,25 @@
                 .createWebsite(model.userId, website)
                 .then(function(website) {
                     $location.url('/user/' + model.userId + '/website');
-                })
+                });
 
         }
 
-        function updateWebsite(website) {
+        function updateWebsite(websiteId, website) {
             websiteService
-                .updateWebsite(model.websiteId, website)
+                .updateWebsite(websiteId, website)
                 .then(function(response) {
                     $location.url('/user/' + model.userId + '/website');
-                })
+                });
 
         }
 
-        function deleteWebsite() {
+        function deleteWebsite(websiteId) {
             websiteService
-                .deleteWebsite(model.websiteId)
+                .deleteWebsite(websiteId)
                 .then(function (response) {
                     $location.url('/user/' + model.userId + '/website');
-                })
+                });
         }
 
     }

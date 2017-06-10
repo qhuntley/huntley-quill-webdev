@@ -10,10 +10,6 @@
         model.login = function (username, password) {
 
             userService
-                .findUserByUsername(username)
-                .then(login, handleError);
-
-            userService
                 .findUserByCredentials(username, password)
                 .then(login, handleError);
 
@@ -24,10 +20,6 @@
             function login(validUser) {
                 if(validUser !== null) {
                     $location.url('/user/' + validUser._id);
-                }
-
-                else if(username !== null) {
-                    model.message = "Password incorrect, please try again!";
                 }
                 else {
                     model.message = "Username " + username + " not found, please try again!";

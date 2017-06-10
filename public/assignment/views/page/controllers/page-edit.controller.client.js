@@ -36,7 +36,7 @@
             pageService
                 .createPage(model.websiteId, page)
                 .then(function (response) {
-                    $location.url('/user/' + model.userId + '/website/' + page.websiteId + '/page');
+                    $location.url('/user/' + model.userId + '/website/' + model.websiteId + '/page');
                 });
         }
 
@@ -44,7 +44,7 @@
             pageService
                 .updatePage(pageId, page)
                 .then(function (response) {
-                    $location.url('/user/' + model.userId + '/website/' + page.websiteId + '/page');
+                    $location.url('/user/' + model.userId + '/website/' + model.websiteId + '/page');
                 });
         }
 
@@ -52,7 +52,7 @@
             pageService
                 .deletePage(pageId, page)
                 .then(function (response) {
-                    $location.url('/user/' + model.userId + '/website/' + page.websiteId  + '/page');
+                    $location.url('/user/' + model.userId + '/website/' + model.websiteId  + '/page');
                 });
         }
     }

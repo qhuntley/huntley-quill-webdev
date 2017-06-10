@@ -11,8 +11,13 @@
         //implementation
         function  register(username, password, password2) {
 
-            if(password !== password2) {
+            if(password !== password2 || password === null) {
                 model.error = "Password mismatch!";
+                return;
+            }
+
+            if(username === null || username === '') {
+                model.error = 'Username required!';
                 return;
             }
 
@@ -24,16 +29,16 @@
             },
 
             function () {
-                var user = {
+                var newUser = {
                     username: username,
                     password: password
                 };
                 return userService
-                    .createUser(user);
+                    .createUser(newUser);
                 }
                 )
-                .then(function (user) {
-                    $location.url('/user/' + user._id);
+                .then(function (newUser) {
+                    $location.url('/user/' + newUser._id);
             });
         }
     }

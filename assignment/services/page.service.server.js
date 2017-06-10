@@ -1,4 +1,5 @@
 var app = require('../../express');
+var pageModel = require('../model/pages/page.model.server');
 
 app.post('/api/website/:websiteId/page', createPage);
 app.get('/api/website/:websiteId/page', findPageByWebsiteId);
@@ -14,27 +15,42 @@ var pages = [
 
 function createPage(req, res) {
     var page = req.body;
-    page._id = (new Date()).getTime() + "";
     var websiteId = req.params.websiteId;
-    page.websiteId = websiteId;
-    pages.push(page);
-    res.send(page);
+    pageModel
+        .createPage(websiteId, page)
+        .then(function (page) {
+            res.json(page);
+        });
 }
 
 
 function findPageByWebsiteId(req, res) {
     var websiteId = req.params.websiteId;
+    pageModel
+        .findPageByWebsiteId(websiteId)
+        .then(function (pages) {
+            res.json(pages);
+        });
+    /*var websiteId = req.params.websiteId;
     var resultSet = [];
     for(var p in pages) {
         if (pages[p].websiteId === websiteId) {
             resultSet.push(pages[p]);
         }
     }
-    res.json(resultSet);
+    res.json(resultSet);*/
 }
 
 function findPageById(req, res) {
     var pageId = req.params.pageId;
+    pageModel
+        .findPageById(pageId)
+        .then(function (page) {
+            res.json(page);
+        }, function(err) {
+            res.sendStatus(404);
+        });
+/*    var pageId = req.params.pageId;
     var page = pages.find(function (page) {
         return page._id === pageId;
     });
@@ -43,11 +59,20 @@ function findPageById(req, res) {
         return;
     }
 
-    res.json(page);
+    res.json(page);*/
 }
 
 function updatePage(req, res) {
     var page = req.body;
+    var pageId =  req.params.pageId;
+    pageModel
+        .updatePage(pageId, page)
+        .then(function () {
+            res.sendStatus(200);
+        }, function(err) {
+            res.sendStatus(404);
+        });
+/*    var page = req.body;
     var pageId = req.params.pageId;
     for(var p in pages) {
         if (pageId === pages[p]._id) {
@@ -57,15 +82,22 @@ function updatePage(req, res) {
             return;
         }
     }
-    res.sendStatus(404);
+    res.sendStatus(404);*/
 }
 
 function deletePage(req, res) {
     var pageId = req.params.pageId;
+    pageModel
+        .deletePage(pageId)
+        .then(function (status) {
+            res.sendStatus(200);
+        });
+
+   /* var pageId = req.params.pageId;
     var page = pages.find(function (page) {
         return page._id === pageId;
     });
     var index = pages.indexOf(page);
     pages.splice(index, 1);
-    res.sendStatus(200);
+    res.sendStatus(200);*/
 }
