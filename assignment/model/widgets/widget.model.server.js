@@ -4,7 +4,7 @@ var websiteModel = require('../websites/website.model.server');
 var widgetModel = mongoose.model('WidgetModel', widgetSchema);
 
 widgetModel.createWidget = createWidget;
-widgetModel.findAllWidgetsByPageId = findAllWidgetsByPageId;
+widgetModel.findWidgetsByPageId = findWidgetsByPageId;
 module.exports = widgetModel;
 
 function createWidget(pageId, widget) {
@@ -20,6 +20,6 @@ function createWidget(pageId, widget) {
     // });
 }
 
-function findAllWidgetsByPageId(pageId) {
+function findWidgetsByPageId(pageId) {
     return widgetModel.find({_page : pageId});
 }
