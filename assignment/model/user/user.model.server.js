@@ -9,11 +9,13 @@ userModel.deleteUser = deleteUser;
 userModel.updateUser = updateUser;
 userModel.findUserByUsername = findUserByUsername;
 
+
 module.exports = userModel;
 
 function updateUser(userId, newUser) {
     return userModel.update({_id: userId}, {
         $set : {
+            username: newUser.username,
             firstName: newUser.firstName,
             lastName: newUser.lastName,
             email: newUser.email,

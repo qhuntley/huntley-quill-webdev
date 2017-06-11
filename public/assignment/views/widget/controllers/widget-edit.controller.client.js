@@ -5,7 +5,7 @@
 
     function widgetEditController($routeParams,
                                    widgetService,
-                                   $location) {
+                                   $location,$sce) {
 
         var model = this;
         model.userId = $routeParams['userId'];

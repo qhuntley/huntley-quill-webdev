@@ -20,7 +20,12 @@
                 .findWidgetsByPageId(model.pageId)
                 .then(function (widgets) {
                     model.widgets = widgets;
-                })
+                });
+
+            function handleError(error) {
+                console.log("error");
+                model.error = "No available widgets";
+            }
         }
         init();
 

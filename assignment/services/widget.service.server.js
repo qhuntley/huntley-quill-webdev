@@ -1,4 +1,5 @@
 var app = require('../../express');
+var widgetModel = require('../model/widgets/widget.model.server');
 
 var multer = require('multer');
 var upload = multer({ dest: __dirname + '/../../public/assignment/uploads'});
@@ -56,7 +57,7 @@ function uploadImage(req, res) {
 
     res.redirect(callbackUrl);
 }
-
+/*
 function sortedWidgets(req, res) {
     var resultSet = [];
     var initial = req.query['initial'];
@@ -74,34 +75,40 @@ function sortedWidgets(req, res) {
     widgets = widgets.concat(resultSet);
     res.sendStatus(200);
 }
+*/
 
 function createWidget(req, res) {
-    var widget = req.body;
     var pageId = req.params.pageId;
-    widget._id = (new Date()).getTime() + "";
-    widget.pageId = pageId;
-    widgets.push(widget);
-    res.send(widget);
+    var widget = req.body;
+    widgetModel
+        .createWidget(pageId, widget)
+        .then(function (widget) {
+            console.log(widget);
+            res.json(widget);
+        });
 }
+
 
 function findWidgetsByPageId(req, res) {
     var pageId = req.params.pageId;
-    var resultSet = [];
-    for(var w in widgets) {
-        if (widgets[w].pageId === pageId) {
-            resultSet.push(widgets[w]);
-        }
-    }
-    if(resultSet) {
-        res.json(resultSet);
-        return;
-    }
-    res.sendStatus(404);
+    widgetModel
+        .findWidgetsByPageId(pageId)
+        .then(function (widgets) {
+            res.json(widgets);
+        }, function(err) {
+            res.sendStatus(404);
+        });
 }
+
 
 function findWidgetById(req, res) {
     var widgetId = req.params.widgetId;
-    var widget = widgets.find(function (widget) {
+    /*widgetModel
+        .findWidgetById(widgetId)
+        .then(function (widget) {
+            res.json(widget);
+        });*/
+   var widget = widgets.find(function (widget) {
         return widget._id === widgetId;
     });
     if (widget) {
