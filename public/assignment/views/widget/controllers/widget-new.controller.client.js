@@ -29,22 +29,27 @@
             model.type = type;
         }
 
+
         function createWidget(pageId, widget) {
             if (model.type === 1){
-                widget = {"_id": "", "widgetType": "", "pageId": "", "text": ""};
+                widget = {"widgetType": "", "pageId": "", "text": ""};
                 widget.widgetType = "HEADING";
                 console.log(widget);
             }
             if (model.type === 2){
-                widget = { "_id": "", "widgetType": "", "pageId": "", "width": "", "url": ""};
-                widget.widgetType = "IMAGE";
+                widget = {"widgetType": "", "pageId": "", "width": "",
+                    "url": "" };
+                widget.widgetType = "TEXT";
             }
             if (model.type === 3){
-                widget = { "_id": "", "widgetType": "", "pageId": "", "width": "",
+                widget = {"widgetType": "", "pageId": "", "width": "", "url": ""};
+                widget.widgetType = "IMAGE";
+            }
+            if (model.type === 4){
+                widget = {"widgetType": "", "pageId": "", "width": "",
                     "url": "" };
                 widget.widgetType = "YOUTUBE";
             }
-
             widgetService
                 .createWidget(pageId, widget)
                 .then(function (widget) {
