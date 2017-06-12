@@ -45,9 +45,9 @@ function updateWidget(widgetId, widget) {
             size: widget.size,
             url: widget.url,
             width: widget.width,
-            height: widget.height
+            height: widget.height,
+            deleteTable: widget.deleteTable
             /*rows: widget.rows,
-            deleteTable: widget.deleteTable,
             formatted: widget.formatted*/
         }
     });
@@ -57,7 +57,7 @@ function deleteWidget(widgetId){
     return widgetModel
         .remove({_id: widgetId})
         .then(function () {
-            pageModel
+            widgetModel
                 .findOne({widgets: widgetId})
                 .then(function (page) {
                     var index = page.widgets.indexOf(widgetId);

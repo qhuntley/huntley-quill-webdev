@@ -12,10 +12,10 @@ var widgetSchema = mongoose.Schema({
     height: String,
     rows: Number,
     size: Number,
+    deleteTable: Boolean,
     /*
     class: String,
     icon: String,
-    deleteTable: Boolean,
     formatted: Boolean,*/
     dateCreated: {type: Date, default: Date.now}
 },{collection: 'widget'});
