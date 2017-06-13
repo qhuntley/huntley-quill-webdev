@@ -17,11 +17,12 @@
                 Label </a>
         </li>
         <li class ="list-group-item">
-            <a href="#!/user/{{model.userId}}/website/{{page.websiteId}}/page/{{page._id}}/widget/{{model.widgetId}}">
+            <a ng-click = "model.widgetType(2); model.createWidget(model.pageId, widget)"
+               class="navbar-link">
                 HTML</a>
         </li>
         <li class ="list-group-item">
-            <a ng-click = "model.widgetType(2); model.createWidget(model.pageId, widget)"
+            <a ng-click = "model.widgetType(3); model.createWidget(model.pageId, widget)"
                class="navbar-link">
                 Text Input</a>
         </li>
@@ -34,12 +35,12 @@
                 Button</a>
         </li>
         <li class ="list-group-item">
-            <a ng-click = "model.widgetType(3); model.createWidget(model.pageId, widget)"
+            <a ng-click = "model.widgetType(4); model.createWidget(model.pageId, widget)"
                class="navbar-link">
                 Image</a>
         </li>
         <li class ="list-group-item">
-            <a ng-click = "model.widgetType(4); model.createWidget(model.pageId, widget)"
+            <a ng-click = "model.widgetType(5); model.createWidget(model.pageId, widget)"
                class="navbar-link">
                 YouTube</a>
         </li>

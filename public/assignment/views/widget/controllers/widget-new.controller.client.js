@@ -39,13 +39,18 @@
             if (model.type === 2){
                 widget = {"widgetType": "", "pageId": "", "width": "",
                     "url": "" };
-                widget.widgetType = "TEXT";
+                widget.widgetType = "HTML";
             }
             if (model.type === 3){
+                widget = {"widgetType": "", "pageId": "", "width": "",
+                    "url": "" };
+                widget.widgetType = "TEXT";
+            }
+            if (model.type === 4){
                 widget = {"widgetType": "", "pageId": "", "width": "", "url": ""};
                 widget.widgetType = "IMAGE";
             }
-            if (model.type === 4){
+            if (model.type === 5){
                 widget = {"widgetType": "", "pageId": "", "width": "",
                     "url": "" };
                 widget.widgetType = "YOUTUBE";

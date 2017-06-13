@@ -3,20 +3,19 @@ var widgetSchema = mongoose.Schema({
     _page : {type: mongoose.Schema.ObjectId, ref: 'PageModel'},
     widgetType: {type: String, enum: ["HTML", "HEADING", "LABEL", "TEXT",
         "LINK", "BUTTON", "IMAGE", "YOUTUBE","DATATABLE", "REPEATER"]},
-    name      : {type:String, default:'Text'},
+    name      : {type:String, default:'Name'},
     text      : String,
     placeholder: String,
     description: String,
     url: String,
-    width: String,
+    width: {type: String, default: '100%'},
     height: String,
-    rows: Number,
-    size: Number,
+    rows: {type: Number, default: 1},
+    size: {type: Number, default: 0},
     deleteTable: Boolean,
-    /*
     class: String,
     icon: String,
-    formatted: Boolean,*/
+    formatted: Boolean,
     dateCreated: {type: Date, default: Date.now}
 },{collection: 'widget'});
 

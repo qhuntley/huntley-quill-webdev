@@ -10,22 +10,14 @@
     </div>
 </nav>
 <div class="container-fluid">
-    <label for="name">Name</label>
-    <input id="name"
-           ng-model = "model.widget.text"
-           type="text"
-           class="form-control">
-    <label for="text">Text</label>
-    <input id="text"
-           type="text"
-           class="form-control"
-           placeholder="US Senate">
-    <label for="size">Size</label>
-    <input id="size"
-           type = "text"
-           ng-model = "model.widget.size"
-           class="form-control">
-
+    <label for="html">HTML</label>
+    <div ng-model="model.widget.text"
+         id="html"
+         text-angular
+         ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','strikeThrough'],
+        ['ul','ol'],['justifyLeft','justifyCenter','justifyRight','justifyFull'],
+        ['indent','outdent'],['html']]">
+    </div>
     <a ng-click="model.deleteWidget(model.widgetId)"
        class="btn btn-block btn-danger">
         Delete

@@ -10,8 +10,8 @@
             findWidgetsByPageId:findWidgetsByPageId,
             findWidgetById:findWidgetById,
             updateWidget: updateWidget,
-            deleteWidget: deleteWidget
-            //sortedWidgets:sortedWidgets
+            deleteWidget: deleteWidget,
+            reorderWidget: reorderWidget
         };
 
         function createWidget (pageId, widget) {
@@ -54,10 +54,9 @@
                 });
         }
 
-      /*  function sortedWidgets(initial, final) {
-            var url = "/page/"+ $routeParams.pageId + "/widget?initial=" + initial + "&final=" + final;
+        function reorderWidget(start, end) {
+            var url = "/page/"+ $routeParams.pageId + "/widget?start=" + start + "&end=" + end;
             return $http.put(url);
-        }*/
-
+        }
     }
 })();

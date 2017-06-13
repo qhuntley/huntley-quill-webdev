@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var widgetSchema = require('./widget.schema.server');
-var websiteModel = require('../websites/website.model.server');
+var pageModel = require('../pages/page.model.server');
 var widgetModel = mongoose.model('WidgetModel', widgetSchema);
 
 widgetModel.createWidget = createWidget;
@@ -8,6 +8,7 @@ widgetModel.findWidgetsByPageId = findWidgetsByPageId;
 widgetModel.findWidgetById = findWidgetById;
 widgetModel.updateWidget = updateWidget;
 widgetModel.deleteWidget = deleteWidget;
+widgetModel.reorderWidget = reorderWidget;
 
 module.exports = widgetModel;
 
@@ -27,7 +28,9 @@ function createWidget(pageId, widget) {
 }
 
 function findWidgetsByPageId(pageId) {
-    return widgetModel.find({_page : pageId});
+    return widgetModel
+        .find({_page : pageId})
+        .sort({order: 1});
 }
 
 function findWidgetById(widgetId) {
@@ -42,13 +45,13 @@ function updateWidget(widgetId, widget) {
             text: widget.text,
             placeholder: widget.placeholder,
             description: widget.description,
-            size: widget.size,
             url: widget.url,
             width: widget.width,
             height: widget.height,
-            deleteTable: widget.deleteTable
-            /*rows: widget.rows,
-            formatted: widget.formatted*/
+            rows: widget.rows,
+            size: widget.size,
+            deleteTable: widget.deleteTable,
+            formatted: widget.formatted
         }
     });
 }
@@ -64,5 +67,17 @@ function deleteWidget(widgetId){
                     page.widgets.splice(index, 1);
                     page.save();
                 });
+        });
+}
+
+function reorderWidget(pageId, start, end) {
+    return pageModel
+        .findPageById(pageId)
+        .then(function (page) {
+            var widgets = page.widgets;
+            var index = widgets.splice(start, 1)[0];
+            widgets.splice(end, 0, index);
+            page.widgets = widgets;
+            return pageModel.updatePage(pageId, page);
         });
 }
