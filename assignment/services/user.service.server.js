@@ -1,5 +1,10 @@
 var app = require('../../express');
 var userModel = require('../model/user/user.model.server');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+passport.use(new LocalStrategy(localStrategy));
+passport.serializeUser(serializeUser);
+passport.deserializeUser(deserializeUser);
 
 app.get('/api/user', findUserByCredentials);
 app.get('/api/user/:userId', findUserById);
@@ -7,7 +12,7 @@ app.post('/api/user', createUser);
 app.put('/api/user/:userId', updateUser);
 app.delete('/api/user/:userId', deleteUser);
 app.get('/api/user?username=username', findUserByUsername);
-
+app.post  ('/api/login', passport.authenticate('local'), login);
 
 var users = [
     {_id: "123", username: "alice", password: "alice", firstName: "Alice", lastName: "Wonder"},
@@ -15,6 +20,29 @@ var users = [
     {_id: "345", username: "charly", password: "charly", firstName: "Charly", lastName: "Garcia"},
     {_id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose", lastName: "Annunzi"}
 ];
+
+function localStrategy(username, password, done) {
+    userModel
+        .findUserByCredentials(username, password)
+        .then(
+            function(user) {
+                if (!user) {
+                    return done(null, false);
+                }
+                return done(null, user);
+            },
+            function(err) {
+                if (err) {
+                    return done(err);
+                }
+            }
+        );
+}
+
+function login(req, res) {
+    var user = req.user;
+    res.json(user);
+}
 
 function deleteUser(req, res) {
     var userId = req.params.userId;
@@ -113,14 +141,19 @@ function findUserByUsername(res, username) {
 }
 
 
- /*   var user = users.find(function (user) {
-        return user.username === username;
-    });
-    if (typeof user === 'undefined') {
-        res.sendStatus(404);
-    }
-    else {
-        res.send(user);
-    }
+function serializeUser(user, done) {
+    done(null, user);
 }
-*/
+
+function deserializeUser(user, done) {
+    userModel
+        .findUserById(user._id)
+        .then(
+            function(user){
+                done(null, user);
+            },
+            function(err){
+                done(err, null);
+            }
+        );
+}
