@@ -41,6 +41,11 @@
         }
 
         function updateWebsite(websiteId, website) {
+            if(website.name === "") {
+                model.error = "Website name required!";
+                return;
+            }
+
             websiteService
                 .updateWebsite(websiteId, website)
                 .then(function(response) {

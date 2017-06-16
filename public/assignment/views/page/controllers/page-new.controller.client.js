@@ -20,16 +20,11 @@
                 });
         }
         init();
-        function createWebsite (website) {
-            //website.developerId = model.userId;
-            websiteService
-                .createWebsite(model.userId, website)
-                .then(function (website) {
-                    $location.url('/user/' + model.userId + '/website');
-                });
-        }
-
         function createPage (websiteId, page) {
+            if(typeof page === 'undefined') {
+                model.error = "Page name required!";
+                return;
+            }
             pageService
                 .createPage(websiteId, page)
                 .then(function (page) {

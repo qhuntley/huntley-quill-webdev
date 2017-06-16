@@ -25,10 +25,10 @@
             <ul class="list-group">
                 <li ng-repeat = "page in model.pages" class="list-group-item">
                     <div>
-                        <a href="#!/user/{{model.userId}}/website/{{page.websiteId}}/page/{{page._id}}/widget">
+                        <a href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}/widget">
                             {{page.name}}
                         </a>
-                        <a href="#!/user/{{model.userId}}/website/{{page.websiteId}}/page/{{page._id}}">
+                        <a href="#!/user/{{model.userId}}/website/{{model.websiteId}}/page/{{page._id}}">
                             <span class="glyphicon glyphicon-cog pull-right"></span>
                         </a>
                     </div>
@@ -36,6 +36,9 @@
             </ul>
         </div>
         <div class="col-xs-12 col-sm-8">
+            <div ng-show ="model.error" class ="alert alert-danger">
+                {{model.error}}
+            </div>
             <label for="Name">Name</label>
             <input id="Name"
                    type="text"

@@ -2,8 +2,8 @@
     <div class="container-fluid">
         <h1>Login</h1>
 
-        <div ng-show ="vm.message" class ="alert alert-danger">
-        {{vm.message}}
+        <div ng-show ="vm.error" class ="alert alert-danger">
+        {{vm.error}}
         </div>
 
         <input ng-model ="username"
@@ -22,5 +22,10 @@
            href="#!/register">
             Register
         </a>
+        <a href="/auth/facebook" class="btn btn-primary btn-block">
+            <span class="fa fa-facebook"></span>
+            Facebook
+        </a>
+
     </div>
 </div>

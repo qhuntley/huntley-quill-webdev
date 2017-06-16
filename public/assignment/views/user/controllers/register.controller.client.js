@@ -11,15 +11,26 @@
         //implementation
         function  register(username, password, password2) {
 
-            if (password !== password2 || password === null) {
+            if (username === null || username === '' || typeof username === 'undefined') {
+                model.error = 'Username required!';
+                return;
+            }
+
+            if (password === null || password === '' || typeof password === 'undefined') {
+                model.error = 'Password required!';
+                return;
+            }
+
+            if (password2 === null || password2 === '' || typeof password2 === 'undefined') {
+                model.error = 'Verify password required!';
+                return;
+            }
+
+            if (password !== password2) {
                 model.error = "Password mismatch!";
                 return;
             }
 
-            if (username === null || username === '') {
-                model.error = 'Username required!';
-                return;
-            }
 
             userService
                 .findUserByUsername(username)

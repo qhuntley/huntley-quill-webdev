@@ -10,6 +10,10 @@
     </div>
 </nav>
 <div class="container-fluid">
+    <div ng-show ="model.error" class ="alert alert-danger">
+        {{model.error}}
+    </div>
+
     <label for="text">Text</label>
     <input id="text"
            ng-model="model.widget.text"

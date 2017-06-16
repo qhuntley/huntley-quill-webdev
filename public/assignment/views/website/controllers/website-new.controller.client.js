@@ -22,7 +22,10 @@
         init();
 
         function createWebsite (website) {
-            //website.developerId = model.userId;
+            if(typeof website === 'undefined') {
+                model.error = "Website name required!";
+                return;
+            }
             websiteService
                 .createWebsite(model.userId, website)
                 .then(function (website) {

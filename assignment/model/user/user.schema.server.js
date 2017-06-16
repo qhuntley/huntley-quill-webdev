@@ -5,6 +5,10 @@ var userSchema = mongoose.Schema({
     firstName: String,
     lastName: String,
     roles: [{type: String, default: 'USER', enum:['USER', 'STUDENT', 'FACULTY', 'ADMIN']}],
+    facebook: {
+        id:    String,
+        token: String
+    },
     email: String,
     phone: String,
     websites: [{type: mongoose.Schema.Types.ObjectId, ref: "WebsiteModel"}],
