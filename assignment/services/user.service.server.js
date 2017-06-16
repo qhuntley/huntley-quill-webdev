@@ -6,16 +6,19 @@ passport.use(new LocalStrategy(localStrategy));
 passport.serializeUser(serializeUser);
 passport.deserializeUser(deserializeUser);
 
-app.get('/api/user', findUserByCredentials);
+app.get('/api/user', isAdmin, findAllUsers);
 app.get('/api/user/:userId', findUserById);
 app.post('/api/user', createUser);
 app.put('/api/user/:userId', updateUser);
-app.delete('/api/user/:userId', deleteUser);
+app.delete('/api/user/:userId', isAdmin, deleteUser);
+app.delete('/api/unregister', unregister);
+
 app.get('/api/user?username=username', findUserByUsername);
 app.post('/api/login', passport.authenticate('local'), login);
 app.get('/api/checkLoggedIn', checkLoggedIn);
 app.post('/api/logout', logout);
 app.post('/api/register', register);
+app.get('/api/checkAdmin', checkAdmin);
 
 var users = [
     {_id: "123", username: "alice", password: "alice", firstName: "Alice", lastName: "Wonder"},
@@ -55,6 +58,14 @@ function checkLoggedIn(req, res) {
     }
 }
 
+function checkAdmin(req, res) {
+    if(req.isAuthenticated() && req.user.roles.indexOf('ADMIN') > -1) {
+        res.json(req.user);
+    } else {
+        res.send('0');
+    }
+}
+
 function register(req, res) {
     var user = req.body;
     userModel
@@ -64,7 +75,17 @@ function register(req, res) {
                 res.json(user);
             });
         });
+}
 
+function unregister(req, res) {
+    userModel
+        .deleteUser(req.user._id)
+        .then(function (status) {
+            req.user.logout();
+            res.sendStatus(200);
+        }, function (err) {
+            console.log(err);
+        });
 }
 
 function logout(req, res) {
@@ -130,6 +151,27 @@ function findUserById(req, res) {
         return user._id === userId;
     });
     res.json(user);*/
+}
+
+function findAllUsers(req, res) {
+    var username = req.query['username'];
+    var password = req.query['password'];
+    if(username && password) {
+        return findUserByCredentials(req, res);
+    }
+    userModel
+        .findAllUsers()
+        .then(function (users) {
+            res.json(users);
+        });
+}
+
+function isAdmin(req, res, next) {
+    if(req.isAuthenticated() && req.user.roles.indexOf('ADMIN') > -1) {
+        next();
+    } else {
+        res.sendStatus(401);
+    }
 }
 
 function findUserByCredentials(req, res) {

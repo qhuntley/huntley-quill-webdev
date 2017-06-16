@@ -21,6 +21,20 @@
                 controller: 'loginController',
                 controllerAs: 'vm'
             })
+            .when('/admin', {
+                templateUrl: 'views/admin/templates/admin.view.client.html',
+                resolve: {
+                    currentUser: checkAdmin
+                }
+            })
+            .when('/admin/users', {
+                templateUrl: 'views/admin/templates/admin-users.view.client.html',
+                controller: 'adminUsersController',
+                controllerAs: 'model',
+                resolve: {
+                    currentUser: checkAdmin
+                }
+            })
             .when('/register', {
                 templateUrl: 'views/user/templates/register.view.client.html',
                 controller: 'registerController',
@@ -140,6 +154,21 @@
             .then(function (currentUser) {
                 if(currentUser === '0') {
                     deferred.resolve({});
+                } else {
+                    deferred.resolve(currentUser);
+                }
+            });
+        return deferred.promise;
+    }
+
+    function checkAdmin($q, $location, userService) {
+        var deferred = $q.defer();
+        userService
+            .checkAdmin()
+            .then(function (currentUser) {
+                if(currentUser === '0') {
+                    deferred.resolve({});
+                    $location.url('/home')
                 } else {
                     deferred.resolve(currentUser);
                 }
