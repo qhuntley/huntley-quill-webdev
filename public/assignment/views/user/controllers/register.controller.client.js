@@ -11,35 +11,34 @@
         //implementation
         function  register(username, password, password2) {
 
-            if(password !== password2 || password === null) {
+            if (password !== password2 || password === null) {
                 model.error = "Password mismatch!";
                 return;
             }
 
-            if(username === null || username === '') {
+            if (username === null || username === '') {
                 model.error = 'Username required!';
                 return;
             }
 
             userService
                 .findUserByUsername(username)
-                .then (function () {
+                .then(function () {
 
-                model.error = "Username is not available";
-            },
+                        model.error = "Username is not available";
+                    },
 
-            function () {
-                var newUser = {
-                    username: username,
-                    password: password
-                };
-                return userService
-                    .createUser(newUser);
-                }
-                )
-                .then(function (newUser) {
-                    $location.url('/user/' + newUser._id);
-            });
+                    function () {
+                        var newUser = {
+                            username: username,
+                            password: password
+                        };
+                        userService
+                            .register(newUser)
+                            .then(function (newUser) {
+                                $location.url('/profile');
+                            });
+                    })
         }
     }
 }) ();

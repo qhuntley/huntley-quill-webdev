@@ -12,7 +12,10 @@ app.post('/api/user', createUser);
 app.put('/api/user/:userId', updateUser);
 app.delete('/api/user/:userId', deleteUser);
 app.get('/api/user?username=username', findUserByUsername);
-app.post  ('/api/login', passport.authenticate('local'), login);
+app.post('/api/login', passport.authenticate('local'), login);
+app.get('/api/checkLoggedIn', checkLoggedIn);
+app.post('/api/logout', logout);
+app.post('/api/register', register);
 
 var users = [
     {_id: "123", username: "alice", password: "alice", firstName: "Alice", lastName: "Wonder"},
@@ -42,6 +45,31 @@ function localStrategy(username, password, done) {
 function login(req, res) {
     var user = req.user;
     res.json(user);
+}
+
+function checkLoggedIn(req, res) {
+    if(req.isAuthenticated()) {
+        res.json(req.user);
+    } else {
+        res.send('0');
+    }
+}
+
+function register(req, res) {
+    var user = req.body;
+    userModel
+        .createUser(user)
+        .then(function (user) {
+            req.login(user, function (status) {
+                res.json(user);
+            });
+        });
+
+}
+
+function logout(req, res) {
+    req.logout();
+    res.sendStatus(200);
 }
 
 function deleteUser(req, res) {
