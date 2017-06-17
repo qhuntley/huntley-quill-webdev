@@ -18,7 +18,7 @@ app.get ('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }
 app.get('/auth/facebook/callback',
     passport.authenticate('facebook', {
         successRedirect: '/assignment/#!/profile',
-        failureRedirect: '/#/login'
+        failureRedirect: '/assignment/#!/login'
     }));
 
 passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
@@ -124,11 +124,6 @@ function deleteUser(req, res) {
         .then(function (){
             res.sendStatus(200);
         });
-    /*var user = users.find(function (user) {
-     return user._id === userId;
-     });
-     var index = users.indexOf(user);
-     users.splice(index, 1);*/
 }
 
 function updateUser(req, res) {
@@ -141,14 +136,6 @@ function updateUser(req, res) {
         }, function (err) {
             res.sendStatus(404);
         });
-    /*  for(var u in users) {
-     if(userId === users[u]._id) {
-     users[u] = user;
-     res.sendStatus(200);
-     return;
-     }
-     }
-     res.sendStatus(404);*/
 }
 
 function createUser(req, res) {
@@ -159,9 +146,6 @@ function createUser(req, res) {
             res.json(user);
         });
 
-    //user._id = (new Date()).getTime() + "";
-    //users.push(user);
-
 }
 
 function findUserById(req, res) {
@@ -171,10 +155,6 @@ function findUserById(req, res) {
         .then(function (user) {
             res.json(user);
         });
-    /*var user = users.find(function (user) {
-     return user._id === userId;
-     });
-     res.json(user);*/
 }
 
 function findAllUsers(req, res) {
@@ -258,11 +238,7 @@ function facebookStrategy(token, refreshToken, profile, done) {
         .findUserByFacebookId(profile.id)
         .then(function (user) {
             if (user) {
-                return userModel
-                    .updateFacebookToken(user._id, profile.id, token)
-                    .then(function (response) {
-                        return done(null, user);
-                    })
+                return done(null, user);
             } else {
                 var newUser = {
                     username: profile.displayName,
@@ -271,7 +247,6 @@ function facebookStrategy(token, refreshToken, profile, done) {
                         token: token
                     }
                 };
-
                 return userModel
                     .createUser(newUser)
                     .then(function (response) {
