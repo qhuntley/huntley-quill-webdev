@@ -51,20 +51,24 @@ var users = [
 
 function localStrategy(username, password, done) {
     userModel
-        .findUserByCredentials(username, password)
-        .then(
-            function(user) {
-                if (!user) {
-                    return done(null, false);
-                }
-                return done(null, user);
-            },
-            function(err) {
-                if (err) {
-                    return done(err);
-                }
+        .findUserByUsername(username)
+        .then(function (user) {
+            if(bcrypt.compareSync(password, user.password)) {
+                return userModel
+                    .findUserByCredentials(username, user.password)
+                    .then(function(user) {
+                            if (!user) {
+                                return done(null, false);
+                            }
+                            return done(null, user);
+                        },
+                        function(err) {
+                            if (err) {
+                                return done(err);
+                            }
+                    });
             }
-        );
+        });
 }
 
 function login(req, res) {
