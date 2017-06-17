@@ -17,6 +17,7 @@ function findAllUsers() {
     return userModel.find();
 }
 
+
 function updateUser(userId, newUser) {
     return userModel.update({_id: userId}, {
         $set : {

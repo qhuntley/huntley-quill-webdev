@@ -252,13 +252,17 @@ function deserializeUser(user, done) {
         );
 }
 
+
 function facebookStrategy(token, refreshToken, profile, done) {
-    console.log(profile);
-/*    userModel
+    userModel
         .findUserByFacebookId(profile.id)
         .then(function (user) {
             if (user) {
-                return done(null, user);
+                return userModel
+                    .updateFacebookToken(user._id, profile.id, token)
+                    .then(function (response) {
+                        return done(null, user);
+                    })
             } else {
                 var newUser = {
                     username: profile.displayName,
@@ -267,20 +271,12 @@ function facebookStrategy(token, refreshToken, profile, done) {
                         token: token
                     }
                 };
-                return userModel.createUser(newUser);
-            }
-        }, function (err) {
-            if (err) {
-                return done(err);
+
+                return userModel
+                    .createUser(newUser)
+                    .then(function (response) {
+                        return done(null, response);
+                    })
             }
         })
-        .then(function(user) {
-                return done(null, user);
-            },
-            function (err) {
-                if(err) {
-                    return done(err);
-                }
-            });*/
 }
-
