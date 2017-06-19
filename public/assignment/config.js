@@ -138,8 +138,8 @@
             .checkLoggedIn()
             .then(function (currentUser) {
                 if(currentUser === '0') {
-                   deferred.reject();
-                   $location.url('/login');
+                    deferred.reject();
+                    $location.url('/login');
                 } else {
                     deferred.resolve(currentUser);
                 }
@@ -153,7 +153,7 @@
             .checkLoggedIn()
             .then(function (currentUser) {
                 if(currentUser === '0') {
-                    deferred.resolve({});
+                    deferred.reject({});
                 } else {
                     deferred.resolve(currentUser);
                 }
