@@ -6,8 +6,5 @@
     function userPublicProjectController($location, userProjectService) {
 
         var model = this;
-
-
-
     }
 })();

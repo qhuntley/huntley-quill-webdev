@@ -3,10 +3,10 @@ var userProjectModel = require('../model/user/user.model.server');
 var passport = require('passport');
 var bcrypt = require("bcrypt-nodejs");
 
-var LocalStrategy = require('passport-local').Strategy;
+var LocalStrategy1 = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 
-passport.use(new LocalStrategy(localStrategy));
+passport.use(new LocalStrategy1(localStrategy1));
 
 passport.serializeUser(serializeUser);
 passport.deserializeUser(deserializeUser);
@@ -26,8 +26,8 @@ var facebookConfig = {
 app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
 app.get('/auth/facebook/callback',
     passport.authenticate('facebook', {
-        successRedirect: '/assignment/index.html#!/profile',
-        failureRedirect: '/assignment/index.html#!/login'
+        successRedirect: '/project/index.html#!/profile',
+        failureRedirect: '/project/index.html#!/login'
     }));
 
 passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
@@ -35,27 +35,29 @@ passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
 app.get('/api/project/user/:userId', findUserById);
 // findUserByCredentials and findUserByUsername are combined
 // as a single function findUser since they have the same URL pattern
-app.get('/api/project/user', findUser);
+//app.get('/api/project/user', isAdmin, findUser);
+app.get('/api/project/user', isAdmin, findAllUsers);
 app.post('/api/project/user', createUser);
 app.put('/api/project/user/:userId', updateUser);
 app.delete('/api/project/user/:userId', deleteUser);
 
 
 
-function localStrategy(username, password, done) {
+function localStrategy1(username, password, done) {
     userProjectModel
         .findUserByUsername(username)
         .then(function(user) {
             if (bcrypt.compareSync (password, user.password)) {
-                return userProjectModel
-                    .findUserByCredentials(username, user.password)
-                    .then(function (user) {
+               // return userProjectModel
+               //    .findUserByCredentials(username, user.password)
+                   // .then(function (user) {
+                        console.log(user);
                         if (user) {
                             return done(null, user);
                         } else {
                             return done(null, false);
                         }
-                    });
+                   // });
             }
         });
 }
@@ -90,18 +92,9 @@ function facebookStrategy(token, refreshToken, profile, done) {
         })
 }
 
-
 function login(req, res) {
     var user = req.user;
     res.json(user);
-}
-
-function checkLoggedIn(req, res) {
-    if (req.isAuthenticated()) {
-        res.json(req.user)
-    } else {
-        res.send('0');
-    }
 }
 
 function checkAdmin(req, res) {
@@ -112,6 +105,13 @@ function checkAdmin(req, res) {
     }
 }
 
+function checkLoggedIn(req, res) {
+    if (req.isAuthenticated()) {
+        res.json(req.user)
+    } else {
+        res.send('0');
+    }
+}
 
 function logout(req, res) {
     req.logout();
@@ -120,7 +120,7 @@ function logout(req, res) {
 
 function register(req, res) {
     var user = req.body;
-    console.log(req);
+    console.log(user);
     user.password = bcrypt.hashSync(user.password);
     userProjectModel
         .createUser(user)
@@ -128,6 +128,9 @@ function register(req, res) {
             req.login(user, function (status) {
                 res.json(user);
             });
+        }, function (err) {
+            console.log(err);
+            res.send(err);
         });
 }
 
@@ -155,6 +158,32 @@ function findUserById(req, res) {
         .findUserById(userId)
         .then(function (user) {
             res.json(user);
+        });
+}
+
+// function findAllUsers(req, res) {
+//     var username = req.query['username'];
+//     var password = req.query['password'];
+//     if(username && password) {
+//         return findUserByCredentials(req, res);
+//     }
+//     userModel
+//         .findAllUsers()
+//         .then(function (users) {
+//             res.json(users);
+//         });
+// }
+
+function findAllUsers(req, res) {
+    var username = req.query['username'];
+    var password = req.query['password'];
+    if(username && password) {
+        return findUserByCredentials(req, res);
+    }
+    userProjectModel
+        .findAllUsers()
+        .then(function (users) {
+            res.json(users);
         });
 }
 
@@ -192,6 +221,14 @@ function createUser(req, res) {
         .then(function (user) {
             res.json(user);
         });
+}
+
+function isAdmin(req, res, next) {
+    if(req.isAuthenticated() && req.user.roles.indexOf('ADMIN') > -1) {
+        next();
+    } else {
+        res.sendStatus(401);
+    }
 }
 
 function updateUser(req, res) {

@@ -17,7 +17,7 @@
 
             <p class="navbar-text pull-right">
 
-                <a ng-click="model.unregister()"
+                <a ng-click="model.deleteUser(model.user._id)"
                    class="navbar-link">
                     <span class="glyphicon glyphicon-remove"></span>
                 </a>
@@ -65,9 +65,11 @@
            id="last"
            class="form-control"/>
 
-    <a href="#!/user/{{model.user._id}}/website"
-       class="btn btn-block btn-primary">
-        Websites
+    <label> Current Stats</label>
+    <p>Number of Followers <a>{{model.followers.length}}</a></p>
+
+    <a href="#!/"
+       class="btn btn-block btn-primary">Home
     </a>
 
     <a ng-click="model.logout()"

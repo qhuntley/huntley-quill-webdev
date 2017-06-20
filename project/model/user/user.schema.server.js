@@ -7,6 +7,7 @@ var userSchema = mongoose.Schema({
     lastName: String,
     email: String,
     phone: String,
+    followers: [{type: mongoose.Schema.Types.ObjectId, ref: "userProjectModel"}],
     facebook: {id: String, token: String},
     dateCreated: {type: Date, default: Date.now}
 }, {collection: "movieUsers"});

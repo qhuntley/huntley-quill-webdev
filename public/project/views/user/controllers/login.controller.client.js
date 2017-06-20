@@ -1,9 +1,9 @@
 (function () {
     angular
         .module('MovieApp')
-        .controller('loginProjectController', loginProjectController);
+        .controller('loginController', loginController);
 
-    function loginProjectController($location, userProjectService) {
+    function loginController($location, userProjectService) {
 
         var model = this;
 

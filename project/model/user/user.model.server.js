@@ -11,11 +11,17 @@ userProjectModel.updateUser = updateUser;
 userProjectModel.findUserByUsername = findUserByUsername;
 userProjectModel.findUserByFacebookId = findUserByFacebookId;
 userProjectModel.updateFacebookToken = updateFacebookToken;
+userProjectModel.findAllUsers = findAllUsers;
 
 module.exports = userProjectModel;
 
+function findAllUsers() {
+    return userProjectModel.find();
+}
+
+
 function createUser(user) {
-    console.log(user);
+    user.roles = ['USER'];
     return userProjectModel.create(user);
 }
 

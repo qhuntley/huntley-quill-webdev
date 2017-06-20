@@ -8,7 +8,7 @@
         model.deleteUser = deleteUser;
 
         function init() {
-           findAllUsers();
+            findAllUsers();
         }
         init();
 

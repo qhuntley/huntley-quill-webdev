@@ -38,7 +38,7 @@
                         if (user !== null) {
                             model.error = "sorry, that username is taken";
                         }
-                    } ,
+                        } ,
                     function () {
                         var newUser = {
                             username: username,
@@ -46,7 +46,7 @@
                         };
                         userProjectService
                             .register(newUser)
-                            .then(function (newUser) {
+                            .then(function () {
                                 $location.url('/profile');
                             });
                     })

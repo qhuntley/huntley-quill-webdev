@@ -8,12 +8,12 @@
         var api = {
             createUser: createUser,
             login: login,
-            //checkLoggedIn: checkLoggedIn,
+            checkLoggedIn: checkLoggedIn,
             register: register,
             logout: logout,
+            checkAdmin: checkAdmin,
             findAllUsers: findAllUsers,
             findUserByCredentials : findUserByCredentials,
-            checkAdmin: checkAdmin,
             findUserByUsername: findUserByUsername,
             findUserById: findUserById,
             updateUser: updateUser,
@@ -83,14 +83,21 @@
                 });
 
         }
-        
-       /* function checkLoggedIn() {
+
+        function checkLoggedIn() {
             var url = "/api/project/checkLoggedIn";
             return $http.get(url)
                 .then(function (response) {
                     return response.data;
                 });
-        }*/
+        }
+        function checkAdmin() {
+            var url = "/api/project/checkAdmin";
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+                });
+        }
         
         function logout() {
             var url = "/api/project/logout";
@@ -108,16 +115,8 @@
                 });
         }
 
-
-        function checkAdmin() {
-            var url = "/api/project/checkAdmin";
-            return $http.get(url)
-                .then(function (response) {
-                    return response.data;
-                });
-        }
         function findAllUsers(username, password) {
-            var url = "/api/user";
+            var url = "/api/project/user";
             return $http.get(url)
                 .then(function (response) {
                     return response.data;

@@ -1,3 +1,4 @@
+
 input.form-control,
 textarea.form-control,
 select.form-control{
@@ -80,6 +81,7 @@ nav.navbar.navbar-default.navbar-fixed-bottom {
     color: white;
 }
 
+
 .scrollable-left {
     position: absolute;
     top: 50px;
@@ -148,11 +150,6 @@ nav.navbar.navbar-default.navbar-fixed-bottom {
     height: 0;
 }
 
-.container {
-    margin-top: 10px;
-}
-
-
 .youtube-widget iframe{
     position: absolute;
     top: 0;
@@ -163,9 +160,4 @@ nav.navbar.navbar-default.navbar-fixed-bottom {
 
 .cog{
     z-index: 1;
-}
-
-.panel-resizable {
-    resize: vertical;
-    overflow: auto;
 }

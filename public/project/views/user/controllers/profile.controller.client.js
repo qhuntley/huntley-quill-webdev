@@ -1,27 +1,20 @@
 (function () {
     angular
         .module('MovieApp')
-        .controller('profileProjectController', profileProjectController);
+        .controller('profileController', profileController);
 
-    function profileProjectController(currentUser, $location, $routeParams, userProjectService) {
+    function profileController(currentUser, $location, userProjectService, $routeParams) {
+
 
         var model = this;
         var userId = currentUser._id;
         model.user = currentUser;
-        /* userService
-         .findUserById(userId)
-         .then(renderUser);
-         */
-        function init(){
-            // renderUser(currentUser);
-        }
-        init();
 
         model.updateUser = updateUser;
         model.deleteUser = deleteUser;
         model.logout = logout;
 
-
+        // implementation
         function updateUser(userId, user) {
             if (user.username === ""){
                 model.message = "Username required";
@@ -43,14 +36,12 @@
                     $location.url('/');
                 });
         }
-
         function logout() {
             userProjectService
                 .logout()
                 .then(function () {
-                        $location.url('/login');
-                    }
-                );
+                    $location.url('/login');
+                });
         }
     }
 }) ();
