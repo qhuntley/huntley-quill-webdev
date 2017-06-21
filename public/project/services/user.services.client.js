@@ -17,7 +17,8 @@
             findUserByUsername: findUserByUsername,
             findUserById: findUserById,
             updateUser: updateUser,
-            deleteUser: deleteUser
+            deleteUser: deleteUser,
+            unregister: unregister
         };
 
         return api;
@@ -114,6 +115,15 @@
                     return response.data;
                 });
         }
+        function unregister() {
+            var url = "/api/project/unregister";
+            return $http.delete(url)
+                .then(function (response) {
+                    return response.data;
+                }, function (err) {
+                    console.log(err);
+                });
+        }
 
         function findAllUsers(username, password) {
             var url = "/api/project/user";
@@ -122,6 +132,7 @@
                     return response.data;
                 });
         }
+
     }
 
 })();

@@ -4,6 +4,7 @@
   "description": "Web Dev at Northeastern University",
   "main": "server.js",
   "dependencies": {
+    "angular-ui-bootstrap": "^2.5.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.17.2",
     "bootpag": "^1.0.7",

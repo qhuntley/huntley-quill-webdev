@@ -39,9 +39,8 @@ app.get('/api/project/user/:userId', findUserById);
 app.get('/api/project/user', isAdmin, findAllUsers);
 app.post('/api/project/user', createUser);
 app.put('/api/project/user/:userId', updateUser);
-app.delete('/api/project/user/:userId', deleteUser);
-
-
+app.delete('/api/project/user/:userId', isAdmin, deleteUser);
+app.delete('/api/project/unregister', unregister);
 
 function localStrategy1(username, password, done) {
     userProjectModel
@@ -131,6 +130,17 @@ function register(req, res) {
         }, function (err) {
             console.log(err);
             res.send(err);
+        });
+}
+
+function unregister(req, res) {
+    userProjectModel
+        .deleteUser(req.user._id)
+        .then(function (status) {
+            req.user.logout();
+            res.sendStatus(200);
+        }, function (err) {
+            console.log(err);
         });
 }
 
@@ -243,11 +253,12 @@ function updateUser(req, res) {
         });
 }
 
+
 function deleteUser(req, res) {
     var userId = req.params.userId;
     userProjectModel
         .deleteUser(userId)
-        .then(function () {
+        .then(function (){
             res.sendStatus(200);
         });
 }

@@ -8,6 +8,7 @@ var userSchema = mongoose.Schema({
     email: String,
     phone: String,
     followers: [{type: mongoose.Schema.Types.ObjectId, ref: "userProjectModel"}],
+    reviews: [{type: mongoose.Schema.Types.ObjectId, ref: "reviewProjectModel"}],
     facebook: {id: String, token: String},
     dateCreated: {type: Date, default: Date.now}
 }, {collection: "movieUsers"});

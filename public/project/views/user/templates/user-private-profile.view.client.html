@@ -15,26 +15,32 @@
                 My Profile
             </a>
 
+            <div class="dropdown pull-right">
+                <button class="glyphicon glyphicon-cog" type="button" data-toggle="dropdown">
+                </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a ng-click="model.updateUser(model.user)"
+                           class="navbar-link">
+                        Update Profile</a>
+                    </li>
+                    <li role="presentation">
+                        <a ng-click="model.unregister()"
+                           class="navbar-link">
+                            Delete Profile</a>
+                    </li>
+                    <li role="presentation">
+                        <a ng-click="model.logout()"
+                           class="navbar-link">
+                            Logout</a>
+                    </li>
+                </ul>
+            </div>
+
             <p class="navbar-text pull-right">
-
-                <a ng-click="model.updateUser(model.user)"
+                <a href="#!/"
                    class="navbar-link">
-                    <span class="glyphicon glyphicon-ok "></span>
-                </a>
-            </p>
-
-            <p class="navbar-text pull-right">
-
-                <a ng-click="model.unregister()"
-                   class="navbar-link">
-                    <span class="glyphicon glyphicon-remove"></span>
-                </a>
-            </p>
-            <p class="navbar-text pull-right">
-
-                <a ng-click="model.logout()"
-                   class="navbar-link">
-                    <span class="glyphicon glyphicon-log-out"></span>
+                    <span class="glyphicon glyphicon-home"></span>
                 </a>
             </p>
         </div>
@@ -72,46 +78,64 @@
 </div>
 <br>
 
-<div class="container fluid">
+<a class="btn btn-primary btn-block"
+   href = "#!/user/{{model.user._id}}/review">Reviews</a>
+
+<br>
+<br>
+
+<div class="container fluid" ng-init="model.show='followers'">
     <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#followers">Followers</a></li>
-        <li><a data-toggle="tab" href="#reviews">Reviews</a></li>
+        <li ng-click="model.show='followers'" ng-class="{'active': model.show==='followers'}"><a>Followers</a></li>
+        <li ng-click="model.show='reviews'" ng-class="{'active': model.show==='reviews'}"><a>Reviews</a></li>
     </ul>
 
     <div class="tab-content">
-        <div id="followers" class="tab-pane fade in active">
+        <div ng-show="model.show === 'followers'" id="followers" class="tab-pane fade in active">
             <h3>Followers</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            <a href="#!/"
-               class="btn btn-block btn-success pull-right">
-                Home
-            </a>
+            <ul class="list-group">
+                <li ng-repeat = "review in model.reviews" class="list-group-item">
+                    {{review.name}}
+                </li>
+            </ul>
+          <!--  <table ng-table="model.tableParams" class="table" show-filter="true">
+                <tr ng-repeat="user in $data">
+                    <td title="'Name'" filter="{ name: 'text'}" sortable="'name'">
+                        {{user.name}}</td>
+                    <td title="'Age'" filter="{ age: 'number'}" sortable="'age'">
+                        {{user.age}}</td>
+                </tr>
+            </table>-->
         </div>
-        <div id="reviews" class="tab-pane fade">
+        <div ng-show="model.show === 'reviews'" id="reviews" class="tab-pane fade in active">
             <h3>Reviews</h3>
-            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <ul class="list-group">
+                <li ng-repeat = "review in model.reviews" class="list-group-item">
+                    {{review.name}}
+                </li>
+            </ul>
+            <!--<table ng-table="model.tableParams.dataset" class="table">
+                <tr ng-repeat="review in $data">
+                    <td title="'Name'" sortable="'name'">
+                        {{review.name}}</td>
+                    <td title="'Review'"sortable="'review'">
+                        {{review.review}}</td>
+                    <td title="'Rating'"sortable="'rating'">
+                        {{review.rating}}</td>
+                </tr>
+            </table>-->
         </div>
     </div>
-    <br>
-    <br>
-
 </div>
+    <br>
+    <br>
 
-<table ng-table="vm.tableParams" class="table" show-filter="true">
-    <tr ng-repeat="user in $data">
-        <td title="'Name'" filter="{ name: 'text'}" sortable="'name'">
-            {{user.name}}</td>
-        <td title="'Age'" filter="{ age: 'number'}" sortable="'age'">
-            {{user.age}}</td>
-    </tr>
-</table>
 
 <script type="text/javascript">
-    var self = this;
-    var data = [{name: "Moroni", age: 50} /*,*/];
-    self.tableParams = new NgTableParams({}, { dataset: data});
+//    var self = this;
+//    var data = [{name: "Moroni", age: 50} /*,*/];
+//    self.tableParams = new NgTableParams({}, { dataset: data});
 </script>
-
 
 
 

@@ -161,3 +161,6 @@ nav.navbar.navbar-default.navbar-fixed-bottom {
 .cog{
     z-index: 1;
 }
+.nav>li>a:hover, .nav>li>a:focus, .nav .open>a, .nav .open>a:hover, .nav .open>a:focus {
+    background:#fff;
+}

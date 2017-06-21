@@ -19,5 +19,5 @@ mongoose.createConnection(connectionString);
 mongoose.Promise = require('q').Promise;
 
 require('./services/user.service.server');
-
+require('./services/review.service.server');
 

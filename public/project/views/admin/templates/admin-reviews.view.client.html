@@ -1,0 +1,12 @@
+<div class ="container-fluid">
+    <h1>Admin Reviews</h1>
+    <ul class="list-group">
+        <li ng-repeat="review in model.reviews" class="list-group-item">
+            <span ng-click="model.deleteReview(review)"
+                  class="glyphicon glyphicon-remove pull-right"></span>
+            {{review.name}}
+            {{review.review}}
+            {{review.rating}}
+        </li>
+    </ul>
+</div>

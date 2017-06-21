@@ -36,24 +36,24 @@
                     currentUser: checkLoggedIn
                 }
             })
-            .when('/homefeed', {
-                templateUrl: 'views/user/templates/register.view.client.html',
-                controller: 'registerProjectController',
-                controllerAs: 'model'
-            })
-            .when('/page/:movieId', {
-                templateUrl: 'home/templates/movie-page.view.client.html',
-                controller: 'movieController',
-                controllerAs: 'model'
-            })
 
-            .when('/user-public', {
+            .when('/profile-public', {
                 templateUrl: 'views/user/templates/user-public-profile.view.client.html',
                 controller: 'userPublicProjectController',
                 controllerAs: 'model',
                 resolve: {
                     currentUser: checkLoggedIn
                 }
+            })
+        /*    .when('/homefeed', {
+                templateUrl: 'views/user/templates/register.view.client.html',
+                controller: 'registerProjectController',
+                controllerAs: 'model'
+            })*/
+            .when('/page/:movieId', {
+                templateUrl: 'home/templates/movie-page.view.client.html',
+                controller: 'movieController',
+                controllerAs: 'model'
             })
 
             .when('/admin', {
@@ -69,6 +69,48 @@
                 controllerAs: 'model',
                 resolve: {
                     currentUser: checkAdmin
+                }
+            })
+
+           /* .when('/admin/reviews', {
+                templateUrl: 'views/admin/templates/admin-reviews.view.client.html',
+                controller: 'adminReviewsProjectController',
+                controllerAs: 'model',
+                resolve: {
+                    currentUser: checkAdmin
+                }
+            })*/
+
+            .when('/user/:userId/review', {
+                templateUrl: 'views/review/templates/review-list.view.client.html',
+                controller: 'reviewListController',
+                controllerAs: 'model',
+                resolve: {
+                    currentUser: checkLoggedIn
+                }
+            })
+            .when('/user/:userId/review/new', {
+                templateUrl: 'views/review/templates/review-new.view.client.html',
+                controller: 'reviewNewController',
+                controllerAs: 'model',
+                resolve: {
+                    currentUser: checkLoggedIn
+                }
+            })
+            .when('/user/:userId/review/new', {
+                templateUrl: 'views/review/templates/review-new.view.client.html',
+                controller: 'reviewNewController',
+                controllerAs: 'model',
+                resolve: {
+                    currentUser: checkLoggedIn
+                }
+            })
+            .when('/user/:userId/review/:reviewId', {
+                templateUrl: 'views/review/templates/review-edit.view.client.html',
+                controller: 'reviewEditController',
+                controllerAs: 'model',
+                resolve: {
+                    currentUser: checkLoggedIn
                 }
             });
     }

@@ -1,3 +1,9 @@
+<!--
+// username
+// reviews
+// number of followers
+// ability to follow/unfollow
+//-->
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -11,57 +17,38 @@
             </p>
 
             <a class="navbar-brand"
-               href="#!/user/{{model.user._id}}">
-                Profile
+               ng-model="model.user.username"
+               href="#">
             </a>
 
+            <div class="dropdown pull-right">
+                <button class="glyphicon glyphicon-cog" type="button" data-toggle="dropdown">
+                </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a ng-click="model.updateUser(model.user)"
+                           class="navbar-link">
+                            Update Profile</a>
+                    </li>
+                    <li role="presentation">
+                        <a ng-click="model.unregister()"
+                           class="navbar-link">
+                            Delete Profile</a>
+                    </li>
+                    <li role="presentation">
+                        <a ng-click="model.logout()"
+                           class="navbar-link">
+                            Logout</a>
+                    </li>
+                </ul>
+            </div>
+
             <p class="navbar-text pull-right">
-
-                <a ng-click="model.updateUser(model.user)"
+                <a href="#!/"
                    class="navbar-link">
-                    <span class="glyphicon glyphicon-ok "></span>
-                </a>
-            </p>
-
-            <p class="navbar-text pull-right">
-
-                <a ng-click="model.unregister()"
-                   class="navbar-link">
-                    <span class="glyphicon glyphicon-remove"></span>
-                </a>
-            </p>
-            <p class="navbar-text pull-right">
-
-                <a ng-click="model.logout()"
-                   class="navbar-link">
-                    <span class="glyphicon glyphicon-log-out"></span>
+                    <span class="glyphicon glyphicon-home"></span>
                 </a>
             </p>
         </div>
     </div>
 </nav>
-
-<div ng-show="model.user.username">
-    {{vm.user.username}}
-</div>
-
-
-<br>
-
-<div class="container fluid">
-    <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#followers">Followers</a></li>
-        <li><a data-toggle="tab" href="#reviews">Reviews</a></li>
-    </ul>
-
-    <div class="tab-content">
-        <div id="followers" class="tab-pane fade in active">
-            <h3>Followers</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-        </div>
-        <div id="reviews" class="tab-pane fade">
-            <h3>Reviews</h3>
-            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        </div>
-    </div>
-</div>

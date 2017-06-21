@@ -3,7 +3,7 @@
         .module('MovieApp')
         .controller('profileController', profileController);
 
-    function profileController(currentUser, $location, userProjectService, $routeParams) {
+    function profileController(currentUser, $location, userProjectService, $routeParams, NgTableParams) {
 
 
         var model = this;
@@ -11,31 +11,36 @@
         model.user = currentUser;
 
         model.updateUser = updateUser;
-        model.deleteUser = deleteUser;
+        model.unregister = unregister;
         model.logout = logout;
 
-        // implementation
-        function updateUser(userId, user) {
-            if (user.username === ""){
-                model.message = "Username required";
-                return;
-            }
-            userProjectService
-                .updateUser(userId, user)
-                .then(function () {
-                    model.message = "User updated successfully";
-                }, function(error){
+        function init(){
+           // var self = this;
+            //access from dataset
+            //article.dataset.user.reviews;
+            var data = model.user.reviews;
+            model.tableParams = new NgTableParams({}, { dataset: data});
+        }
+        init();
 
+        function updateUser(user) {
+            userProjectService
+                .updateUser(user._id, user)
+                .then(function () {
+                    model.message = "User updated successfully!";
                 });
         }
 
-        function deleteUser(id) {
+        function unregister() {
             userProjectService
-                .deleteUser(id)
+                .unregister()
                 .then(function () {
-                    $location.url('/');
+                    $location.url('/login');
+                }, function (err) {
+                    console.log(err);
                 });
         }
+
         function logout() {
             userProjectService
                 .logout()
