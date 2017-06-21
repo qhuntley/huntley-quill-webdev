@@ -106,6 +106,14 @@
                     currentUser: checkLoggedIn
                 }
             })
+            .when('/review/:reviewId', {
+                templateUrl: 'views/review/templates/review-page.view.client.html',
+                controller: 'reviewPageController',
+                controllerAs: 'model',
+                resolve: {
+                    currentUser: checkLoggedIn
+                }
+            })
             .when('/user/:userId/post', {
                 templateUrl: 'views/post/templates/post-list.view.client.html',
                 controller: 'postListController',

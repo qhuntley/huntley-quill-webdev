@@ -39,9 +39,8 @@
 <div ng-if="!(model.user.roles.indexOf('ADMIN') > 0)">
     <div class="container fluid" ng-init="model.show='followers'">
         <ul class="nav nav-tabs">
-            <li ng-click="model.show='followers'" ng-class="{'active': model.show==='followers'}"><a>Followers</a></li>
+            <li ng-click="model.show ='followers'" ng-class="{'active': model.show==='followers'}"><a>Followers</a></li>
         </ul>
-
         <div class="tab-content">
             <div ng-show="model.show === 'followers'" id="followers" class="tab-pane fade in active">
                 <h3>Followers</h3>
@@ -54,7 +53,6 @@
         </div>
     </div>
 </div>
-
 
 <div ng-if="!(model.user.roles.indexOf('ADMIN') > 0)">
     <div class="container fluid" ng-init="model.show='followers'">

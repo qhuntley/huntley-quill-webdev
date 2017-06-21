@@ -28,7 +28,10 @@ function createUser(user) {
 }
 
 function findUserById(userId) {
-    return userProjectModel.findById(userId);
+    return userProjectModel
+        .findById(userId)
+        .populate('reviews')
+        .exec();
 }
 
 function findUserByCredentials(username, password) {

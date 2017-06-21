@@ -97,11 +97,17 @@
         <ul class="nav nav-tabs">
             <li ng-if="!(model.user.roles.indexOf('CELEBRITY') > 0)"
                 ng-init="model.show ='reviews'"
-                ng-click="model.show='reviews'" ng-class="{'active': model.show==='reviews'}"><a>Reviews</a></li>
+                ng-click="model.show='reviews'" ng-class="{'active': model.show==='reviews'}">
+                <a>Reviews</a>
+            </li>
             <li ng-if="(model.user.roles.indexOf('CELEBRITY') > 0)"
                 ng-init="model.show ='posts'"
-                ng-click="model.show ='posts'" ng-class="{'active': model.show==='posts'}"><a>Posts</a></li>
-            <li ng-click="model.show='followers'" ng-class="{'active': model.show==='followers'}"><a>Followers</a></li>
+                ng-click="model.show ='posts'" ng-class="{'active': model.show==='posts'}">
+                <a>Posts</a>
+            </li>
+            <li ng-click="model.show='followers'" ng-class="{'active': model.show==='followers'}">
+                <a>Followers</a>
+            </li>
         </ul>
         <div ng-show="model.show === 'posts'"
              id="posts"
@@ -121,21 +127,26 @@
             <h3>Reviews</h3>
             <ul class="list-group">
                 <li ng-repeat="review in model.user.reviews" class="list-group-item">
+                    <a href="#!/review/{{review._id}}">
                     {{review.name}}
+                    </a>
                 </li>
                 <a class="btn btn-primary btn-block"
                    href = "#!/user/{{model.user._id}}/review">Reviews</a>
             </ul>
-            <!--<table ng-table="model.tableParams.dataset" class="table">
-                <tr ng-repeat="review in $data">
-                    <td title="'Name'" sortable="'name'">
-                        {{review.name}}</td>
-                    <td title="'Review'"sortable="'review'">
-                        {{review.review}}</td>
-                    <td title="'Rating'"sortable="'rating'">
-                        {{review.rating}}</td>
-                </tr>
-            </table>-->
+
+            <!--<table ng-table="model.tableParams.dataset" class="table" show-filter="true">
+                            <tr ng-repeat="review in $data">
+                                <td title="'Name'" filter="{ name: 'text'}" sortable="'name'">
+                                    {{review.name}}</td>
+                                <td title="'Review'" filter="{ review: 'text'}"sortable="'review'">
+                                    {{review.review}}</td>
+                                <td title="'Rating'" filter="{ rating: 'number'}" sortable="'rating'">
+                                    {{review.rating}}</td>
+                            </tr>
+                        </table>-->
+        </div>
+
         </div>
         <div class="tab-content">
             <div ng-show="model.show === 'followers'"
@@ -147,26 +158,16 @@
                         Followers here
                     </li>
                 </ul>
-                <!--  <table ng-table="model.tableParams" class="table" show-filter="true">
-                      <tr ng-repeat="user in $data">
-                          <td title="'Name'" filter="{ name: 'text'}" sortable="'name'">
-                              {{user.name}}</td>
-                          <td title="'Age'" filter="{ age: 'number'}" sortable="'age'">
-                              {{user.age}}</td>
-                      </tr>
-                  </table>-->
             </div>
     </div>
 </div>
-    <br>
-    <br>
 
 
-<script type="text/javascript">
-//    var self = this;
-//    var data = [{name: "Moroni", age: 50} /*,*/];
-//    self.tableParams = new NgTableParams({}, { dataset: data});
-</script>
+
+
+
+
+
 
 
 
