@@ -7,6 +7,7 @@
         var model = this;
         model.deleteUser = deleteUser;
         model.updateUser = updateUser;
+        model.createUser = createUser;
 
         function init() {
             findAllUsers();
@@ -16,6 +17,12 @@
         function deleteUser(user) {
             userProjectService
                 .deleteUser(user._id)
+                .then(findAllUsers);
+        }
+
+        function createUser(user) {
+            userProjectService
+                .createUser(user)
                 .then(findAllUsers);
         }
 

@@ -15,11 +15,12 @@
         model.logout = logout;
 
         function init(){
+            //model.user.reviews;
            // var self = this;
             //access from dataset
             //article.dataset.user.reviews;
-            var data = model.user.reviews;
-            model.tableParams = new NgTableParams({}, { dataset: data});
+            //var data = model.user.reviews;
+            //model.tableParams = new NgTableParams({}, { dataset: data});
         }
         init();
 
@@ -30,6 +31,7 @@
                     model.message = "User updated successfully!";
                 });
         }
+
 
         function unregister() {
             userProjectService

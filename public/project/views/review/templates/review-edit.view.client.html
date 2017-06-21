@@ -49,9 +49,15 @@
                    ng-model = "model.review.review"
                    class="form-control">
             <label for="rating">Rating</label>
-            <input id="rating"
-                   ng-model = "model.review.rating"
-                   class="form-control">
+            <select class="form-control"
+                    id="rating"
+                    ng-model = "review.rating">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
             <a ng-click="model.deleteReview(model.reviewId)"
                class="btn btn-block btn-danger">
                 Delete

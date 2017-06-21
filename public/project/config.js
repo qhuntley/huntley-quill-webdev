@@ -42,7 +42,8 @@
                 controller: 'userPublicProjectController',
                 controllerAs: 'model',
                 resolve: {
-                    currentUser: checkLoggedIn
+                    currentUser: checkLoggedIn,
+                    currentUser: checkCurrentUser
                 }
             })
         /*    .when('/homefeed', {
@@ -97,17 +98,33 @@
                     currentUser: checkLoggedIn
                 }
             })
-            .when('/user/:userId/review/new', {
-                templateUrl: 'views/review/templates/review-new.view.client.html',
-                controller: 'reviewNewController',
+            .when('/user/:userId/review/:reviewId', {
+                templateUrl: 'views/review/templates/review-edit.view.client.html',
+                controller: 'reviewEditController',
                 controllerAs: 'model',
                 resolve: {
                     currentUser: checkLoggedIn
                 }
             })
-            .when('/user/:userId/review/:reviewId', {
-                templateUrl: 'views/review/templates/review-edit.view.client.html',
-                controller: 'reviewEditController',
+            .when('/user/:userId/post', {
+                templateUrl: 'views/post/templates/post-list.view.client.html',
+                controller: 'postListController',
+                controllerAs: 'model',
+                resolve: {
+                    currentUser: checkLoggedIn
+                }
+            })
+            .when('/user/:userId/post/new', {
+                templateUrl: 'views/post/templates/post-new.view.client.html',
+                controller: 'postNewController',
+                controllerAs: 'model',
+                resolve: {
+                    currentUser: checkLoggedIn
+                }
+            })
+            .when('/user/:userId/post/:postId', {
+                templateUrl: 'views/post/templates/post-edit.view.client.html',
+                controller: 'postEditController',
                 controllerAs: 'model',
                 resolve: {
                     currentUser: checkLoggedIn

@@ -4,7 +4,7 @@
             <ul class="nav navbar-nav pull-right">
                 <li ng-if="!model.currentUser._id">
                     <a href="#!/register">
-                        Register
+                    Register
                     </a>
                 </li>
                 <li ng-if="!model.currentUser._id">
@@ -19,7 +19,7 @@
                 </li>
                 <li ng-if="model.currentUser.roles.indexOf('ADMIN') > -1">
                     <a href="#!/admin">
-                        Admin
+                    Admin
                     </a>
                 </li>
             </ul>
@@ -63,35 +63,34 @@
             </h4>
         </div>
 
-        <div class="container-fluid">
-            <div class="input-group">
-                <input ng-model="searchText" type="text" class="form-control">
-                <span class="input-group-btn">
+        <div class="container-fluid" style="display: inline">
+        <div class="input-group">
+            <input ng-model="searchText" type="text" class="form-control">
+            <span class="input-group-btn">
                 <a ng-click="model.searchNewMovies(searchText)" class="btn btn-block btn-default" type="button">
                     <span class="glyphicon glyphicon-search"></span>
                 </a>
             </span>
-            </div>
         </div>
+    </div>
     </div>
     <ul class="list-group">
         <!--<div class ="list-group-item"-->
-        <!--ng-repeat="movie in model.movies">-->
-        <!--{{movie.title}}-->
-        <!--<img class="thumbnail img-responsive" ng-src="http://image.tmdb.org/t/p/original{{movie.poster_path}}"/>-->
+             <!--ng-repeat="movie in model.movies">-->
+            <!--{{movie.title}}-->
+            <!--<img class="thumbnail img-responsive" ng-src="http://image.tmdb.org/t/p/original{{movie.poster_path}}"/>-->
         <!--</div>-->
 
         <div class="row content" ng-repeat="movie in model.movies">
             <div class="col-xs-4 hidden-xs">
                 <ul class="list-group">
-                    <div class="list-group-item">
-                        <img class="thumbnail img-responsive"
-                             ng-src="http://image.tmdb.org/t/p/original{{movie.poster_path}}"/>
+                    <div class ="list-group-item">
+                        <img class="thumbnail img-responsive" ng-src="http://image.tmdb.org/t/p/original{{movie.poster_path}}"/>
                     </div>
                 </ul>
             </div>
             <div class="col-xs-12 col-sm-8">
-                <div class="list-group-item">
+                <div class ="list-group-item">
                     <h3>{{movie.title}}</h3>
 
                     <br>
