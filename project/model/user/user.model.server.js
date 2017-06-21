@@ -12,6 +12,8 @@ userProjectModel.findUserByUsername = findUserByUsername;
 userProjectModel.findUserByFacebookId = findUserByFacebookId;
 userProjectModel.updateFacebookToken = updateFacebookToken;
 userProjectModel.findAllUsers = findAllUsers;
+userProjectModel.findUserByGoogleId = findUserByGoogleId;
+
 
 module.exports = userProjectModel;
 
@@ -55,6 +57,10 @@ function findUserByUsername(username) {
 
 function findUserByFacebookId(facebookId) {
     return userProjectModel.findOne({'facebook.id': facebookId});
+}
+
+function findUserByGoogleId(googleId) {
+    return userProjectModel.findOne({'google.id':googleId});
 }
 
 function updateFacebookToken(userId, facebookId, token) {

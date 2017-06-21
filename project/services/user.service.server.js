@@ -5,6 +5,7 @@ var bcrypt = require("bcrypt-nodejs");
 
 var LocalStrategy1 = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 passport.use(new LocalStrategy1(localStrategy1));
 
@@ -31,6 +32,23 @@ app.get('/auth/facebook/callback',
     }));
 
 passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
+
+
+
+var googleConfig = {
+    clientID     : process.env.GOOGLE_CLIENT_ID,
+    clientSecret : process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL  : process.env.GOOGLE_CALLBACK_URL
+};
+
+app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
+app.get('/auth/google/callback',
+    passport.authenticate('google', {
+        successRedirect: '/project/index.html#!/profile',
+        failureRedirect: '/project/index.html#!/login'
+    }));
+
+passport.use(new GoogleStrategy(googleConfig, googleStrategy));
 
 app.get('/api/project/user/:userId', findUserById);
 // findUserByCredentials and findUserByUsername are combined
@@ -90,6 +108,46 @@ function facebookStrategy(token, refreshToken, profile, done) {
             }
         })
 }
+
+
+function googleStrategy(token, refreshToken, profile, done) {
+    userProjectModel
+        .findUserByGoogleId(profile.id)
+        .then(function (user) {
+            if (user) {
+                return done(null, user);
+            } else {
+                var email = profile.emails[0].value;
+                var emailParts = email.split("@");
+                var newUser = {
+                    username: emailParts[0],
+                    firstName: profile.name.givenName,
+                    lastName: profile.name.familyName,
+                    email: email,
+                    google: {
+                        id: profile.id,
+                        token: token
+                    }
+                };
+                return userProjectModel.createUser(newUser);
+            }
+        }, function (err) {
+            if (err) {
+                return done(err);
+            }
+        })
+        .then(function (user) {
+                return done(null, user);
+            },
+            function (err) {
+                if (err) {
+                    return done(err);
+                }
+            }
+        );
+}
+
+
 
 function login(req, res) {
     var user = req.user;
