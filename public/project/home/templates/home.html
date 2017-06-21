@@ -17,6 +17,11 @@
                         <u>Profile</u>
                     </a>
                 </li>
+                <li ng-if="model.currentUser._id">
+                    <a ng-click="model.logout()">
+                        <u>Logout</u>
+                    </a>
+                </li>
                 <li ng-if="model.currentUser.roles.indexOf('ADMIN') > -1">
                     <a href="#!/admin">
                     Admin
