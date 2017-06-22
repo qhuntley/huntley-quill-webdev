@@ -51,6 +51,22 @@ body {
 
 a:hover {
     text-decoration: none;
+    background-color: transparent;
+}
+
+.dropdown .dropdown-menu .dropdown-toggle {
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.dropdown-menu .dropdown-toggle {
+    background-color: transparent ;
+    text-decoration: none;
+
+}
+
+.glyphicon-cog {
+    color: white;
 }
 
 .navbar-default {

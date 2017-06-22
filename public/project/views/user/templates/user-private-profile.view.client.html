@@ -21,31 +21,36 @@
                 {{model.user.username}}
             </a>
 
-            <div class="dropdown pull-right">
-                <button class="glyphicon glyphicon-cog" type="button" data-toggle="dropdown">
-                </button>
-                <ul class="dropdown-menu">
+            <div class="dropdown pull-right ">
+                <ul class="nav navbar-nav">
+                 <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" role="button">
+                    <span class="glyphicon glyphicon-cog"></span>
+                <ul class="dropdown-menu dropdown-menu-right ">
                     <li>
                         <a ng-click="model.updateUser(model.user)"
-                           class="navbar-link">
-                            Update Profile</a>
+                           class="navbar-link">Update Profile
+                        </a>
+                    </li>
+                    <li>
+                        <a ng-click="model.logout()"
+                           class="navbar-link">Logout
+                        </a>
                     </li>
                     <li ng-if="model.user.roles.indexOf('ADMIN') > -1">
                         <a href="#!/admin"
-                           class="navbar-link">
-                            Admin
+                           class="navbar-link">Admin
                         </a>
                     </li>
-                    <li role="presentation">
+                    <li role="separator" class="divider"></li>
+                    <li>
                         <a ng-click="model.unregister()"
                            class="navbar-link">
-                            Delete Profile</a>
+                        Unregister
+                        </a>
                     </li>
-                    <li role="presentation">
-                        <a ng-click="model.logout()"
-                           class="navbar-link">
-                            Logout</a>
-                    </li>
+                </ul>
+                </li>
                 </ul>
             </div>
 
@@ -160,14 +165,5 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
 
 

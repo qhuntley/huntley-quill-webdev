@@ -115,9 +115,9 @@
                     return response.data;
                 });
         }
-        function unregister() {
+        function unregister(userObj) {
             var url = "/api/project/unregister";
-            return $http.delete(url)
+            return $http.post(url, userObj)
                 .then(function (response) {
                     return response.data;
                 }, function (err) {

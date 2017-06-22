@@ -58,7 +58,8 @@ app.get('/api/project/user', isAdmin, findAllUsers);
 app.post('/api/project/user', createUser);
 app.put('/api/project/user/:userId', updateUser);
 app.delete('/api/project/user/:userId', isAdmin, deleteUser);
-app.delete('/api/project/unregister', unregister);
+//app.delete('/api/project/unregister', unregister);
+app.post('/api/project/unregister', unregister);
 
 function localStrategy1(username, password, done) {
     userProjectModel
@@ -191,7 +192,7 @@ function register(req, res) {
         });
 }
 
-function unregister(req, res) {
+/*function unregister(req, res) {
     userProjectModel
         .deleteUser(req.user._id)
         .then(function (status) {
@@ -199,6 +200,15 @@ function unregister(req, res) {
             res.sendStatus(200);
         }, function (err) {
             console.log(err);
+        });
+}*/
+
+function unregister(req, res) {
+    userProjectModel
+        .deleteUser(req.user._id)
+        .then(function (user) {
+            req.logout();
+            res.sendStatus(200);
         });
 }
 

@@ -7,8 +7,8 @@
 
 
         var model = this;
-        var userId = currentUser._id;
         model.user = currentUser;
+        var userId = currentUser._id;
 
         model.updateUser = updateUser;
         model.unregister = unregister;
