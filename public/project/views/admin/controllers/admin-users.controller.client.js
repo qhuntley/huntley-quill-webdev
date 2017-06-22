@@ -5,9 +5,12 @@
 
     function adminUsersProjectController(userProjectService) {
         var model = this;
+
         model.deleteUser = deleteUser;
-        model.updateUser = updateUser;
+        model.selectUser = selectUser;
         model.createUser = createUser;
+        model.updateUser = updateUser;
+
 
         function init() {
             findAllUsers();
@@ -26,6 +29,10 @@
                 .then(findAllUsers);
         }
 
+        function selectUser(user) {
+            model.user = angular.copy(user);
+        }
+
         function updateUser(user) {
             userProjectService
                 .updateUser(user._id, user)
@@ -39,5 +46,6 @@
                     model.users = users;
                 });
         }
+
     }
 })();

@@ -1,18 +1,81 @@
 <div class ="container-fluid">
     <h1>Admin Users</h1>
     <ul class="list-group">
+        <li class="list-group-item active">
+            <div class="row">
+                <div class="col-xs-2">
+                    <b>Username</b>
+                </div>
+                <div class="col-xs-3">
+                    <b>First name</b>
+                </div>
+                <div class="col-xs-3">
+                    <b>Last Name</b>
+                </div>
+                <div class="col-xs-3">
+                    <b>Roles</b>
+                </div>
+                <div class="col-xs-1">
+
+                </div>
+            </div>
+        </li>
+        <li class="list-group-item">
+            <div class="row">
+                <div class="col-xs-2">
+                    <input ng-model="model.user.username"
+                           class="form-control"/>
+                </div>
+                <div class="col-xs-3">
+                    <input ng-model="model.user.firstName"
+                           class="form-control"/>
+                </div>
+                <div class="col-xs-3">
+                    <input ng-model="model.user.lastName"
+                           class="form-control"/>
+                </div>
+                <div class="col-xs-3">
+                    <input ng-model="model.user.roles"
+                           class="form-control"/>
+                </div>
+                <div class="col-xs-1">
+                    <span ng-click="model.updateUser(model.user); model.user={}"
+                          class="glyphicon glyphicon-ok pull-right"></span>
+                    <span ng-click="model.createUser(model.user); model.user={}"
+                          class="glyphicon glyphicon-plus pull-right"></span>
+                </div>
+            </div>
+        </li>
         <li ng-repeat="user in model.users" class="list-group-item">
-            <span ng-click="model.deleteUser(user)"
-                  class="glyphicon glyphicon-remove pull-right"></span>
-            <span ng-click="model.updateUser(user, model.userId)"
+            <div class="row">
+                <div class="col-xs-2">
+                    {{user.username}}
+                </div>
+                <div class="col-xs-3">
+                    {{user.firstName}}
+                </div>
+                <div class="col-xs-3">
+                    {{user.lastName}}
+                </div>
+                <div class="col-xs-3">
+                    {{user.roles}}
+                </div>
+                <div class="col-xs-1">
+                      <span ng-click="model.selectUser(user)"
+                            class="glyphicon glyphicon-pencil pull-right"></span>
+                </div>
+                <div class="col-xs-1">
+                      <span ng-click="model.deleteUser(user)"
+                            class="glyphicon glyphicon-remove pull-right"></span>
+                </div>
+            </div>
+
+            <!--<span ng-click="model.updateUser(user, model.userId)"
                   class="glyphicon glyphicon-cog pull-right"></span>
             <span ng-click="model.createUser(user)"
                   class="glyphicon glyphicon-plus pull-right"></span>
-            <a href = "/api/project/profile">
-            {{user.username}}
-            {{user.firstName}}
-            {{user.lastName}}
-            {{user.roles}}
+            <a href = "/api/project/profile">-->
+
             </a>
         </li>
     </ul>

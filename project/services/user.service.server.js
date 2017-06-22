@@ -55,7 +55,7 @@ app.get('/api/project/user/:userId', findUserById);
 // as a single function findUser since they have the same URL pattern
 //app.get('/api/project/user', isAdmin, findUser);
 app.get('/api/project/user', isAdmin, findAllUsers);
-app.post('/api/project/user', createUser);
+app.post('/api/project/user', isAdmin, createUser);
 app.put('/api/project/user/:userId', updateUser);
 app.delete('/api/project/user/:userId', isAdmin, deleteUser);
 //app.delete('/api/project/unregister', unregister);

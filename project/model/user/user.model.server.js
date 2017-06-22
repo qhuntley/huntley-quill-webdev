@@ -23,7 +23,15 @@ function findAllUsers() {
 
 
 function createUser(user) {
+  /*  if(user.roles) {
+        user.roles = user.roles.split(',');
+    } else {
+        user.roles = ['USER'];
+    }
+    return userProjectModel.create(user);*/
+
     user.roles = ['USER'];
+
     return userProjectModel.create(user);
 }
 
@@ -44,12 +52,14 @@ function deleteUser(userId) {
 }
 
 function updateUser(userId, user) {
+    user.roles = user.roles.split(',');
     return userProjectModel.update({_id: userId}, {
         $set: {
             username: user.username,
             email: user.email,
             firstName: user.firstName,
-            lastName: user.lastName
+            lastName: user.lastName,
+            roles: user.roles
         }
     });
 }

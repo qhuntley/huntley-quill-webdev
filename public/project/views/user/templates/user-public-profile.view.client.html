@@ -39,13 +39,28 @@
 <div ng-if="!(model.user.roles.indexOf('ADMIN') > 0)">
     <div class="container fluid" ng-init="model.show='followers'">
         <ul class="nav nav-tabs">
-            <li ng-click="model.show ='followers'" ng-class="{'active': model.show==='followers'}"><a>Followers</a></li>
+            <li ng-if="!(model.user.roles.indexOf('CELEBRITY') > 0)"
+                ng-init="model.show ='reviews'"
+                ng-click="model.show='reviews'" ng-class="{'active': model.show==='reviews'}">
+                <a>Reviews</a>
+            </li>
+            <li ng-click="model.show ='followers'" ng-class="{'active': model.show==='followers'}">
+                <a>Followers</a>
+            </li>
         </ul>
         <div class="tab-content">
             <div ng-show="model.show === 'followers'" id="followers" class="tab-pane fade in active">
                 <h3>Followers</h3>
                 <ul class="list-group">
                     <li ng-repeat="review in model.reviews" class="list-group-item">
+                        {{review.name}}
+                    </li>
+                </ul>
+            </div>
+            <div ng-show="model.show === 'reviews'" id="reviews" class="tab-pane fade in active">
+                <h3>Reviews</h3>
+                <ul class="list-group">
+                    <li ng-repeat="review in model.user.reviews" class="list-group-item">
                         {{review.name}}
                     </li>
                 </ul>
@@ -58,6 +73,7 @@
 <br>
 <br>
 <br>
+<!--
 <div ng-if="!(model.user.roles.indexOf('ADMIN') > 0)">
     <div class="container fluid" ng-init="model.show='followers'">
         <ul class="nav nav-tabs">
@@ -79,4 +95,4 @@
 <br>
 <br>
 <br>
-<br>
+<br>-->
