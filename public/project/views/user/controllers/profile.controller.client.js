@@ -19,7 +19,7 @@
            // var self = this;
             //access from dataset
             //article.dataset.user.reviews;
-            var data = model.findReviewById;
+            var data = model.user.reviews;
             model.tableParams = new NgTableParams({}, { dataset: data});
         }
         init();
