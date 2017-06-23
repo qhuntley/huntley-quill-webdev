@@ -1,18 +1,21 @@
 var app = require('../../express');
 var postProjectModel = require('../model/post/post.model.server');
 var userProjectModel = require('../model/user/user.model.server');
+var multer = require('multer');
+var upload = multer({ dest: __dirname + '/../../public/project/uploads'});
 
-app.get('/api/project/user/:userId/post', findAllPostsForUser);
 app.post('/api/project/user/:userId/post', createPost);
-app.put('/api/project/post/:postId', updatePost);
+app.get('/api/project/user/:userId/post', findPostsByUserId);
 app.get('/api/project/post/:postId', findPostById);
+app.put('/api/project/post/:postId', updatePost);
 app.delete('/api/project/post/:postId', deletePost);
 app.get('/api/project/post', isAdmin, findAllPosts);
 
+//app.post ('/api/project/upload', upload.single('myFile'), uploadImage);
 
-function findAllPostsForUser(req, res) {
+function findPostsByUserId(req, res) {
     postProjectModel
-        .findAllPostsForUser(req.params.userId)
+        .findPostsByUserId(req.params.userId)
         .then(function (posts) {
             res.json(posts);
         });
@@ -56,6 +59,8 @@ function findPostById(req, res) {
         .findPostById(postId)
         .then(function (post) {
             res.json(post);
+        }, function (err) {
+            res.sendStatus(404);
         });
 }
 

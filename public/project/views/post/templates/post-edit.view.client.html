@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<div ng-switch="model.post.postType">
+    <div ng-switch-when="TEXT">
+        <div ng-include="'views/post/editors/post-text-edit.view.client.html'"></div>
+    </div>
+    <div ng-switch-when="IMAGE">
+        <div ng-include="'views/post/editors/post-image-edit.view.client.html'"></div>
+    </div>
+    <div ng-switch-when="YOUTUBE">
+        <div ng-include="'views/post/editors/post-youtube-edit.view.client.html'"></div>
+    </div>
+</div>

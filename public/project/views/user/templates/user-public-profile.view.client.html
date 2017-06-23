@@ -30,11 +30,13 @@
 </nav>
 <br>
 
+<div ng-if="(model.user === user)">
 <button class = "btn btn-info pull-right">
     <span class="msg-follow">Follow</span>
     <span class="msg-following">Following</span>
     <span class="msg-unfollow">Unfollow</span>
 </button>
+</div>
 
 <div ng-if="!(model.user.roles.indexOf('ADMIN') > 0)">
     <div class="container fluid" ng-init="model.show='followers'">
@@ -43,6 +45,11 @@
                 ng-init="model.show ='reviews'"
                 ng-click="model.show='reviews'" ng-class="{'active': model.show==='reviews'}">
                 <a>Reviews</a>
+            </li>
+            <li ng-if="(model.user.roles.indexOf('CELEBRITY') > 0)"
+                ng-init="model.show ='posts'"
+                ng-click="model.show='posts'" ng-class="{'active': model.show==='posts'}">
+                <a>Posts</a>
             </li>
             <li ng-click="model.show ='followers'" ng-class="{'active': model.show==='followers'}">
                 <a>Followers</a>
@@ -62,6 +69,14 @@
                 <ul class="list-group">
                     <li ng-repeat="review in model.user.reviews" class="list-group-item">
                         {{review.name}}
+                    </li>
+                </ul>
+            </div>
+            <div ng-show="model.show === 'posts'" id="posts" class="tab-pane fade in active">
+                <h3>Posts</h3>
+                <ul class="list-group">
+                    <li ng-repeat="post in model.user.posts" class="list-group-item">
+                        {{post.name}}
                     </li>
                 </ul>
             </div>

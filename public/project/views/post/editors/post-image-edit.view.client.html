@@ -1,0 +1,48 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand">Post Edit</a>
+        <p class="navbar-text pull-right">
+            <a ng-click="model.updatePost(model.postId,model.post)"
+               class="navbar-link">
+                <span class="glyphicon glyphicon-ok"></span>
+            </a>
+        </p>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div ng-show ="model.error" class ="alert alert-danger">
+        {{model.error}}
+    </div>
+
+    <label for="name">Name</label>
+    <input id="name"
+           ng-model = "model.post.text"
+           type="text"
+           class="form-control">
+    <label for="text">Text</label>
+    <input id="text"
+           type="text"
+           class="form-control"
+           placeholder="US Senate">
+    <label for="size">Size</label>
+    <input id="size"
+           type = "text"
+           ng-model = "model.post.size"
+           class="form-control">
+
+    <a ng-click="model.deletePost(model.postId)"
+       class="btn btn-block btn-danger">
+        Delete
+    </a>
+
+</div>
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <p class="navbar-text pull-right">
+            <a class="navbar-link" href="#!/profile">
+                <span class="glyphicon glyphicon-user">
+                </span>
+            </a>
+        </p>
+    </div>
+</nav>

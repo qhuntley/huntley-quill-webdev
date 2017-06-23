@@ -5,31 +5,47 @@
 
     function postNewController($routeParams,
                                  postProjectService,
-                                 $location) {
+                                 $location, $sce) {
 
         var model = this;
         model.userId = $routeParams['userId'];
-
-        model.createPost = createPost;
+        model.postId = $routeParams['postId'];
 
         function init() {
             postProjectService
-                .findAllPostsForUser(model.userId)
-                .then(function (posts) {
+                .findPostsByUserId(model.userId)
+                .then(function(posts) {
                     model.posts = posts;
-                })
+                });
         }
         init();
 
-        function createPost (post) {
-            if(typeof post === 'undefined') {
-                model.error = "Post name required!";
-                return;
+        model.createPost = createPost;
+        model.postType = postType;
+
+        function postType(type) {
+            model.type = type;
+        }
+
+        function createPost(userId, post) {
+            if (model.type === 1){
+                post = {"postType": "", "userId": "", "width": "", "url": ""};
+                post.postType = "TEXT";
+            }
+            if (model.type === 2){
+                post = {"postType": "", "userId": "", "width": "", "url": ""};
+                post.postType = "IMAGE";
+            }
+            if (model.type === 3){
+                post = {"postType": "", "userId": "", "width": "",
+                    "url": "" };
+                post.postType = "YOUTUBE";
             }
             postProjectService
-                .createPost(model.userId, post)
+                .createPost(userId, post)
                 .then(function (post) {
-                    $location.url('/user/' + model.userId + '/post');
+                    console.log(post);
+                    $location.url('/user/' + model.userId + '/post/' + post._id);
                 });
         }
     }

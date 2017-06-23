@@ -1,14 +1,23 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid row">
-        <div class="col-xs-12 col-sm-8">
-            <a class="navbar-brand">Write a Review</a>
-            <p class="navbar-text pull-right">
-                <a ng-click = "model.createReview(review)">
-                    <span class="glyphicon glyphicon-ok"></span>
-                </a>
-            </p>
+        <div class="container-fluid row">
+            <div class="col-xs-4 hidden-xs">
+                <a class="navbar-brand">Reviews</a>
+                <p class="navbar-text pull-right">
+                    <a class="navbar-link" href="#!/user/{{model.userId}}/review/new">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+                </p>
+            </div>
+            <div class="col-xs-12 col-sm-8">
+                <a class="navbar-brand">Write a Review</a>
+                <p class="navbar-text pull-right">
+                    <a ng-click="model.createReview(review)">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </a>
+                </p>
+            </div>
         </div>
-    </div>
     </div>
 </nav>
 

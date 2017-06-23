@@ -57,6 +57,12 @@
                 controllerAs: 'model'
             })
 
+            .when('/search/:searchTerm', {
+                templateUrl: 'home/templates/search-page.view.client.html',
+                controller: 'searchController',
+                controllerAs: 'model'
+            })
+
             .when('/admin', {
                 templateUrl: 'views/admin/templates/admin.view.client.html',
                 resolve: {
@@ -115,7 +121,7 @@
                 }
             })
             .when('/user/:userId/post/new', {
-                templateUrl: 'views/post/templates/post-new.view.client.html',
+                templateUrl: 'views/post/templates/post-chooser.view.client.html',
                 controller: 'postNewController',
                 controllerAs: 'model',
                 resolve: {

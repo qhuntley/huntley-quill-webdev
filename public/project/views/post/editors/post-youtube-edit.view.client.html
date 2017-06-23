@@ -1,0 +1,53 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand">Post Edit</a>
+        <p class="navbar-text pull-right">
+            <a ng-click="model.updatePost(model.postId, model.post)"
+               class="navbar-link">
+                <span class="glyphicon glyphicon-ok"></span>
+            </a>
+        </p>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div ng-show ="model.error" class ="alert alert-danger">
+        {{model.error}}
+    </div>
+
+    <label for="name" style="font-weight: normal">Name</label>
+    <input id="name"
+           type="text"
+           class="form-control">
+    <label for="text" style="font-weight: normal">Text</label>
+    <input id="text"
+           type="text"
+           class="form-control">
+    <label for="url" style="font-weight: normal">URL</label>
+    <input id="url"
+           class="form-control"
+           ng-model = "model.post.url"
+           type="url"
+           placeholder="https://www.sitebuilderreport.com/assets/facebook-stock-up-446fff24fb11820517c520c4a5a4c032.jpg">
+    <label for="width" style="font-weight: normal">Width</label>
+    <input id="width"
+           type="text"
+           ng-model = "model.post.width"
+           placeholder="100%"
+           class="form-control">
+
+    <a ng-click="model.deletePost(model.postId)"
+       class="btn btn-block btn-danger">
+        Delete
+    </a>
+
+</div>
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <p class="navbar-text pull-right">
+            <a class="navbar-link" href="#!/profile" class="navbar-link">
+                <span class="glyphicon glyphicon-user">
+                </span>
+            </a>
+        </p>
+    </div>
+</nav>
