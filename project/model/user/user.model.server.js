@@ -52,7 +52,7 @@ function deleteUser(userId) {
 }
 
 function updateUser(userId, user) {
-    user.roles = user.roles.split(',');
+    //user.roles = user.roles.split(',');
     return userProjectModel.update({_id: userId}, {
         $set: {
             username: user.username,
