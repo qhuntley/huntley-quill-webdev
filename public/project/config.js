@@ -46,7 +46,7 @@
                     currentUser: checkCurrentUser
                 }
             })
-        /*    .when('/homefeed', {
+            /*    .when('/homefeed', {
                 templateUrl: 'views/user/templates/register.view.client.html',
                 controller: 'registerProjectController',
                 controllerAs: 'model'

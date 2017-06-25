@@ -15,7 +15,6 @@ function findAllReviewsForUser(req, res) {
         .then(function (reviews) {
             res.json(reviews);
         });
-
 }
 
 function createReview(req, res) {

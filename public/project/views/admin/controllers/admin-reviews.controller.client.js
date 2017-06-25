@@ -3,19 +3,39 @@
         .module('MovieApp')
         .controller('adminReviewsProjectController', adminReviewsProjectController);
 
-    function adminReviewsProjectController(reviewProjectService) {
+    function adminReviewsProjectController(userProjectService) {
         var model = this;
+
         model.deleteReview = deleteReview;
+        model.selectReview = selectReview;
+        model.createReview = createReview;
         model.updateReview = updateReview;
+
 
         function init() {
             findAllReviews();
         }
         init();
 
-        function deleteUser(user) {
+        function deleteReview(review) {
             userProjectService
                 .deleteUser(user._id)
+                .then(findAllUsers);
+        }
+
+        function createReview(review) {
+            userProjectService
+                .createUser(user)
+                .then(findAllUsers);
+        }
+
+        function selectReview(review) {
+            model.user = angular.copy(user);
+        }
+
+        function updateReview(review) {
+            userProjectService
+                .updateUser(user._id, user)
                 .then(findAllUsers);
         }
 
@@ -23,14 +43,9 @@
             userProjectService
                 .findAllReviews()
                 .then(function (reviews) {
-                    model.reviews= reviews;
+                    model.users = reviews;
                 });
         }
 
-        function updateUser(user) {
-            userProjectService
-                .updateUser(user._id, user)
-                .then(findAllUsers);
-        }
     }
 })();
