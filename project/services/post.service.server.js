@@ -20,11 +20,10 @@ function findAllPostsForUser(req, res) {
         .then(function (posts) {
             res.json(posts);
         });
-
 }
 
 function findMoviePostByUserId(req, res) {
-    console.log("inserver");
+    console.log("post inserver");
     var userId = req.params['userId'];
     var movieId = req.params.movieId;
     postProjectModel
@@ -36,9 +35,11 @@ function findMoviePostByUserId(req, res) {
 }
 
 function createPost(req, res) {
-    var review = req.body;
+    var post = req.body;
     var userId = req.params['userId'];
     var movieId = req.params.movieId;
+    console.log('in server');
+    console.log(post);
     postProjectModel
         .createPost(userId, movieId, post)
         .then(function (post) {
@@ -110,6 +111,7 @@ function findPostsByMovieId(req, res) {
             res.json(posts);
         });
 }
+
 
 
 /*

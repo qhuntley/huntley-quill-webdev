@@ -3,8 +3,6 @@ var postSchema = require('./post.schema.server');
 var postProjectModel = mongoose.model('postProjectModel', postSchema);
 var userProjectModel = require('../user/user.model.server');
 
-
-
 postProjectModel.findAllPostsForUser = findAllPostsForUser;
 postProjectModel.findPostsByMovieId = findPostsByMovieId;
 postProjectModel.createPost = createPost;
@@ -39,16 +37,21 @@ function findMoviePostByUserId(userId, movieId) {
 }
 
 function createPost(userId, movieId, post) {
+    console.log('inside create post');
+    console.log(post);
     post._author = userId;
     post.movieId = movieId;
     return postProjectModel
         .create(post)
         .then(function (post) {
+            console.log(post);
             userProjectModel
                 .findUserById(userId)
                 .then(function (user) {
                     user.posts.push(post);
                     user.save();
+                    console.log('inside model server');
+                    console.log(user.posts);
                 });
         });
 }
@@ -93,6 +96,7 @@ function findPostsByMovieId(movieId) {
         .find({movieId: movieId})
         .populate('_author')
         .exec();
+    console.log(movieId);
 }
 
 

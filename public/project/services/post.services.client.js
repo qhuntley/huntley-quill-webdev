@@ -3,7 +3,7 @@
         .module('MovieApp')
         .factory('postProjectService', postProjectService);
 
-    function postProjectService($http, $routeParams) {
+    function postProjectService($http) {
 
         return {
             createPost: createPost,
@@ -12,7 +12,8 @@
             updatePost: updatePost,
             deletePost: deletePost,
             findPostsByMovieId:findPostsByMovieId,
-            findMoviePostByUserId: findMoviePostByUserId
+            findMoviePostByUserId: findMoviePostByUserId,
+            findAllPosts: findAllPosts
         };
 
         function createPost(userId, movieId, post) {
@@ -48,12 +49,14 @@
         }
 
         function findPostsByMovieId(movieId) {
-            var url = "/api/project/"+movieId;
+            var url = "/api/project/" + movieId;
             return $http.get(url)
                 .then(function (response) {
+                    console.log(movieId);
                     return response.data;
                 });
         }
+
 
         function findMoviePostByUserId(userId, movieId) {
             var url = "/api/project/user/"+userId + "/movie/" + movieId;
@@ -65,6 +68,15 @@
 
         function findAllPostsForUser(userId) {
             var url = "/api/project/user/" + userId + "/post";
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+                });
+        }
+
+
+        function findAllPosts(author, post) {
+            var url = "/api/project/post";
             return $http.get(url)
                 .then(function (response) {
                     return response.data;

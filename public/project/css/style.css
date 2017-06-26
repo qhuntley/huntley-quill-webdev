@@ -9,6 +9,10 @@ select.form-control{
     float: left;
 }
 
+.hide {
+    display: none;
+}
+
 .col{
     width: 200px;
     float: left;

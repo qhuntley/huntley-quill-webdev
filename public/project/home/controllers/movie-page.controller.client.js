@@ -5,29 +5,13 @@
 
     function movieController(currentUser, $sce, $location, $routeParams, homeService, $scope,
                              reviewProjectService, postProjectService, $route) {
+
         var model = this;
         model.movieId = $routeParams['movieId'];
         model.loggedUser = currentUser;
         model.upcomingIndex = 1;
-        model.createReview = createReview;
         model.canCreate = false;
         model.canEdit = false;
-        model.increaseUpcoming = function () {
-            if(model.similarMovie.length <= model.upcomingIndex){
-                model.upcomingIndex = 1;
-            }
-            else {
-                model.upcomingIndex++;
-            }
-        };
-        model.decreaseUpcoming = function () {
-            if(model.upcomingIndex == 1){
-                model.upcomingIndex = model.similarMovie.length;
-            }
-            else {
-                model.upcomingIndex--;
-            }
-        };
 
         function init() {
 
@@ -37,11 +21,7 @@
                     model.movie = response.data;
                     model.genres = response.data.genres;
                     var path = model.movie.backdrop_path;
-                    //model.path = response.data.backdrop_path;
-                    //document.body.style.background = 'url(' + 'http://image.tmdb.org/t/p/original' + model.path + ') no-repeat top left';
-                    //document.body.style.backgroundSize = 1;
                 });
-
 
             homeService
                 .searchCast(model.movieId)
@@ -54,7 +34,7 @@
                 .then(function (response) {
                     temp = [];
                     var data = response.data.results;
-                    for(i =0; i < data.length; i++){
+                    for (i = 0; i < data.length; i++) {
                         temp.push(data[i]);
                     }
                     model.similarMovie = temp;
@@ -65,25 +45,31 @@
                 .then(function (response) {
                     var data = response.data.results;
                     model.recommendedMovie = [];
-                    for(i =0; i < data.length; i++){
+                    for (i = 0; i < data.length; i++) {
                         model.recommendedMovie.push(data[i]);
                     }
                 });
 
             reviewProjectService
-                    .findReviewsByMovieId(model.movieId)
-                    .then(function (response) {
-                        model.reviews = response;
-                    });
+                .findReviewsByMovieId(model.movieId)
+                .then(function (response) {
+                    model.reviews = response;
+                });
 
-            if(model.loggedUser._id) {
+            postProjectService
+                .findPostsByMovieId(model.movieId)
+                .then(function (response) {
+                    model.posts = response;
+                });
+
+            if (model.loggedUser._id) {
                 var reviews = model.loggedUser.reviews;
                 console.log(reviews.length === 0);
-                if(reviews.length !== 0){
-                    for(i = 0; i < reviews.length; i++){
+                if (reviews.length !== 0) {
+                    for (i = 0; i < reviews.length; i++) {
                         var currReview = reviews[i];
-                        console.log(model.movieId === currReview.movieId+'');
-                        if(currReview.movieId+'' === model.movieId){
+                        console.log(model.movieId === currReview.movieId + '');
+                        if (currReview.movieId + '' === model.movieId) {
                             model.canCreate = false;
                             model.canEdit = true;
                             break;
@@ -93,40 +79,59 @@
                         }
                     }
                 }
-                else{
+                else {
                     model.canCreate = true;
                 }
             }
-            console.log("Wth");
+
             console.log(model.canCreate);
 
-            if(model.canEdit){
+
+            if (model.canEdit) {
                 reviewProjectService
-                    .findMovieReviewByUserId(model.loggedUser._id,model.movieId);
-                    // .then(function (response) {
-                    //     console.log(response);
-                    //     model.review = response;
-                    // });
+                    .findMovieReviewByUserId(model.loggedUser._id, model.movieId);
+                // .then(function (response) {
+                //     console.log(response);
+                //     model.review = response;
+                // });
             }
         }
+
         init();
 
-        model.getYouTubeEmbedUrl = getYouTubeEmbedUrl;
+        model.createReview = createReview;
         model.selectMovie = selectMovie;
         model.selectReview = selectReview;
         model.editReview = editReview;
         model.deleteReview = deleteReview;
 
-        function getYouTubeEmbedUrl() {
-            return homeService
-                .searchVideos(model.movieId)
-                .then(function (response) {
-                    model.videoKeys = response.data.results;
-                })
-        }
-
+        // navigate to another movie page
         function selectMovie(movieId) {
             $location.url('/page/' + movieId);
+        }
+
+        // CRUD reviews
+        function selectReview(review) {
+            console.log(review);
+            reviewer = review._reviewer;
+            var userId = reviewer._id;
+            console.log(userId);
+            $location.url('/user/' + userId + '/profile-public');
+        }
+
+        function createReview(review) {
+            console.log(review);
+            if (typeof review === 'undefined') {
+                model.error = "Review name required!";
+                return;
+            }
+            reviewProjectService
+                .createReview(model.loggedUser._id, model.movieId, review)
+                .then(function () {
+                    model.canCreate = false;
+                    model.canEdit = true;
+                    $route.reload();
+                });
         }
 
         function editReview(review) {
@@ -141,33 +146,11 @@
             $location.url('/user/' + currentUser._id + '/movie/' + model.movieId + '/review/' + reviewId);
         }
 
-        function createReview(review) {
-            console.log(review);
-            if(typeof review === 'undefined') {
-                model.error = "Review name required!";
-                return;
-            }
-            reviewProjectService
-                .createReview(model.loggedUser._id, model.movieId, review)
-                .then(function () {
-                    model.canCreate = false;
-                    model.canEdit = true;
-                    $route.reload();
-                });
-        }
-
         function deleteReview(review) {
 
         }
 
-        function selectReview(review) {
-            console.log(review);
-            reviewer = review._reviewer;
-            var userId = reviewer._id;
-            console.log(userId);
-            $location.url('/user/'+ userId + '/profile-public');
-        }
-
+        //Posts
         model.selectPost = selectPost;
         model.editPost = editPost;
         model.deletePost = deletePost;
@@ -178,7 +161,7 @@
             author = post._author;
             var userId = author._id;
             console.log(userId);
-            $location.url('/user/'+ userId + '/profile-public');
+            $location.url('/user/' + userId + '/profile-public');
         }
 
         function deletePost(post) {
@@ -199,18 +182,29 @@
 
         function createPost(post) {
             console.log(post);
-            if(typeof post === 'undefined') {
+            if (typeof post === 'undefined') {
                 model.error = "Post name required!";
                 return;
             }
             postProjectService
                 .createPost(model.loggedUser._id, model.movieId, post)
                 .then(function () {
-                    model.canCreate = false;
-                    model.canEdit = true;
+                    console.log(post);
                     $route.reload();
                 });
         }
+
+
+        $(document).on('change', '.div-toggle', function () {
+            var target = $(this).data('target');
+            var show = $("option:selected", this).data('show');
+            $(target).children().addClass('hide');
+            $(show).removeClass('hide');
+        });
+        $(document).ready(function () {
+            $('.div-toggle').trigger('change');
+        });
+
     }
 
-})();
+    })();

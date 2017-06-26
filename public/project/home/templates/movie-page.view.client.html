@@ -18,14 +18,14 @@
 
         <img class="thumbnail img-responsive" src="http://image.tmdb.org/t/p/original{{model.movie.poster_path}}"/>
 
-        <div ng-if="!(model.user.roles.indexOf('ADMIN') > 0)">
+        <div ng-if="!(model.currentUser.roles.indexOf('ADMIN') > 0)">
             <ul class="nav nav-tabs">
                 <li ng-init="model.show ='info'"
+                    class="active"
                     ng-click="model.show='info'" ng-class="{'active': model.show==='info'}">
                     <a>Basic Info</a>
                 </li>
-                <li ng-init="model.show ='cast'"
-                    ng-click="model.show='cast'" ng-class="{'active': model.show==='cast'}">
+                <li ng-click="model.show='cast'" ng-class="{'active': model.show==='cast'}">
                     <a>Cast and Genre</a>
                 </li>
             </ul>
@@ -80,9 +80,9 @@
             </div>
             <hr>
 
-                <a ng-repeat="movie in model.similarMovie | limitTo: 3">
-                    <img class="thumbnail img-responsive" ng-click="model.selectMovie(movie.id)" src="http://image.tmdb.org/t/p/original{{movie.poster_path}}"/>
-                </a>
+            <a ng-repeat="movie in model.similarMovie | limitTo: 3">
+                <img class="thumbnail img-responsive" ng-click="model.selectMovie(movie.id)" src="http://image.tmdb.org/t/p/original{{movie.poster_path}}"/>
+            </a>
 
 
             <ul class="rel-results">
@@ -102,12 +102,10 @@
 
         <div ng-if="!(model.user.roles.indexOf('ADMIN') > 0)">
             <ul class="nav nav-tabs">
-                <li ng-init="model.show ='reviews'"
-                    ng-click="model.show='reviews'" ng-class="{'active': model.show==='reviews'}">
+                <li ng-click="model.show='reviews'" ng-class="{'active': model.show==='reviews'}">
                     <a>Reviews</a>
                 </li>
-                <li ng-init="model.show ='Posts'"
-                    ng-click="model.show='Posts'" ng-class="{'active': model.show==='Posts'}">
+                <li ng-click="model.show='Posts'" ng-class="{'active': model.show==='Posts'}">
                     <a>Posts</a>
                 </li>
             </ul>
@@ -121,7 +119,7 @@
                             <label ng-click="model.selectReview(review)"><u>{{review._reviewer.username}}</u></label>
                         <h4>Rating : {{review.rating}}</h4>
                         <h4>Review : </h4>
-                            <span>
+                        <span>
                                 <p>{{review.review}}</p>
                             </span>
                         </p>
@@ -133,35 +131,35 @@
                 </div>
 
                 <div class="well" ng-show="!model.canEdit">
-                <h4>Write a Review:</h4>
-                <form>
-                    <div class="form-group">
+                    <h4>Write a Review:</h4>
+                    <form>
+                        <div class="form-group">
                             <textarea class="form-control"
                                       rows="3"
                                       placeholder="The movie is great!"
                                       ng-model="review.review"
                                       ng-disabled="!model.canCreate">
                             </textarea>
-                    </div>
-                    <label for="rating">Rating</label>
-                    <div class="form-group">
-                        <select id="rating" class="form-control"
-                                value="5"
-                                ng-model = "review.rating"
-                                ng-disabled="!model.canCreate">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
-                    </div>
-                    <a href="" class="btn btn-success " ng-show="model.canCreate"
-                       ng-click="model.createReview(review)"
-                       role="button"><strong>Review It!</strong></a>
-                    <a href="" class="btn btn-warning" ng-show="!model.canCreate" ng-disabled="!model.canCreate"
-                       role="button"><strong>Please login to review!</strong></a>
-                </form>
+                        </div>
+                        <label for="rating5">Rating</label>
+                        <div class="form-group">
+                            <select id="rating5" class="form-control"
+                                    value="5"
+                                    ng-model = "review.rating"
+                                    ng-disabled="!model.canCreate">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+                        <a href="" class="btn btn-success " ng-show="model.canCreate"
+                           ng-click="model.createReview(review)"
+                           role="button"><strong>Review It!</strong></a>
+                        <a href="" class="btn btn-warning" ng-show="!model.canCreate" ng-disabled="!model.canCreate"
+                           role="button"><strong>Please login to review!</strong></a>
+                    </form>
                 </div>
                 <div class="well" ng-show="model.canEdit">
                     <div ng-show="model.message" class="alert alert-info">
@@ -193,67 +191,148 @@
                            ng-click="model.editReview(review)"
                            role="button"><strong>Update It!</strong></a>
                         <!--<a href="" class="btn btn-warning" ng-show="!model.canEdit" ng-disabled="!model.canCreate"-->
-                           <!--role="button"><strong>Please login to review!</strong></a>-->
+                        <!--role="button"><strong>Please login to review!</strong></a>-->
                     </form>
                 </div>
             </div>
-            <div ng-show="model.show === 'posts'"
-                 id="posts"
+
+            <div ng-show="model.show === 'Posts'"
+                 id="Posts"
                  class="tab-pane fade in active">
-                hiii
-            </div>
-        </div>
-    </div>
 
-
-    </div>
-
-<div class="container-fluid main">
-    <div class="panel panel-body">
-
-        <div ng-if="!(model.user.roles.indexOf('ADMIN') > 0)">
-            <ul class="nav nav-tabs">
-                <li ng-init="model.show ='createReview'"
-                    ng-click="model.show='createReview'" ng-class="{'active': model.show==='createReview'}">
-                    <a>createReview</a>
-                </li>
-                <li ng-init="model.show ='createPost'" ng-show="model.loggedUser.roles.indexOf('CELEBRITY') >= 0"
-                    ng-click="model.show='createPost'" ng-class="{'active': model.show==='createPost'}">
-                    <a>createPost</a>
-                </li>
-            </ul>
-            <div ng-show="model.show === 'createReview'"
-                 id="createReview"
-                 class="tab-pane fade in active">
-                <div ng-show="model.reviews == 0">
-                    <h3>No reviews yet.. Be the first to review it!</h3>
+                <div  ng-show="model.posts.length != 0">
+                    <div class="well" ng-repeat="post in model.posts">
+                        <p>
+                        <h4>Post</h4>
+                            <label ng-click="model.selectPost(post)">
+                                <u>{{post.username}}</u>
+                            </label>
+                        <span>
+                            <p>{{post.post}}</p>
+                        </span>
+                        </p>
+                    </div>
                 </div>
-                    <strong><h4>Write a Review:</h4></strong>
+
+                <div class="well" ng-show="model.posts == 0">
+                    <h5>No posts yet.. Be the first to post about it!</h5>
+                </div>
+
+                <div class="well">
+                    <h4>Write a Post:</h4>
+                    <h5>Please choose one of the following...</h5>
+                    <select class="div-toggle" data-target=".my-info-1">
+                        <option value="text" data-show=".text">Text</option>
+                        <option value="image" data-show=".image">Image</option>
+                        <option value="youtube" data-show=".youtube">Youtube</option>
+                    </select>
+                    <br>
+                    <br>
                     <form>
                         <div class="form-group">
-                            <textarea class="form-control"
-                                      rows="3"
-                                      placeholder="Please enter description of the review"
-                                      ng-model="review.review"
-                                      ng-disabled="!model.canCreate">
-                            </textarea>
+                            <div class="my-info-1">
+                                <div class="text hide">
+                                    <textarea class="form-control"
+                                              rows="3"
+                                              placeholder="So excited to be apart of this movie!"
+                                              ng-model="post.post">
+                                    </textarea>
+                                </div>
+                                <div class = "image hide">
+                                    <label for="name">Name</label>
+                                    <input id="name"
+                                           type="text"
+                                           class="form-control">
+                                    <label for="text">Text</label>
+                                    <input id="text"
+                                           type="text"
+                                           class="form-control">
+                                    <label for="url">URL</label>
+                                    <input id="url"
+                                           ng-model = "model.post.url"
+                                           type="url"
+                                           class="form-control"
+                                           placeholder="https://www.sitebuilderreport.com/assets/facebook-stock-up-446fff24fb11820517c520c4a5a4c032.jpg">
+                                    <div class="form-group">
+                                        <a class="btn btn-info btn-block"
+                                           href="#!/user/{{model.userId}}/movie/{{model.movieId}}/page/{{model.pageId}}/post/{{model.postId}}/search"
+                                           id="search">
+                                            Search
+                                        </a>
+                                    </div>
+                                    <label for="width">Width</label>
+                                    <input id="width"
+                                           ng-model = "model.post.width"
+                                           type="text"
+                                           class="form-control"
+                                           placeholder="100%">
+                                    <form action="/api/upload"   method="post" enctype="multipart/form-data">
+                                        <input  name="myFile"    type="file" class="form-control"/>
+                                        <input  name="width"     value="{{model.post.width}}" style="display: none"/>
+                                        <input  name="userId"    value="{{model.userId}}"       style="display: none"/>
+                                        <input  name="movieId" value="{{model.movieId}}"    style="display: none"/>
+                                        <input  name="pageId"    value="{{model.pageId}}"       style="display: none"/>
+                                        <input  name="postId"  value="{{model.post._id}}"   style="display: none"/>
+                                        <button type="submit"    class="btn btn-block btn-primary">Upload Image</button>
+                                    </form>
+                                    <a ng-click="model.createPost(model.postId, model.post)"
+                                       class="btn btn-block btn-success">
+                                        Create
+                                    </a>
+                                    <a ng-click="model.deletePost(model.postId)"
+                                       class="btn btn-block btn-danger">
+                                        Delete
+                                    </a>
+                                </div>
+                                <div class = "youtube hide">
+                                    <label for="name1" style="font-weight: normal">Name</label>
+                                    <input id="name1"
+                                           type="text"
+                                           class="form-control">
+                                    <label for="text1" style="font-weight: normal">Text</label>
+                                    <input id="text1"
+                                           type="text"
+                                           class="form-control">
+                                    <label for="url1" style="font-weight: normal">URL</label>
+                                    <input id="url1"
+                                           class="form-control"
+                                           ng-model = "model.post.url"
+                                           type="url"
+                                           placeholder="https://www.sitebuilderreport.com/assets/facebook-stock-up-446fff24fb11820517c520c4a5a4c032.jpg">
+                                    <label for="width1" style="font-weight: normal">Width</label>
+                                    <input id="width1"
+                                           type="text"
+                                           ng-model = "model.post.width"
+                                           placeholder="100%"
+                                           class="form-control">
+                                    <a ng-click="model.createPost(model.postId, model.post)"
+                                       class="btn btn-block btn-success">
+                                        Create
+                                    </a>
+                                    <a ng-click="model.deletePost(model.postId)"
+                                       class="btn btn-block btn-danger">
+                                        Delete
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                        <a href="" class="btn btn-success" ng-show="model.canCreate"
-                           ng-click="model.createReview(review)"
-                           role="button"><strong>Submit</strong></a>
-                        <a href="" class="btn btn-warning" ng-show="!model.canCreate" ng-disabled="!model.canCreate"
-                           role="button"><strong>Please login to review!</strong></a>
+                        <a class="btn btn-success "
+                           ng-click="model.createPost(post)"
+                           role="button"><strong>Post It!</strong></a>
+                        <a href="" class="btn btn-warning"
+                           role="button"><strong>Please login to Post!</strong></a>
                     </form>
-            </div>
-            <div ng-show="model.show === 'createPost'" ng-if="model.loggedUser.roles.indexOf('CELEBRITY') >= 0"
-                 id="createPost"
-                 class="tab-pane fade in active">
-                <h3>Posts</h3>
-                <ul class="list-group">
-                </ul>
+                </div>
+                <div class="well" ng-show="model.canEdit">
+                    <div ng-show="model.message" class="alert alert-info">
+                        {{model.message}}
+                    </div>
+                    <h4>Edit Post:</h4>
+                    {{model.post}}
+
+                </div>
             </div>
         </div>
     </div>
 
-</div>
 </div>
