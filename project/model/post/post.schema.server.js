@@ -4,6 +4,7 @@ var postSchema = mongoose.Schema({
     postType: {type: String, enum: ["TEXT", "IMAGE","YOUTUBE"]},
     dateUpdated: {type: Date, default: Date.now},
     name: String,
+    movieId: Number,
     placeholder: String,
     description: String,
     url: String,

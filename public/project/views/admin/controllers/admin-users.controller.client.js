@@ -3,14 +3,16 @@
         .module('MovieApp')
         .controller('adminUsersProjectController', adminUsersProjectController);
 
-    function adminUsersProjectController(userProjectService) {
+    function adminUsersProjectController(userProjectService, $location, $routeParams) {
         var model = this;
+        model.userId = $routeParams['userId'];
+
 
         model.deleteUser = deleteUser;
         model.selectUser = selectUser;
         model.createUser = createUser;
         model.updateUser = updateUser;
-
+       // model.selectUsername = selectUsername;
 
         function init() {
             findAllUsers();
@@ -46,6 +48,11 @@
                     model.users = users;
                 });
         }
+
+       /* function selectUsername(username) {
+            console.log(userId);
+            $location.url('/user/'+ userId + '/profile-public');
+        }*/
 
     }
 })();

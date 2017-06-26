@@ -3,23 +3,23 @@
         .module('MovieApp')
         .controller('reviewNewController', reviewNewController);
 
-    function reviewNewController($routeParams,
+    function reviewNewController(currentUser, $routeParams,
                                   reviewProjectService,
                                   $location) {
 
         var model = this;
-        model.userId = $routeParams['userId'];
+        model.movieId = $routeParams['movieId'];
 
         model.createReview = createReview;
 
-        function init() {
-            reviewProjectService
-                .findAllReviewsForUser(model.userId)
-                .then(function (reviews) {
-                    model.reviews = reviews;
-                })
-        }
-        init();
+        // function init() {
+        //     reviewProjectService
+        //         .findAllReviewsForUser(model.userId)
+        //         .then(function (reviews) {
+        //             model.reviews = reviews;
+        //         })
+        // }
+        // init();
 
         function createReview (review) {
             if(typeof review === 'undefined') {
@@ -27,9 +27,9 @@
                 return;
             }
             reviewProjectService
-                .createReview(model.userId, review)
-                .then(function (review) {
-                    $location.url('/user/' + model.userId + '/review');
+                .createReview(currentUser._id, model.movieId, review)
+                .then(function () {
+                    $location.url('/page/'+model.movieId);
                 });
         }
     }

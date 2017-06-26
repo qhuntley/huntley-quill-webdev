@@ -12,23 +12,41 @@ var userProjectModel = require('../user/user.model.server');
 // update view
 
 reviewProjectModel.findAllReviewsForUser = findAllReviewsForUser;
+reviewProjectModel.findReviewsByMovieId = findReviewsByMovieId;
 reviewProjectModel.createReview = createReview;
 reviewProjectModel.updateReview = updateReview;
 reviewProjectModel.deleteReview = deleteReview;
 reviewProjectModel.findReviewById = findReviewById;
 reviewProjectModel.findAllReviews = findAllReviews;
+reviewProjectModel.findMovieReviewByUserId = findMovieReviewByUserId;
 
 module.exports = reviewProjectModel;
 
 function findAllReviewsForUser(userId) {
     return reviewProjectModel
         .find({_reviewer: userId})
-        .populate('_reviewer', 'username')
+        .populate('_reviewer')
         .exec();
 }
 
-function createReview(userId, review) {
+function findMovieReviewByUserId(userId, movieId) {
+    console.log("finally here");
+    var  reviews = reviewProjectModel.findOne();
+    return reviewProjectModel.findAllReviewsForUser(userId);
+    // if(reviews){
+    //     for(i = 0; i <= reviews.length; i++){
+    //         var currReview = reviews[i];
+    //         if(currReview.movieId+'' == movieId+''){
+    //             return currReview;
+    //         }
+    //     }
+    // }
+    // return 0;
+}
+
+function createReview(userId, movieId, review) {
     review._reviewer = userId;
+    review.movieId = movieId;
     return reviewProjectModel
         .create(review)
         .then(function (review) {
@@ -41,12 +59,14 @@ function createReview(userId, review) {
         });
 }
 
-function updateReview(reviewId, newReview) {
+function updateReview(userId, movieId, reviewId, review) {
     return reviewProjectModel.update({_id: reviewId}, {
         $set: {
-            name: newReview.name,
-            review: newReview.review,
-            rating: newReview.rating
+            _reviewer: userId,
+            name: review.name,
+            movieId: movieId,
+            review: review.review,
+            rating: review.rating
         }
     });
 
@@ -72,6 +92,13 @@ function findReviewById(reviewId) {
 
 function findAllReviews() {
     return reviewProjectModel.find();
+}
+
+function findReviewsByMovieId(movieId) {
+    return reviewProjectModel
+        .find({movieId: movieId})
+        .populate('_reviewer')
+        .exec();
 }
 
 

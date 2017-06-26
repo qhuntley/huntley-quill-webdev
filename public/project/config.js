@@ -6,6 +6,18 @@
     function configuration($routeProvider) {
         $routeProvider
 
+            .when('/test', {
+                templateUrl: 'home/templates/test.html'
+            })
+            // .when('/test/page/:movieId',{
+            //     templateUrl: 'home/templates/movie-page.test.html',
+            //     controller: 'movieController',
+            //     controllerAs: 'model',
+            //     resolve: {
+            //         currentUser: checkCurrentUser
+            //     }
+            // })
+
             // user routing
             .when('/', {
                 templateUrl: 'home/templates/home.html',
@@ -37,16 +49,15 @@
                 }
             })
 
-            .when('/profile-public', {
+            .when('/user/:userId/profile-public', {
                 templateUrl: 'views/user/templates/user-public-profile.view.client.html',
                 controller: 'userPublicProjectController',
                 controllerAs: 'model',
                 resolve: {
-                    currentUser: checkLoggedIn,
                     currentUser: checkCurrentUser
                 }
             })
-            /*    .when('/homefeed', {
+        /*    .when('/homefeed', {
                 templateUrl: 'views/user/templates/register.view.client.html',
                 controller: 'registerProjectController',
                 controllerAs: 'model'
@@ -54,13 +65,19 @@
             .when('/page/:movieId', {
                 templateUrl: 'home/templates/movie-page.view.client.html',
                 controller: 'movieController',
-                controllerAs: 'model'
+                controllerAs: 'model',
+                resolve: {
+                    currentUser: checkCurrentUser
+                }
             })
 
             .when('/search/:searchTerm', {
                 templateUrl: 'home/templates/search-page.view.client.html',
                 controller: 'searchController',
-                controllerAs: 'model'
+                controllerAs: 'model',
+                resolve: {
+                    currentUser: checkCurrentUser
+                }
             })
 
             .when('/admin', {
@@ -79,14 +96,23 @@
                 }
             })
 
-           /* .when('/admin/reviews', {
+            .when('/admin/reviews', {
                 templateUrl: 'views/admin/templates/admin-reviews.view.client.html',
                 controller: 'adminReviewsProjectController',
                 controllerAs: 'model',
                 resolve: {
                     currentUser: checkAdmin
                 }
-            })*/
+            })
+
+            .when('/admin/posts', {
+                templateUrl: 'views/admin/templates/admin-posts.view.client.html',
+                controller: 'adminPostsProjectController',
+                controllerAs: 'model',
+                resolve: {
+                    currentUser: checkAdmin
+                }
+            })
 
             .when('/user/:userId/review', {
                 templateUrl: 'views/review/templates/review-list.view.client.html',
@@ -96,7 +122,7 @@
                     currentUser: checkLoggedIn
                 }
             })
-            .when('/user/:userId/review/new', {
+            .when('/user/:userId/movie/:movieId/review/new', {
                 templateUrl: 'views/review/templates/review-new.view.client.html',
                 controller: 'reviewNewController',
                 controllerAs: 'model',
@@ -104,7 +130,7 @@
                     currentUser: checkLoggedIn
                 }
             })
-            .when('/user/:userId/review/:reviewId', {
+            .when('/user/:userId/movie/:movieId/review/:reviewId', {
                 templateUrl: 'views/review/templates/review-edit.view.client.html',
                 controller: 'reviewEditController',
                 controllerAs: 'model',

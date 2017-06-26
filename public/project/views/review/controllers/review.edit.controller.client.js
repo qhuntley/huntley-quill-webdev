@@ -47,7 +47,7 @@
             }
 
             reviewProjectService
-                .updateReview(reviewId, review)
+                .updateReview(model.userId, review.movieId, reviewId, review)
                 .then(function(response) {
                     $location.url('/user/' + model.userId + '/review');
                 });

@@ -31,7 +31,6 @@
 
         function searchNewMovies(searchTerm) {
             var url = search.replace("TEXT", searchTerm);
-            console.log($http.get(url));
             return $http.get(url);
         }
 
@@ -75,8 +74,6 @@
         function latestMovies() {
             return $http.get(latest)
                 .then(function (response) {
-                    console.log("in hereeeeeeee");
-                    console.log(response.data);
                     return response.data;
                 });
         }

@@ -17,6 +17,9 @@ app.get('/api/project/checkLoggedIn', checkLoggedIn);
 app.post('/api/project/register', register);
 app.post('/api/project/logout', logout);
 app.get('/api/project/checkAdmin', checkAdmin);
+app.post('/api/project/follow', followUser);
+app.post('/api/project/unfollow', unfollowUser);
+app.get('api/project/user/:userId/followers', findFollowersById);
 
 var facebookConfig = {
     clientID     : process.env.FACEBOOK_CLIENT_ID,
@@ -161,6 +164,34 @@ function checkAdmin(req, res) {
     } else {
         res.send('0');
     }
+}
+
+function followUser(req, res) {
+    var data = req.body;
+    console.log("in servr");
+    console.log(data);
+    userProjectModel
+        .followUser(data.follow, data.follower);
+    res.sendStatus(200);
+}
+
+function unfollowUser(req, res) {
+    var data = req.body;
+    console.log("in servr");
+    console.log(data);
+    userProjectModel
+        .unfollowUser(data.follow, data.follower);
+    res.sendStatus(200);
+}
+
+function findFollowersById(req, res) {
+    var userId = req.params['userId'];
+    userProjectModel
+        .findFollowersById(userId)
+        .then(function (followers) {
+            res.json(followers);
+        });
+    res.sendStatus(200);
 }
 
 function checkLoggedIn(req, res) {

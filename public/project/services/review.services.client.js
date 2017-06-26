@@ -11,7 +11,9 @@
             updateReview: updateReview,
             deleteReview: deleteReview,
             findReviewById: findReviewById,
-            findAllReviews: findAllReviews
+            findAllReviews: findAllReviews,
+            findReviewsByMovieId: findReviewsByMovieId,
+            findMovieReviewByUserId: findMovieReviewByUserId
         };
 
         return api;
@@ -24,16 +26,16 @@
                 });
         }
 
-        function createReview(userId, review) {
-            var url = "/api/project/user/" + userId + "/review";
+        function createReview(userId, movieId, review) {
+            var url = '/api/project/user/'+ userId + '/movie/' + movieId + '/review';
             return $http.post(url, review)
                 .then(function (response) {
                     return response.data;
                 });
         }
 
-        function updateReview(reviewId, review) {
-            var url = "/api/project/review/" + reviewId;
+        function updateReview(userId, movieId, reviewId, review) {
+            var url = '/api/project/user/' + userId + '/movie/' + movieId + '/review/' + reviewId;
             return $http.put(url, review)
                 .then(function (response) {
                     return response.data;
@@ -58,6 +60,22 @@
 
         function findAllReviews(reviewer, review, rating) {
             var url = "/api/project/review";
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+                });
+        }
+
+        function findReviewsByMovieId(movieId) {
+            var url = "/api/project/"+movieId;
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+                });
+        }
+
+        function findMovieReviewByUserId(userId, movieId) {
+            var url = "/api/project/user/"+userId + "/movie/" + movieId;
             return $http.get(url)
                 .then(function (response) {
                     return response.data;

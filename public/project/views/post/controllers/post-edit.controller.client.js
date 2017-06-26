@@ -16,7 +16,7 @@
 
         function init() {
             postProjectService
-                .findPostsByUserId(model.userId)
+                .findAllPostsForUser(model.userId)
                 .then(function(posts) {
                     model.posts = posts;
                 });
@@ -44,13 +44,14 @@
                 return;
             }
             postProjectService
-                .updatePost(postId, post)
+                .updatePost(model.userId, post.movieId, postId, post)
                 .then(function(response) {
                     $location.url('/user/' + model.userId + '/post');
 
                 });
 
         }
+
 
         function deletePost (postId) {
             postProjectService

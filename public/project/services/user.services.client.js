@@ -18,7 +18,10 @@
             findUserById: findUserById,
             updateUser: updateUser,
             deleteUser: deleteUser,
-            unregister: unregister
+            unregister: unregister,
+            followUser: followUser,
+            unfollowUser: unfollowUser,
+            findFollowersById: findFollowersById
         };
 
         return api;
@@ -131,6 +134,38 @@
                 .then(function (response) {
                     return response.data;
                 });
+        }
+
+        function followUser(follow, follower) {
+            var url = "/api/project/follow";
+            var info = {
+                follow: follow,
+                follower: follower
+            };
+            return $http.post(url, info)
+                .then(function (response) {
+                    return response.data;
+                })
+        }
+
+        function unfollowUser(follow, follower) {
+            var url = "/api/project/unfollow";
+            var info = {
+                follow: follow,
+                follower: follower
+            };
+            return $http.post(url, info)
+                .then(function (response) {
+                    return response.data;
+                })
+        }
+
+        function findFollowersById(userId) {
+            var url = "api/project/user/" + userId + "/followers";
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+                })
         }
     }
 

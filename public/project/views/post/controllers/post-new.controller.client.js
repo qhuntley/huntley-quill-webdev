@@ -3,7 +3,7 @@
         .module('MovieApp')
         .controller('postNewController', postNewController);
 
-    function postNewController($routeParams,
+    function postNewController(currentUser, $routeParams,
                                  postProjectService,
                                  $location, $sce) {
 
@@ -13,7 +13,7 @@
 
         function init() {
             postProjectService
-                .findPostsByUserId(model.userId)
+                .findAllPostsForUser(model.userId)
                 .then(function(posts) {
                     model.posts = posts;
                 });
@@ -42,11 +42,12 @@
                 post.postType = "YOUTUBE";
             }
             postProjectService
-                .createPost(userId, post)
+                .createPost(currentUser._id, model.movieId, post)
                 .then(function (post) {
                     console.log(post);
-                    $location.url('/user/' + model.userId + '/post/' + post._id);
+                    $location.url('/page/'+model.movieId);
                 });
         }
     }
 }) ();
+

@@ -7,28 +7,29 @@
 
         return {
             createPost: createPost,
-            findPostsByUserId:findPostsByUserId,
+            findAllPostsForUser:findAllPostsForUser,
             findPostById:findPostById,
             updatePost: updatePost,
-            deletePost: deletePost
+            deletePost: deletePost,
+            findPostsByMovieId:findPostsByMovieId,
+            findMoviePostByUserId: findMoviePostByUserId
         };
 
-        function createPost (userId, post) {
-            var url = "/api/project/user/" + userId + "/post";
+        function createPost(userId, movieId, post) {
+            var url = '/api/project/user/'+ userId + '/movie/' + movieId + '/post';
             return $http.post(url, post)
                 .then(function (response) {
                     return response.data;
                 });
         }
 
-        function updatePost(postId, post) {
-            var url = "/api/project/post/" + postId;
+        function updatePost(userId, movieId, postId, post) {
+            var url = '/api/project/user/' + userId + '/movie/' + movieId + '/post/' + postId;
             return $http.put(url, post)
                 .then(function (response) {
                     return response.data;
                 });
         }
-
 
         function deletePost(postId) {
             var url = "/api/project/post/" + postId;
@@ -46,7 +47,23 @@
                 });
         }
 
-        function findPostsByUserId(userId) {
+        function findPostsByMovieId(movieId) {
+            var url = "/api/project/"+movieId;
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+                });
+        }
+
+        function findMoviePostByUserId(userId, movieId) {
+            var url = "/api/project/user/"+userId + "/movie/" + movieId;
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+                });
+        }
+
+        function findAllPostsForUser(userId) {
             var url = "/api/project/user/" + userId + "/post";
             return $http.get(url)
                 .then(function (response) {

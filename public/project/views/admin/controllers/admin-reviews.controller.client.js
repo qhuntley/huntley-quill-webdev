@@ -3,14 +3,14 @@
         .module('MovieApp')
         .controller('adminReviewsProjectController', adminReviewsProjectController);
 
-    function adminReviewsProjectController(userProjectService) {
+    function adminReviewsProjectController(reviewProjectService, userProjectService, $location, $routeParams) {
         var model = this;
+        model.reviewId = $routeParams['reviewId'];
 
         model.deleteReview = deleteReview;
         model.selectReview = selectReview;
         model.createReview = createReview;
         model.updateReview = updateReview;
-
 
         function init() {
             findAllReviews();
@@ -18,34 +18,40 @@
         init();
 
         function deleteReview(review) {
-            userProjectService
-                .deleteUser(user._id)
-                .then(findAllUsers);
+            reviewProjectService
+                .deleteReview(review._id)
+                .then(findAllReviews);
         }
 
         function createReview(review) {
-            userProjectService
-                .createUser(user)
-                .then(findAllUsers);
+            reviewProjectService
+                .createReview(review._reviewer, review.movieId, review)
+                .then(findAllReviews);
         }
 
         function selectReview(review) {
-            model.user = angular.copy(user);
+            model.review = angular.copy(review);
         }
 
         function updateReview(review) {
-            userProjectService
-                .updateUser(user._id, user)
-                .then(findAllUsers);
+            reviewProjectService
+                .updateReview(review._reviewer, review.movieId, review._id)
+                .then(findAllReviews);
         }
 
         function findAllReviews() {
-            userProjectService
+            reviewProjectService
                 .findAllReviews()
                 .then(function (reviews) {
-                    model.users = reviews;
+                    console.log(reviews[0]._reviewer);
+                    model.reviews= reviews;
                 });
         }
 
+        /*function updateUser(user) {
+            userProjectService
+                .updateUser(user._id, user)
+                .then(findAllUsers);
+        }*/
     }
 })();

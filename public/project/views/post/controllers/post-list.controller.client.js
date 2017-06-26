@@ -12,13 +12,11 @@
         model.postId = $routeParams['postId'];
 
 
-
         function init() {
             postProjectService
-                .findPostsByUserId(model.userId)
+                .findAllPostsForUser(model.userId)
                 .then(function (posts) {
                     model.posts = posts;
-                    console.log(posts);
                 });
 
             function handleError(error) {
@@ -45,3 +43,4 @@
 
     }
 }) ();
+

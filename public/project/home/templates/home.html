@@ -24,21 +24,10 @@
                 </li>
                 <li ng-if="model.currentUser.roles.indexOf('ADMIN') > -1">
                     <a href="#!/admin">
-                        Admin
+                        <u>Admin</u>
                     </a>
                 </li>
             </ul>
-            <!--<p class="navbar-text pull-right">
-                <a href="#!/register">
-                    <u>Register</u>
-                </a>
-            </p>
-            <p class="navbar-text pull-right">
-                <a class="btn btn-primary btn-sm"
-                   href="#!/login">
-                    Login
-                </a>
-            </p>-->
         </div>
     </div>
 </nav>
@@ -58,7 +47,6 @@
                 </a>
             </h4>
         </div>
-
         <div class="input-group">
             <input ng-model="searchText"
                    type="text"
@@ -80,7 +68,8 @@
         <div class="col" ng-repeat="movie in model.upcomingMovies">
             <img ng-show="model.upcomingIndex==$index||model.upcomingIndex==$index+1||model.upcomingIndex==$index+2"
                  ng-click="model.selectMovie(movie.id)"
-                 ng-src="http://image.tmdb.org/t/p/original{{movie.poster_path}}" class="thumbnail img-responsive" width="200px">
+                 ng-src="http://image.tmdb.org/t/p/original{{movie.poster_path}}"
+                 class="thumbnail img-responsive" width="200px">
         </div>
         <div ng-click="model.increaseUpcoming()" class="bcol glyphicon glyphicon-chevron-right pull-right"></div>
     </span>
