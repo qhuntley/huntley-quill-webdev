@@ -10,7 +10,7 @@ app.get('/api/project/user/:userId/post', findPostsByUserId);
 app.get('/api/project/post/:postId', findPostById);
 app.put('/api/project/user/:userId/movie/:movieId/post/:postId', updatePost);
 app.delete('/api/project/user/:userId/movie/:movieId/post/:postId', deletePost);
-app.get('/api/project/post', isAdmin, findAllPosts);
+app.get('/api/posts', isAdmin, findAllPosts);
 app.get('/api/project/posts/:movieId', findPostsByMovieId);
 app.post ('/api/project/upload', upload.single('myFile'), uploadImage);
 
@@ -124,7 +124,12 @@ function findAllPosts(req, res) {
     postProjectModel
         .findAllPosts()
         .then(function (posts) {
-            res.json(posts);
+            if(posts) {
+                res.json(posts);
+            }
+            else {
+                res.sendStatus(200);
+            }
         });
 }
 

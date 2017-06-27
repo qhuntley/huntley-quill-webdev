@@ -63,8 +63,8 @@
                 });
         }
 
-        function findAllPosts(author, post) {
-            var url = "/api/project/post";
+        function findAllPosts() {
+            var url = "/api/posts";
             return $http.get(url)
                 .then(function (response) {
                     return response.data;

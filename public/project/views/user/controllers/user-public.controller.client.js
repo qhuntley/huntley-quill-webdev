@@ -3,7 +3,7 @@
         .module('MovieApp')
         .controller('userPublicProjectController', userPublicProjectController);
 
-    function userPublicProjectController( currentUser, $location, userProjectService, $routeParams, $scope) {
+    function userPublicProjectController( currentUser, $location, userProjectService, $routeParams, $scope, $route) {
 
         var model = this;
         model.userId = $routeParams['userId'];
@@ -27,6 +27,7 @@
 
 
             var following = currentUser.following;
+
             model.isfollow = false;
             if(following){
                 for(i = 0; i < following.length; i++){
@@ -60,7 +61,7 @@
 
         function selectFollower(follower) {
             var userId = follower._id;
-            $location.url('/user/'+ userId + '/profile-public');
+            $location.url('/user/' +userId + '/profile-public');
         }
 
         function isfollowing(loggedUser, user) {
@@ -83,9 +84,9 @@
                 .followUser(follow, follower)
                 .then(function (response) {
                     console.log(response);
+                    model.isfollow = true;
+                    $route.reload();
                 });
-            model.isfollow = true;
-            $location.url('/user/'+ model.userId + '/profile-public');
         }
 
         function unfollow(follow, follower) {
@@ -94,32 +95,10 @@
                 .unfollowUser(follow, follower)
                 .then(function (response) {
                     console.log(response);
+                    model.isfollow = false;
+                    $route.reload();
                 });
-            model.isfollow = false;
-            $location.url('/user/'+ model.userId + '/profile-public');
-        }
 
-        // function followUser(newFollowerId) {
-        //     userProjectService
-        //         .followUser(newFollowerId)
-        //         .then(function (response) {
-        //             console.log(response);
-        //         })
-        // }
-        //
-        // function unfollowUser(userId, newFollowerId) {
-        //         userProjectService
-        //             .unfollowUser(userId, newFollowerId)
-        //             .then(function (response) {
-        //                 model.followers = response;
-        //             })
-        // }
-
-        isfollow = false;
-        $scope.toggle = function (user, loggedUser) {
-            if (isfollow) { called = false; return $scope.follow(user, loggedUser); }
-            $scope.unfollow(model.user, model.loggedUser);
-            isfollow = true;
         }
 
     }

@@ -128,7 +128,7 @@
                 });
         }
 
-        function findAllUsers(username, password) {
+        function findAllUsers() {
             var url = "/api/project/user";
             return $http.get(url)
                 .then(function (response) {

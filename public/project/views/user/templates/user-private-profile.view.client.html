@@ -90,7 +90,7 @@
 <br>
 <br>
 
-    <div class="container fluid">
+<div class="container fluid">
         <ul class="nav nav-tabs">
             <li ng-init="model.show ='reviews'"
                 ng-click="model.show='reviews'" ng-class="{'active': model.show==='reviews'}">
@@ -102,44 +102,58 @@
                 <a>Posts</a>
             </li>
             <li ng-if = "!(model.user.roles.indexOf('ADMIN') > 0)"
-                ng-click="model.show='followers'" ng-class="{'active': model.show==='followers'}">
+                ng-click="model.show='followers'"
+                ng-class="{'active': model.show==='followers'}">
                 <a>Followers</a>
             </li>
+            <li ng-click="model.show ='following'"
+                ng-class="{'active': model.show==='following'}"
+                ng-if="model.isfollow">
+                <a>Following</a>
+            </li>
         </ul>
-        <div ng-show="model.show === 'posts'"
-             id="posts"
-             class="tab-pane fade in active">
-            <h3>Posts</h3>
-            <ul class="list-group">
-                {{post.post}}
-                <li ng-repeat="post in model.user.posts" class="list-group-item">
-                    {{post.post}}
-                </li>
-            </ul>
-        </div>
-        <div ng-show="model.show === 'reviews'"
-             id="reviews"
-             class="tab-pane fade in active">
-            <h3>Reviews</h3>
-            <ul class="list-group">
-                <li ng-repeat="review in model.user.reviews" class="list-group-item">
-
-                    <!--<a href="#!/profile-public">-->
-                    {{review.review}}
-                    <!--</a>-->
-                </li>
-                <!--<a class="btn btn-primary btn-block"-->
-                <!--href="#!/user/{{model.user._id}}/review">Reviews</a>-->
-            </ul>
-        </div>
         <div class="tab-content">
             <div ng-show="model.show === 'followers'"
                  id="followers"
                  class="tab-pane fade in active">
                 <h3>Followers</h3>
                 <ul class="list-group">
-                    <li class="list-group-item">
-                        Followers here
+                    <li ng-repeat="follower in model.user.followers"
+                        class="list-group-item"
+                        ng-click="model.selectFollower(follower)">
+                        {{follower.username}}
+                    </li>
+                </ul>
+            </div>
+            <div ng-show="model.show === 'following'"
+                 id="following"
+                 class="tab-pane fade in active">
+                <h3>Following</h3>
+                <ul class="list-group">
+                    <li ng-repeat="following in model.user.following"
+                        class="list-group-item"
+                        ng-click="model.selectFollower(following)">
+                        {{following.username}}
+                    </li>
+                </ul>
+            </div>
+            <div ng-show="model.show === 'reviews'"
+                 id="reviews"
+                 class="tab-pane fade in active">
+                <h3>Reviews</h3>
+                <ul class="list-group">
+                    <li ng-repeat="review in model.user.reviews" class="list-group-item">
+                        {{review.review}}
+                    </li>
+                </ul>
+            </div>
+            <div ng-show="model.show === 'posts'"
+                 id="posts"
+                 class="tab-pane fade in active">
+                <h3>Posts</h3>
+                <ul class="list-group">
+                    <li ng-repeat="post in model.user.posts" class="list-group-item">
+                        {{post.name}}
                     </li>
                 </ul>
             </div>

@@ -58,7 +58,7 @@
                 });
         }
 
-        function findAllReviews(reviewer, review, rating) {
+        function findAllReviews() {
             var url = "/api/project/review";
             return $http.get(url)
                 .then(function (response) {
