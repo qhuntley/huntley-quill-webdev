@@ -42,8 +42,8 @@
                 });
         }
 
-        function deleteReview(reviewId) {
-            var url = "/api/project/review/" + reviewId;
+        function deleteReview(userId, movieId, reviewId, review) {
+            var url = '/api/project/user/' + userId + '/movie/' + movieId + '/review/' + reviewId;
             return $http.delete(url)
                 .then(function (response) {
                     return response.data;

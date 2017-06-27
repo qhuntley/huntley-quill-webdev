@@ -3,14 +3,7 @@
         <div class="navbar-header">
 
             <p class="navbar-text pull-left">
-                <a href="#!/login"
-                   class="navbar-link">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                </a>
-            </p>
-
-            <p class="navbar-text pull-left">
-                <a ng-show=""href="#!/admin"
+                <a href="#!/"
                    class="navbar-link">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                 </a>
@@ -23,34 +16,34 @@
 
             <div class="dropdown pull-right ">
                 <ul class="nav navbar-nav">
-                 <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" role="button">
-                    <span class="glyphicon glyphicon-cog"></span>
-                <ul class="dropdown-menu dropdown-menu-right ">
-                    <li>
-                        <a ng-click="model.updateUser(model.user)"
-                           class="navbar-link">Update Profile
-                        </a>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button">
+                            <span class="glyphicon glyphicon-cog"></span>
+                            <ul class="dropdown-menu dropdown-menu-right ">
+                                <li>
+                                    <a ng-click="model.updateUser(model.user)"
+                                       class="navbar-link">Update Profile
+                                    </a>
+                                </li>
+                                <li>
+                                    <a ng-click="model.logout()"
+                                       class="navbar-link">Logout
+                                    </a>
+                                </li>
+                                <li ng-if="model.user.roles.indexOf('ADMIN') > -1">
+                                    <a href="#!/admin"
+                                       class="navbar-link">Admin
+                                    </a>
+                                </li>
+                                <li role="separator" class="divider"></li>
+                                <li>
+                                    <a ng-click="model.unregister()"
+                                       class="navbar-link">
+                                        Unregister
+                                    </a>
+                                </li>
+                            </ul>
                     </li>
-                    <li>
-                        <a ng-click="model.logout()"
-                           class="navbar-link">Logout
-                        </a>
-                    </li>
-                    <li ng-if="model.user.roles.indexOf('ADMIN') > -1">
-                        <a href="#!/admin"
-                           class="navbar-link">Admin
-                        </a>
-                    </li>
-                    <li role="separator" class="divider"></li>
-                    <li>
-                        <a ng-click="model.unregister()"
-                           class="navbar-link">
-                        Unregister
-                        </a>
-                    </li>
-                </ul>
-                </li>
                 </ul>
             </div>
 
@@ -110,8 +103,7 @@
                 ng-click="model.show ='posts'" ng-class="{'active': model.show==='posts'}">
                 <a>Posts</a>
             </li>
-            <li ng-click="model.show='followers'"
-                ng-class="{'active': model.show==='followers'}">
+            <li ng-click="model.show='followers'" ng-class="{'active': model.show==='followers'}">
                 <a>Followers</a>
             </li>
         </ul>
@@ -132,13 +124,15 @@
              class="tab-pane fade in active">
             <h3>Reviews</h3>
             <ul class="list-group">
+                {{model.user.reviews}}
                 <li ng-repeat="review in model.user.reviews" class="list-group-item">
-                    <a href="#!/profile-public">
-                        {{review.name}}
-                    </a>
+
+                    <!--<a href="#!/profile-public">-->
+                    {{review.review}}
+                    <!--</a>-->
                 </li>
-                <a class="btn btn-primary btn-block"
-                   href="#!/user/{{model.user._id}}/review">Reviews</a>
+                <!--<a class="btn btn-primary btn-block"-->
+                <!--href="#!/user/{{model.user._id}}/review">Reviews</a>-->
             </ul>
         </div>
         <div class="tab-content">
@@ -155,5 +149,3 @@
         </div>
     </div>
 </div>
-
-

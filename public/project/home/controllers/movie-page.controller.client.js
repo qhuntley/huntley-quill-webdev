@@ -4,7 +4,7 @@
         .controller('movieController', movieController);
 
     function movieController(currentUser, $sce, $location, $routeParams, homeService, $scope,
-                             reviewProjectService, postProjectService, $route) {
+                             reviewProjectService,postProjectService, $route) {
 
         var model = this;
         model.movieId = $routeParams['movieId'];
@@ -12,9 +12,11 @@
         model.upcomingIndex = 1;
         model.canCreate = false;
         model.canEdit = false;
+        model.canView = true;
 
         function init() {
 
+            // movie data
             homeService
                 .searchMovieById(model.movieId)
                 .then(function (response) {
@@ -34,7 +36,7 @@
                 .then(function (response) {
                     temp = [];
                     var data = response.data.results;
-                    for (i = 0; i < data.length; i++) {
+                    for(i =0; i < data.length; i++){
                         temp.push(data[i]);
                     }
                     model.similarMovie = temp;
@@ -45,33 +47,35 @@
                 .then(function (response) {
                     var data = response.data.results;
                     model.recommendedMovie = [];
-                    for (i = 0; i < data.length; i++) {
+                    for(i =0; i < data.length; i++){
                         model.recommendedMovie.push(data[i]);
                     }
                 });
 
-            reviewProjectService
-                .findReviewsByMovieId(model.movieId)
-                .then(function (response) {
-                    model.reviews = response;
-                });
-
+            //posts
             postProjectService
                 .findPostsByMovieId(model.movieId)
                 .then(function (response) {
                     model.posts = response;
                 });
 
-            if (model.loggedUser._id) {
+            // reviews
+            reviewProjectService
+                .findReviewsByMovieId(model.movieId)
+                .then(function (response) {
+                    model.reviews = response;
+                });
+
+            if(model.loggedUser._id) {
                 var reviews = model.loggedUser.reviews;
                 console.log(reviews.length === 0);
-                if (reviews.length !== 0) {
-                    for (i = 0; i < reviews.length; i++) {
+                if(reviews.length !== 0){
+                    for(i = 0; i < reviews.length; i++){
                         var currReview = reviews[i];
-                        console.log(model.movieId === currReview.movieId + '');
-                        if (currReview.movieId + '' === model.movieId) {
+                        console.log(model.movieId === currReview.movieId+'');
+                        if(currReview.movieId+'' === model.movieId){
                             model.canCreate = false;
-                            model.canEdit = true;
+                            //model.canEdit = true;
                             break;
                         }
                         else {
@@ -79,24 +83,21 @@
                         }
                     }
                 }
-                else {
+                else{
                     model.canCreate = true;
                 }
             }
-
             console.log(model.canCreate);
 
-
-            if (model.canEdit) {
+            if(model.canEdit){
                 reviewProjectService
-                    .findMovieReviewByUserId(model.loggedUser._id, model.movieId);
+                    .findMovieReviewByUserId(model.loggedUser._id,model.movieId);
                 // .then(function (response) {
                 //     console.log(response);
                 //     model.review = response;
                 // });
             }
         }
-
         init();
 
         model.createReview = createReview;
@@ -104,6 +105,8 @@
         model.selectReview = selectReview;
         model.editReview = editReview;
         model.deleteReview = deleteReview;
+        model.updateReview = updateReview;
+        model.createPost = createPost;
 
         // navigate to another movie page
         function selectMovie(movieId) {
@@ -116,12 +119,12 @@
             reviewer = review._reviewer;
             var userId = reviewer._id;
             console.log(userId);
-            $location.url('/user/' + userId + '/profile-public');
+            $location.url('/user/'+ userId + '/profile-public');
         }
 
         function createReview(review) {
             console.log(review);
-            if (typeof review === 'undefined') {
+            if(typeof review === 'undefined') {
                 model.error = "Review name required!";
                 return;
             }
@@ -129,82 +132,82 @@
                 .createReview(model.loggedUser._id, model.movieId, review)
                 .then(function () {
                     model.canCreate = false;
-                    model.canEdit = true;
+                    //model.canEdit = true;
+                    model.canView = false;
                     $route.reload();
                 });
         }
 
         function editReview(review) {
+            model.canEdit = true;
+            model.review = review;
+        }
+
+        function updateReview(review) {
+
             var reviewId = review._id;
 
             reviewProjectService
-                .editReview(model.loggedUser._id, model.movieId, reviewId, review)
-                .then(function () {
-                    model.mssage = "Review Updated Successfully";
-                    $location.reload();
-                });
-            $location.url('/user/' + currentUser._id + '/movie/' + model.movieId + '/review/' + reviewId);
-        }
-
-        function deleteReview(review) {
-
-        }
-
-        //Posts
-        model.selectPost = selectPost;
-        model.editPost = editPost;
-        model.deletePost = deletePost;
-        model.createPost = createPost;
-
-        function selectPost(post) {
-            console.log(post);
-            author = post._author;
-            var userId = author._id;
-            console.log(userId);
-            $location.url('/user/' + userId + '/profile-public');
-        }
-
-        function deletePost(post) {
-
-        }
-
-        function editPost(post) {
-            var postId = post._id;
-
-            postProjectService
-                .editPost(model.loggedUser._id, model.movieId, postId, post)
-                .then(function () {
-                    model.mssage = "Post Updated Successfully";
-                    $location.reload();
-                });
-            $location.url('/user/' + currentUser._id + '/movie/' + model.movieId + '/post/' + postId);
-        }
-
-        function createPost(post) {
-            console.log(post);
-            if (typeof post === 'undefined') {
-                model.error = "Post name required!";
-                return;
-            }
-            postProjectService
-                .createPost(model.loggedUser._id, model.movieId, post)
-                .then(function () {
-                    console.log(post);
+                .updateReview(model.loggedUser._id, model.movieId, reviewId, review)
+                .then(function (review) {
+                    console.log(review);
+                    model.message = "Review Updated Successfully";
                     $route.reload();
                 });
         }
 
+        function deleteReview(review) {
+            console.log(review);
+            var reviewId = review._id;
 
-        $(document).on('change', '.div-toggle', function () {
+            reviewProjectService
+                .deleteReview(model.loggedUser._id, model.movieId, reviewId, review)
+                .then(function () {
+                    model.message = "Review Deleted Successfully";
+                    model.canCreate = true;
+                    //model.canEdit = true;
+                    model.canView = true;
+                    $route.reload();
+                });
+
+        }
+
+        //Posts
+
+        function createPost(post) {
+            if(typeof post === 'undefined') {
+                model.error = "Review name required!";
+                return;
+            }
+            console.log("create");
+            console.log(post);
+            if(post.post) {
+                post.postType = 'TEXT';
+            }
+            if(post.description) {
+                post.postType = 'YOUTUBE';
+            }
+            if(post.name) {
+                //post = {"postType": "", "pageId": "", "width": "", "url": ""};
+                post.postType = 'IMAGE';
+            }
+            postProjectService
+                .createPost(model.loggedUser._id, model.movieId, post)
+                .then(function () {
+                    $route.reload();
+                })
+        }
+
+        $(document).on('change', '.div-toggle', function() {
             var target = $(this).data('target');
             var show = $("option:selected", this).data('show');
             $(target).children().addClass('hide');
             $(show).removeClass('hide');
         });
-        $(document).ready(function () {
+        $(document).ready(function(){
             $('.div-toggle').trigger('change');
         });
 
     }
 
-    })();
+})();

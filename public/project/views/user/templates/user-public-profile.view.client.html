@@ -9,7 +9,7 @@
         <div class="navbar-header">
 
             <p class="navbar-text pull-left">
-                <a href="#!/login"
+                <a href="#!/"
                    class="navbar-link">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                 </a>
@@ -30,54 +30,29 @@
 </nav>
 <br>
 
-<!--{{model.user}}-->
-<!--{{model.loggedUser}}-->
-<!--{{model.user._id === model.loggedUser._id}}-->
-<div ng-show="model.loggedUser._id" ng-if="model.user._id !== model.loggedUser._id">
-
-
-    <!--  <button class="btn pull-right"
-             ng-class="{true:'btn-primary', false:'btn-secondary'}[!S.isFollow]"
-             ng-click="toggleFollow(model.userId)"> {{!S.isFollow && 'Follow' || 'Unfollow'}}
-     </button>
-
-    <script>
-         $scope.toggleFollow = function (userId) {
-             userId = model.user._id;
-             var element = loggedUser
-             if (element == -1) {
-                 // Follow user
-                 $scope.Searched[Sindex].isFollow = !$scope.Searched[Sindex].isFollow; // Toggles the button
-                 console.log("Follow called");
-             } else if (element > -1) {
-             // Unfollow user
-             $scope.Searched[Sindex].isFollow = !$scope.Searched[Sindex].isFollow; // Toggles the button
-             console.log("Unfollow called");
-             }
-         }
-     </script>-->
-
-<button class = "btn btn-info pull-right">
-    <span class="msg-follow">
-        <div ng-click="model.follow(model.user, model.loggedUser) ">Follow</div>
-    </span>
-    <span class="msg-following">
-        <div ng-click="model.unfollow(model.user, model.loggedUser)">Following</div>
-    </span>
-    <span class="msg-unfollow">
-        Unfollow
-    </span>
-</button>
-</div>
-
-<div ng-show="model.loggedUser._id" ng-if="model.user._id !== model.loggedUser._id">
+<div ng-if="!(model.user.roles.indexOf('ADMIN') > 0)">
+    <div ng-show="model.loggedUser._id" ng-if="model.user._id !== model.loggedUser._id">
+        <button class="btn btn-info pull-right">
+            <span class="msg-follow">
+                <div ng-click="model.follow(model.user, model.loggedUser)">Follow</div>
+            </span>
+            <span class="msg-following">
+                <div ng-click="model.unfollow(model.user, model.loggedUser)">Following</div>
+            </span>
+            <span class="msg-unfollow">
+                Unfollow
+            </span>
+        </button>
+    </div>
+    <div ng-show="model.loggedUser._id"
+         ng-if="model.user._id !== model.loggedUser._id">
     <span class="msg-following btn btn-info pull-right">
         <div ng-click="model.unfollow(model.user, model.loggedUser)">Following</div>
     </span>
+    </div>
 </div>
 
-<div ng-if="!(model.user.roles.indexOf('ADMIN') > 0)">
-    <div class="container fluid" ng-init="model.show='followers'">
+<div class="container fluid" ng-init="model.show='followers'">
         <ul class="nav nav-tabs">
             <li ng-if="!(model.user.roles.indexOf('CELEBRITY') > 0)"
                 ng-init="model.show ='reviews'"
@@ -86,6 +61,10 @@
             </li>
             <li ng-if="(model.user.roles.indexOf('CELEBRITY') > 0)"
                 ng-init="model.show ='posts'"
+                ng-click="model.show='posts'" ng-class="{'active': model.show==='posts'}">
+                <a>Posts</a>
+            </li>
+            <li ng-if="(model.user.roles.indexOf('ADMIN') > 0)"
                 ng-click="model.show='posts'" ng-class="{'active': model.show==='posts'}">
                 <a>Posts</a>
             </li>

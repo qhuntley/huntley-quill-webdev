@@ -113,31 +113,6 @@
                     currentUser: checkAdmin
                 }
             })
-
-            .when('/user/:userId/review', {
-                templateUrl: 'views/review/templates/review-list.view.client.html',
-                controller: 'reviewListController',
-                controllerAs: 'model',
-                resolve: {
-                    currentUser: checkLoggedIn
-                }
-            })
-            .when('/user/:userId/movie/:movieId/review/new', {
-                templateUrl: 'views/review/templates/review-new.view.client.html',
-                controller: 'reviewNewController',
-                controllerAs: 'model',
-                resolve: {
-                    currentUser: checkLoggedIn
-                }
-            })
-            .when('/user/:userId/movie/:movieId/review/:reviewId', {
-                templateUrl: 'views/review/templates/review-edit.view.client.html',
-                controller: 'reviewEditController',
-                controllerAs: 'model',
-                resolve: {
-                    currentUser: checkLoggedIn
-                }
-            })
             .when('/user/:userId/post', {
                 templateUrl: 'views/post/templates/post-list.view.client.html',
                 controller: 'postListController',

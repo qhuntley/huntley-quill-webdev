@@ -72,12 +72,12 @@ function updateReview(userId, movieId, reviewId, review) {
 
 }
 
-function deleteReview(reviewId) {
+function deleteReview(userId, movieId, reviewId, review) {
     return reviewProjectModel
         .remove({_id: reviewId})
         .then(function () {
             userProjectModel
-                .findOne({reviews: reviewId})
+                .findOne({_id: userId})
                 .then(function (user) {
                     var index = user.reviews.indexOf(reviewId);
                     user.reviews.splice(index, 1);
@@ -100,7 +100,3 @@ function findReviewsByMovieId(movieId) {
         .populate('_reviewer')
         .exec();
 }
-
-
-
-

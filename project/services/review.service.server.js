@@ -6,7 +6,7 @@ app.get('/api/project/user/:userId/review', findAllReviewsForUser);
 app.post('/api/project/user/:userId/movie/:movieId/review', createReview);
 app.put('/api/project/user/:userId/movie/:movieId/review/:reviewId', updateReview);
 app.get('/api/project/review/:reviewId', findReviewById);
-app.delete('/api/project/review/:reviewId', deleteReview);
+app.delete('/api/project/user/:userId/movie/:movieId/review/:reviewId', deleteReview);
 app.get('/api/project/review', isAdmin, findAllReviews);
 app.get('/api/project/:movieId', findReviewsByMovieId);
 app.get('/api/project/user/:userId/movie/:movieId', findMovieReviewByUserId);
@@ -58,11 +58,16 @@ function updateReview(req, res) {
 }
 
 function deleteReview(req, res) {
-    var reviewId = req.params.reviewId;
+    var review = req.body;
+    var userId = req.params['userId'];
+    var movieId = req.params.movieId;
+    var reviewId =  req.params.reviewId;
     reviewProjectModel
-        .deleteReview(reviewId)
+        .deleteReview(userId, movieId, reviewId, review)
         .then(function (status) {
             res.sendStatus(200);
+        }, function(err) {
+            res.sendStatus(404);
         });
 }
 
@@ -101,7 +106,7 @@ function isAdmin(req, res, next) {
 function findReviewsByMovieId(req, res) {
     var movieId = req.params['movieId'];
     console.log(movieId);
-     reviewProjectModel
+    reviewProjectModel
         .findReviewsByMovieId(movieId)
         .then(function (reviews) {
             res.json(reviews);
