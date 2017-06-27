@@ -136,7 +136,7 @@
                     <h5>No reviews yet.. Be the first to review it!</h5>
                 </div>
 
-                <div class="well" ng-show="!model.canEdit">
+                <div class="well" ng-show="model.canView">
                     <h4>Write a Review:</h4>
                     <form>
                         <div class="form-group">
@@ -212,10 +212,9 @@
                         <span ng-show="model.loggedUser._id === post._author._id"
                               ng-click="model.editPost(post)"
                               class="glyphicon glyphicon-pencil pull-right"></span>
-
+                        <label ng-click="model.selectPost(post)"><u>{{post._author.username}}</u></label>
                         <div ng-switch ="post.postType">
                             <div ng-switch-when="TEXT">
-                                    <label ng-click="model.selectPost(post)"><u>{{post._author.username}}</u></label>
                                     <span>
                                 <p>{{post.post}}</p>
                                 </span>
@@ -223,8 +222,8 @@
 
                             </div>
                             <div ng-switch-when = "IMAGE">
-                                <label ng-click="model.selectPost(post)"><u>{{post._author.username}}</u></label>
-                                    <span>
+                                <!--<label ng-click="model.selectPost(post)"><u>{{post._author.username}}</u></label>-->
+                                <span>
                                     <p>{{post.name}}</p>
                                     </span>
 
@@ -234,8 +233,8 @@
                             </div>
 
                             <div ng-switch-when = "YOUTUBE">
-                                <label ng-click="model.selectPost(post)"><u>{{post._author.username}}</u></label>
-                                    <span>
+                                <!--<label ng-click="model.selectPost(post)"><u>{{post._author.username}}</u></label>-->
+                                <span>
                                 <p>{{post.description}}</p>
                                 </span>
 
@@ -243,13 +242,12 @@
                                     <iframe width="100%" src="{{model.getYouTubeEmbedUrl(post.url)}}"></iframe>
                                 </div>
                             </div>
+                        </div>
+
                     </div>
-
                 </div>
-                </div>
-
                 <div class="well" ng-show="model.posts.length == 0">
-                    <h5>No posts yet.. Be the first to post about it!</h5>
+                    <h5>No posts yet.. Celebrity? Be the first to post!</h5>
                 </div>
 
                 <div class="well" ng-show="!model.canEdit">
@@ -295,7 +293,6 @@
                                             <input  name="width"     value="{{model.post.width}}" style="display: none"/>
                                             <input  name="userId"    value="{{model.userId}}"       style="display: none"/>
                                             <input  name="movieId" value="{{model.movieId}}"    style="display: none"/>
-                                            <input  name="pageId"    value="{{model.pageId}}"       style="display: none"/>
                                             <input  name="postId"  value="{{model.post._id}}"   style="display: none"/>
                                             <button type="submit"    class="btn btn-block btn-primary">Upload Image</button>
                                         </form>
@@ -331,95 +328,85 @@
                         <!--role="button"><strong>Please login to review!</strong></a>-->
                     </form>
                 </div>
-                    <div class="well" ng-show="model.canEdit">
-                        <div ng-show="model.message" class="alert alert-info">
-                            {{model.message}}
-                        </div>
-                        <h4>Edit Post:</h4>
-                        <form>
-                            <select class="div-toggle" data-target=".my-info-1">
-                                <option value="Text" data-show=".text">Text</option>
-                                <option value="Image" data-show=".image">Image</option>
-                                <option Video="apple" data-show=".video">Video</option>
-                            </select>
-                            <form>
-                                <div class="form-group">
-                                    <div class="my-info-1">
-                                        <div class="text hide">
-                                            <div class="form-group">
-                                        <textarea class="form-control"
-                                                  rows="3"
-                                                  placeholder="The movie is great!"
-                                                  ng-model="model.post.post">
-                                        </textarea>
-                                            </div>
-                                        </div>
-                                        <div class="image hide">
-                                            <form>
-                                                <label for="name1">Name</label>
-                                                <input id="name1"
-                                                       type="text"
-                                                       ng-model = "model.post.name"
-                                                       class="form-control">
-                                                <label for="url2">URL</label>
-                                                <input id="url2"
-                                                       ng-model = "model.post.url"
-                                                       type="url"
-                                                       class="form-control"
-                                                       placeholder="https://www.sitebuilderreport.com/assets/facebook-stock-up-446fff24fb11820517c520c4a5a4c032.jpg">
-                                                <label for="width3">Width</label>
-                                                <input id="width3"
-                                                       ng-model = "model.post.width"
-                                                       type="text"
-                                                       class="form-control"
-                                                       placeholder="100%">
-                                                <form action="/api/project/upload"   method="post" enctype="multipart/form-data">
-                                                    <input  name="myFile"    type="file" class="form-control"/>
-                                                    <input  name="width"     value="{{model.post.width}}" style="display: none"/>
-                                                    <input  name="userId"    value="{{model.userId}}"       style="display: none"/>
-                                                    <input  name="movieId" value="{{model.movieId}}"    style="display: none"/>
-                                                    <input  name="pageId"    value="{{model.pageId}}"       style="display: none"/>
-                                                    <input  name="postId"  value="{{model.post._id}}"   style="display: none"/>
-                                                    <button type="submit"    class="btn btn-block btn-primary">Upload Image</button>
-                                                </form>
-                                            </form>
-                                        </div>
-                                        <div class="video hide">
-                                            <form>
-                                                <label for="description2" style="font-weight: normal">Description</label>
-                                                <input id="description2"
-                                                       type="text"
-                                                       ng-model = "model.post.description"
-                                                       class="form-control">
-                                                <label for="url3" style="font-weight: normal">URL</label>
-                                                <input id="url3"
-                                                       class="form-control"
-                                                       ng-model = "model.post.url"
-                                                       type="url"
-                                                       placeholder="https://www.sitebuilderreport.com/assets/facebook-stock-up-446fff24fb11820517c520c4a5a4c032.jpg">
-                                                <label for="width4" style="font-weight: normal">Width</label>
-                                                <input id="width4"
-                                                       type="text"
-                                                       ng-model = "model.post.width"
-                                                       placeholder="100%"
-                                                       class="form-control">
-                                            </form>
-                                        </div>
+                <div class="well" ng-show="model.canEdit">
+                    <div ng-show="model.message" class="alert alert-info">
+                        {{model.message}}
+                    </div>
+                    <h4>Edit Post:</h4>
+                    <form>
+                        <div class="form-group">
+                            <div ng-switch ="model.post.postType">
+                                <div ng-switch-when="TEXT">
+                                    <div>
+                                                <textarea class="form-control"
+                                                          rows="3"
+                                                          placeholder="The movie is great!"
+                                                          ng-model="model.post.post">
+                                                </textarea>
                                     </div>
                                 </div>
-                            </form>
-                            <a href="" class="btn btn-success " ng-show="model.canEdit"
-                               ng-click="model.updatePost(model.post)"
-                               role="button"><strong>Update It!</strong></a>
-                            <a href="" class="btn btn-danger " ng-show="model.canEdit"
-                               ng-click="model.deletePost(model.post)"
-                               role="button"><strong>Delete It!</strong></a>
-                            <!--<a href="" class="btn btn-warning" ng-show="!model.canEdit" ng-disabled="!model.canCreate"-->
-                            <!--role="button"><strong>Please login to review!</strong></a>-->
-                        </form>
-                    </div>
+                                <div ng-switch-when="IMAGE">
+                                    <label for="name1">Name</label>
+                                    <input id="name1"
+                                           type="text"
+                                           ng-model = "model.post.name"
+                                           class="form-control">
+                                    <label for="url2">URL</label>
+                                    <input id="url2"
+                                           ng-model = "model.post.url"
+                                           type="url"
+                                           class="form-control"
+                                           placeholder="https://www.sitebuilderreport.com/assets/facebook-stock-up-446fff24fb11820517c520c4a5a4c032.jpg">
+                                    <label for="width3">Width</label>
+                                    <input id="width3"
+                                           ng-model = "model.post.width"
+                                           type="text"
+                                           class="form-control"
+                                           placeholder="100%">
+                                    <form action="/api/project/upload"   method="post" enctype="multipart/form-data">
+                                        <input  name="myFile"    type="file" class="form-control"/>
+                                        <input  name="width"     value="{{model.post.width}}" style="display: none"/>
+                                        <input  name="userId"    value="{{model.userId}}"       style="display: none"/>
+                                        <input  name="movieId" value="{{model.movieId}}"    style="display: none"/>
+                                        <input  name="pageId"    value="{{model.pageId}}"       style="display: none"/>
+                                        <input  name="postId"  value="{{model.post._id}}"   style="display: none"/>
+                                        <button type="submit"    class="btn btn-block btn-primary">Upload Image</button>
+                                    </form>
+                                </div>
+                                <div ng-switch-when="YOUTUBE">
+                                    <label for="description2" style="font-weight: normal">Description</label>
+                                    <input id="description2"
+                                           type="text"
+                                           ng-model = "model.post.description"
+                                           class="form-control">
+                                    <label for="url3" style="font-weight: normal">URL</label>
+                                    <input id="url3"
+                                           class="form-control"
+                                           ng-model = "model.post.url"
+                                           type="url"
+                                           placeholder="https://www.sitebuilderreport.com/assets/facebook-stock-up-446fff24fb11820517c520c4a5a4c032.jpg">
+                                    <label for="width4" style="font-weight: normal">Width</label>
+                                    <input id="width4"
+                                           type="text"
+                                           ng-model = "model.post.width"
+                                           placeholder="100%"
+                                           class="form-control"/>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <a href="" class="btn btn-success " ng-show="model.canEdit"
+                       ng-click="model.updatePost(model.post)"
+                       role="button"><strong>Update It!</strong></a>
+                    <a href="" class="btn btn-danger " ng-show="model.canEdit"
+                       ng-click="model.deletePost(model.post)"
+                       role="button"><strong>Delete It!</strong></a>
+                    <!--<a href="" class="btn btn-warning" ng-show="!model.canEdit" ng-disabled="!model.canCreate"-->
+                    <!--role="button"><strong>Please login to review!</strong></a>-->
+
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>

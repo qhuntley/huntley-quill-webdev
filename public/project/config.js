@@ -113,9 +113,36 @@
                     currentUser: checkAdmin
                 }
             })
+
+            .when('/admin/posts/edit/:postId', {
+                templateUrl: 'views/admin/templates/admin-posts-edit.view.client.html',
+                controller: 'adminPostEditsProjectController',
+                controllerAs: 'model',
+                resolve: {
+                    currentUser: checkAdmin
+                }
+            })
+
+            .when('/admin/posts/new', {
+                templateUrl: 'views/admin/templates/admin-posts-chooser.view.client.html',
+                controller: 'adminPostNewProjectController',
+                controllerAs: 'model',
+                resolve: {
+                    currentUser: checkAdmin
+                }
+            })
+
+            .when('/admin/posts/new/text', {
+                templateUrl: 'views/admin/templates/admin-posts-new-text.view.client.html',
+                controller: 'adminPostNewProjectController',
+                resolve: {
+                    currentUser: checkAdmin
+                }
+            })
+
             .when('/user/:userId/post', {
                 templateUrl: 'views/post/templates/post-list.view.client.html',
-                controller: 'postListController',
+                controller: 'adminController',
                 controllerAs: 'model',
                 resolve: {
                     currentUser: checkLoggedIn
@@ -124,14 +151,6 @@
             .when('/user/:userId/post/new', {
                 templateUrl: 'views/post/templates/post-chooser.view.client.html',
                 controller: 'postNewController',
-                controllerAs: 'model',
-                resolve: {
-                    currentUser: checkLoggedIn
-                }
-            })
-            .when('/user/:userId/post/:postId', {
-                templateUrl: 'views/post/templates/post-edit.view.client.html',
-                controller: 'postEditController',
                 controllerAs: 'model',
                 resolve: {
                     currentUser: checkLoggedIn

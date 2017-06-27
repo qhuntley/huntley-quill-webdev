@@ -1,0 +1,29 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand">New Text</a>
+    </div>
+</nav>
+
+<div class="container-fluid">
+<form>
+    <label for="text">Text</label>
+    <input id="text"
+           class="form-control"
+           rows="3"
+           placeholder="The movie is great!"
+           ng-model="modelpost.post">
+    </input>
+    <label for="movie">Movie Id</label>
+    <input id="movie"
+           type="text"
+           placeholder="19995"
+           ng-model = "model.post.movieId"
+           class="form-control">
+    </input>
+    <a class="btn btn-success "
+       ng-click="model.create(post)"
+       role="button"><strong>Post It!</strong>
+    </a>
+</form>
+
+</div>

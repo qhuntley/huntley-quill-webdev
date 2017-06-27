@@ -16,6 +16,7 @@
         model.canCreate = false;
         model.canEdit = false;
         model.canView = true;
+        model.normal = true;
         model. getYouTubeEmbedUrl =  getYouTubeEmbedUrl;
 
         function init() {
@@ -70,6 +71,7 @@
                     model.reviews = response;
                 });
 
+            // for reviews
             if(model.loggedUser._id) {
                 var reviews = model.loggedUser.reviews;
                 console.log(reviews.length === 0);
@@ -79,7 +81,7 @@
                         console.log(model.movieId === currReview.movieId+'');
                         if(currReview.movieId+'' === model.movieId){
                             model.canCreate = false;
-                            //model.canEdit = true;
+                            model.canView = false;
                             break;
                         }
                         else {
@@ -93,14 +95,14 @@
             }
             console.log(model.canCreate);
 
-            if(model.canEdit){
-                reviewProjectService
-                    .findMovieReviewByUserId(model.loggedUser._id,model.movieId);
-                // .then(function (response) {
-                //     console.log(response);
-                //     model.review = response;
-                // });
-            }
+            // if(model.canEdit){
+            //     reviewProjectService
+            //         .findMovieReviewByUserId(model.loggedUser._id,model.movieId);
+            //     // .then(function (response) {
+            //     //     console.log(response);
+            //     //     model.review = response;
+            //     // });
+            // }
         }
         init();
 
@@ -142,7 +144,7 @@
                     model.canCreate = false;
                     //model.canEdit = true;
                     model.canView = false;
-                    $route.reload();
+                    init();
                 });
         }
 
@@ -240,7 +242,6 @@
                 .then(function () {
                     model.message = "Post Deleted Successfully";
                     model.canCreate = true;
-                    //model.canEdit = true;
                     model.canView = true;
                     $route.reload();
                 });

@@ -100,6 +100,14 @@ a:hover {
     color: white;
 }
 
+.glyphicon-plus {
+    color: white;
+}
+
+.glyphicon-pencil {
+    color: black;
+}
+
 .navbar-default {
     background-color: cornflowerblue;
 }

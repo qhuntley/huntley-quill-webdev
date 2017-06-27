@@ -1,4 +1,3 @@
-
 var mongoose = require('mongoose');
 var postSchema = require('./post.schema.server');
 var postProjectModel = mongoose.model('postProjectModel', postSchema);
@@ -56,6 +55,7 @@ function updatePost(userId, movieId, postId, post) {
             movieId: movieId,
             name: post.name,
             postType: post.postType,
+            description: post.description,
             post: post.post,
             url: post.url,
             width: post.width

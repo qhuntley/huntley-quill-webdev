@@ -5,7 +5,10 @@
 
     function adminPostsProjectController(postProjectService, $location, $routeParams) {
         var model = this;
-        model.postId = $routeParams['postId'];
+        //model.postId = $routeParams['postId'];
+        //model.userId = $routeParams['userId'];
+        //model._author = $routeParams['_author'];
+
 
         model.deletePost = deletePost;
         model.selectPost = selectPost;
