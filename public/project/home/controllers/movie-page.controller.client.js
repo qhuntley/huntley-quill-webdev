@@ -7,12 +7,16 @@
                              reviewProjectService,postProjectService, $route) {
 
         var model = this;
+        model.userId = $routeParams['userId'];
         model.movieId = $routeParams['movieId'];
+        model.postId = $routeParams['postId'];
+
         model.loggedUser = currentUser;
         model.upcomingIndex = 1;
         model.canCreate = false;
         model.canEdit = false;
         model.canView = true;
+        model. getYouTubeEmbedUrl =  getYouTubeEmbedUrl;
 
         function init() {
 
@@ -107,6 +111,10 @@
         model.deleteReview = deleteReview;
         model.updateReview = updateReview;
         model.createPost = createPost;
+        model.selectPost = selectPost;
+        model.deletePost = deletePost;
+        model.editPost = editPost;
+        model.updatePost = updatePost;
 
         // navigate to another movie page
         function selectMovie(movieId) {
@@ -174,6 +182,14 @@
 
         //Posts
 
+        function selectPost(post) {
+            console.log(post);
+            author = post._author;
+            var userId = author._id;
+            console.log(userId);
+            $location.url('/user/'+ userId + '/profile-public');
+        }
+
         function createPost(post) {
             if(typeof post === 'undefined') {
                 model.error = "Review name required!";
@@ -196,6 +212,47 @@
                 .then(function () {
                     $route.reload();
                 })
+        }
+
+        function editPost(post) {
+            model.canEdit = true;
+            model.post = post;
+        }
+
+        function updatePost(post) {
+            var postId = post._id;
+
+            postProjectService
+                .updatePost(model.loggedUser._id, model.movieId, postId, post)
+                .then(function (post) {
+                    console.log(post);
+                    model.message = "Post Updated Successfully";
+                    $route.reload();
+                });
+        }
+
+        function deletePost(post) {
+            console.log(post);
+            var postId = post._id;
+
+            postProjectService
+                .deletePost(model.loggedUser._id, model.movieId, postId, post)
+                .then(function () {
+                    model.message = "Post Deleted Successfully";
+                    model.canCreate = true;
+                    //model.canEdit = true;
+                    model.canView = true;
+                    $route.reload();
+                });
+
+        }
+
+        function getYouTubeEmbedUrl(youtubeLink) {
+            var embedUrl = "https://www.youtube.com/embed/";
+            var youTubeLinkParts = youtubeLink.split('/');
+            var id = youTubeLinkParts[youTubeLinkParts.length - 1];
+            embedUrl += id;
+            return $sce.trustAsResourceUrl(embedUrl);
         }
 
         $(document).on('change', '.div-toggle', function() {

@@ -8,8 +8,8 @@ var upload = multer({ dest: __dirname + '/../../public/project/uploads'});
 app.post('/api/project/user/:userId/movie/:movieId/post', createPost);
 app.get('/api/project/user/:userId/post', findPostsByUserId);
 app.get('/api/project/post/:postId', findPostById);
-app.put('/api/project/post/:postId', updatePost);
-app.delete('/api/project/post/:postId', deletePost);
+app.put('/api/project/user/:userId/movie/:movieId/post/:postId', updatePost);
+app.delete('/api/project/user/:userId/movie/:movieId/post/:postId', deletePost);
 app.get('/api/project/post', isAdmin, findAllPosts);
 app.get('/api/project/posts/:movieId', findPostsByMovieId);
 app.post ('/api/project/upload', upload.single('myFile'), uploadImage);
@@ -21,7 +21,6 @@ function uploadImage(req, res) {
 
     var userId = req.body.userId;
     var movieId = req.body.movieId;
-    var pageId = req.body.pageId;
 
     var originalname  = myFile.originalname; // file name on user's computer
     var filename      = myFile.filename;    // new file name in upload folder
@@ -38,7 +37,7 @@ function uploadImage(req, res) {
                 .updatePost(postId, post)
                 .then(function () {
                     var callbackUrl   = "/project/index.html#!/user/" + userId + "/movie/"
-                    + movieId + "/page/" + pageId + "/post/" + postId;
+                    + movieId + "/post/" + postId;
                     res.redirect(callbackUrl);
                 });
         });
@@ -80,9 +79,11 @@ function createPost(req, res) {
 
 function updatePost(req, res) {
     var post = req.body;
+    var userId = req.params.userId;
+    var movieId = req.params.movieId;
     var postId =  req.params.postId;
     postProjectModel
-        .updatePost(postId, post)
+        .updatePost(userId, movieId, postId, post)
         .then(function (status) {
             res.sendStatus(200);
         }, function(err) {
@@ -90,10 +91,14 @@ function updatePost(req, res) {
         });
 }
 
+
 function deletePost(req, res) {
-    var postId = req.params.postId;
+    var post = req.body;
+    var userId = req.params.userId;
+    var movieId = req.params.movieId;
+    var postId =  req.params.postId;
     postProjectModel
-        .deletePost(postId)
+        .deletePost(userId, movieId, postId, post)
         .then(function (status) {
             res.sendStatus(200);
         });
@@ -112,10 +117,9 @@ function findPostById(req, res) {
 
 function findAllPosts(req, res) {
     var author = req.query['_author'];
-    var name = req.query['name'];
     var post = req.query['post'];
-    if(author && name && post) {
-        return findAllPostsForUser(req, res);
+    if(author && post) {
+        return findPostsByUserId(req, res);
     }
     postProjectModel
         .findAllPosts()

@@ -90,20 +90,19 @@
 <br>
 <br>
 
-<div ng-if="!(model.user.roles.indexOf('ADMIN') > 0)">
     <div class="container fluid">
         <ul class="nav nav-tabs">
-            <li ng-if="!(model.user.roles.indexOf('CELEBRITY') > 0)"
-                ng-init="model.show ='reviews'"
+            <li ng-init="model.show ='reviews'"
                 ng-click="model.show='reviews'" ng-class="{'active': model.show==='reviews'}">
                 <a>Reviews</a>
             </li>
-            <li ng-if="(model.user.roles.indexOf('CELEBRITY') > 0)"
-                ng-init="model.show ='posts'"
+            <li ng-if="(model.user.roles.indexOf('CELEBRITY') > 0) ||
+                       (model.user.roles.indexOf('ADMIN') > 0)"
                 ng-click="model.show ='posts'" ng-class="{'active': model.show==='posts'}">
                 <a>Posts</a>
             </li>
-            <li ng-click="model.show='followers'" ng-class="{'active': model.show==='followers'}">
+            <li ng-if = "!(model.user.roles.indexOf('ADMIN') > 0)"
+                ng-click="model.show='followers'" ng-class="{'active': model.show==='followers'}">
                 <a>Followers</a>
             </li>
         </ul>
@@ -112,11 +111,10 @@
              class="tab-pane fade in active">
             <h3>Posts</h3>
             <ul class="list-group">
+                {{post.post}}
                 <li ng-repeat="post in model.user.posts" class="list-group-item">
-                    {{post.name}}
+                    {{post.post}}
                 </li>
-                <a class="btn btn-primary btn-block"
-                   href="#!/user/{{model.user._id}}/post">Posts</a>
             </ul>
         </div>
         <div ng-show="model.show === 'reviews'"
@@ -124,7 +122,6 @@
              class="tab-pane fade in active">
             <h3>Reviews</h3>
             <ul class="list-group">
-                {{model.user.reviews}}
                 <li ng-repeat="review in model.user.reviews" class="list-group-item">
 
                     <!--<a href="#!/profile-public">-->
@@ -147,5 +144,4 @@
                 </ul>
             </div>
         </div>
-    </div>
 </div>

@@ -17,9 +17,10 @@
         }
         init();
 
+        // change the number of paramaters passed to delete, update, to match client server
         function deletePost(post) {
             postProjectService
-                .deletePost(post._id)
+                .deletePost(post._author, post.movieId, post._id, post)
                 .then(findAllPosts);
         }
 
@@ -35,7 +36,7 @@
 
         function updatePost(post) {
             postProjectService
-                .updatePost(post._author, post.movieId, post._id)
+                .updatePost(post._author, post.movieId, post._id, post)
                 .then(findAllPosts);
         }
 
@@ -43,14 +44,11 @@
             postProjectService
                 .findAllPosts()
                 .then(function (posts) {
+                    console.log('this is the post');
+                    console.log(posts[0]._author);
                     model.posts = posts;
                 });
         }
 
-        /*function updateUser(user) {
-         userProjectService
-         .updateUser(user._id, user)
-         .then(findAllUsers);
-         }*/
     }
 })();
