@@ -6,21 +6,9 @@
     function configuration($routeProvider) {
         $routeProvider
 
-            .when('/test', {
-                templateUrl: 'home/templates/test.html'
-            })
-            // .when('/test/page/:movieId',{
-            //     templateUrl: 'home/templates/movie-page.test.html',
-            //     controller: 'movieController',
-            //     controllerAs: 'model',
-            //     resolve: {
-            //         currentUser: checkCurrentUser
-            //     }
-            // })
-
             // user routing
             .when('/', {
-                templateUrl: 'home/templates/home.html',
+                templateUrl: 'views/home/templates/home.html',
                 controller: 'homeController',
                 controllerAs: 'model',
                 resolve: {
@@ -63,7 +51,7 @@
                 controllerAs: 'model'
             })*/
             .when('/page/:movieId', {
-                templateUrl: 'home/templates/movie-page.view.client.html',
+                templateUrl: 'views/home/templates/movie-page.view.client.html',
                 controller: 'movieController',
                 controllerAs: 'model',
                 resolve: {
@@ -72,7 +60,7 @@
             })
 
             .when('/search/:searchTerm', {
-                templateUrl: 'home/templates/search-page.view.client.html',
+                templateUrl: 'views/home/templates/search-page.view.client.html',
                 controller: 'searchController',
                 controllerAs: 'model',
                 resolve: {

@@ -1,4 +1,4 @@
 (function () {
     angular
-        .module('MovieApp', ['ngRoute','wbdvDirectives', 'textAngular', 'ngTable']);
+        .module('MovieApp', ['ngRoute','textAngular']);
 })();
