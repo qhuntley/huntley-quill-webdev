@@ -26,6 +26,7 @@
         }
 
         function createUser(user) {
+            user.password = "password";
             userProjectService
                 .createUser(user)
                 .then(findAllUsers);

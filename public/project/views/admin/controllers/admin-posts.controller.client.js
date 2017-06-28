@@ -14,11 +14,18 @@
         model.selectPost = selectPost;
         model.createPost = createPost;
         model.updatePost = updatePost;
+        model.findPost = findPost;
 
         function init() {
             findAllPosts();
         }
         init();
+
+
+        function findPost(post) {
+            console.log(post);
+           $location.url('/admin/posts/edit/' + post._id);
+        }
 
         // change the number of paramaters passed to delete, update, to match client server
         function deletePost(post) {
@@ -48,7 +55,6 @@
                 .findAllPosts()
                 .then(function (posts) {
                     console.log('this is the post');
-                    console.log(posts[0]._author);
                     model.posts = posts;
                 });
         }

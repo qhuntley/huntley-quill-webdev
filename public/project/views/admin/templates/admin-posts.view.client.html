@@ -49,9 +49,8 @@
                     {{post.name}}
                 </div>
                 <div class="col-xs-1">
-                    <a href = "#!/admin/posts/edit/{{model.postId}}">
-                      <span class="glyphicon glyphicon-pencil pull-right"></span>
-                    </a>
+                      <span ng-click="model.findPost(post)"
+                            class="glyphicon glyphicon-pencil pull-right"></span>
                     <span ng-click="model.deletePost(post)"
                           class="glyphicon glyphicon-remove pull-right"></span>
                 </div>

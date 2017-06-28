@@ -33,17 +33,14 @@
 </nav>
 
 <div class="container-fluid home user-main">
-    <div class="input-group">
-        <input ng-model="searchText"
-               type="text"
-               class="form-control">
-        <span class="input-group-btn">
-                <a ng-click="model.searchNewMovies(searchText)"
-                   class="btn btn-block btn-default"
-                   type="button">
-                    <span class="glyphicon glyphicon-search"></span>
-                </a>
-            </span>
+
+    <div class="container-fluid">
+        <div class="input-group search-bar">
+            <input type="text"
+                   class="form-control"
+                   ng-model="searchText"/>
+            <span ng-click="model.searchNewMovies(searchText)" class="input-group-addon glyphicon glyphicon-search"></span>
+        </div>
     </div>
 
     <ul class="list-group">

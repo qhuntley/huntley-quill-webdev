@@ -135,6 +135,25 @@
             .when('/admin/posts/new/text', {
                 templateUrl: 'views/admin/templates/admin-posts-new-text.view.client.html',
                 controller: 'adminPostNewProjectController',
+                controllerAs: 'model',
+                resolve: {
+                    currentUser: checkAdmin
+                }
+            })
+
+            .when('/admin/posts/new/image', {
+                templateUrl: 'views/admin/templates/admin-posts-new-image.view.client.html',
+                controller: 'adminPostNewProjectController',
+                controllerAs: 'model',
+                resolve: {
+                    currentUser: checkAdmin
+                }
+            })
+
+            .when('/admin/posts/new/youtube', {
+                templateUrl: 'views/admin/templates/admin-posts-new-youtube.view.client.html',
+                controller: 'adminPostNewProjectController',
+                controllerAs: 'model',
                 resolve: {
                     currentUser: checkAdmin
                 }

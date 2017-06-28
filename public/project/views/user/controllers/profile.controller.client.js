@@ -3,88 +3,51 @@
         .module('MovieApp')
         .controller('profileController', profileController);
 
-    function profileController(currentUser, $location, userProjectService, $routeParams, NgTableParams) {
+    function profileController(currentUser, $location, userProjectService, $routeParams, homeService, $sce) {
 
 
         var model = this;
         model.user = currentUser;
-        model.loggedUser = currentUser;
+        model.userId = currentUser._id;
 
         model.updateUser = updateUser;
         model.unregister = unregister;
         model.logout = logout;
-        model.follow = follow;
-        model.unfollow = unfollow;
+        model.selectMovie = selectMovie;
+        model.selectFollower = selectFollower;
+        model.getYouTubeEmbedUrl = getYouTubeEmbedUrl;
+        model.updatePassword = updatePassword;
 
         function init(){
-            //model.user.reviews;
-           // var self = this;
-            //access from dataset
-            //article.dataset.user.reviews;
-
-            var following = currentUser.following;
-            model.isfollow = false;
-            for(i = 0; i < following.length; i++){
-                var currfollower = following[i];
-                console.log("in here");
-                console.log(currfollower._id);
-                console.log(model.userId);
-                if(currfollower._id === model.userId){
-                    model.isfollow = true;
-                    break;
-                }
+            model.reviews = currentUser.reviews;
+            if (currentUser.reviews === 0) {
+                model.error1 = model.user.username + "does not have any reviews yet"
             }
         }
         init();
 
-        model.selectFollower = selectFollower;
-        //model.selectFollowing = selectFollowing;
-        model.isfollowing = isfollowing;
+        function selectMovie(movieId) {
+            $location.url('/page/' + movieId);
+        }
 
         function selectFollower(follower) {
             var userId = follower._id;
             $location.url('/user/'+ userId + '/profile-public');
         }
 
-        /*function selectFollowing(following) {
-            var userId = following._id;
-            $location.url('/user/'+ userId + '/profile-public');
-        }*/
-
-        function isfollowing(loggedUser, user) {
-            var following = loggedUser.following;
-            for(i = 0; i < following.length; i++){
-                var currfollower = following[i];
-                console.log("in here");
-                console.log(currfollower);
-                if(currfollower._id === model.userId){
-                    model.isfollow = true;
-                    break;
-                }
-            }
-            model.isfollow = false;
-        }
-
-
-        function follow(follow, follower) {
-            console.log("jefelnvkm");
-            userProjectService
-                .followUser(follow, follower)
-                .then(function (response) {
-                    console.log(response);
-                });
-        }
-
-        function unfollow(follow, follower) {
-            console.log("trying to unfollow");
-            userProjectService
-                .unfollowUser(follow, follower)
-                .then(function (response) {
-                    console.log(response);
-                });
+        function getYouTubeEmbedUrl(youtubeLink) {
+            var embedUrl = "https://www.youtube.com/embed/";
+            var youTubeLinkParts = youtubeLink.split('/');
+            var id = youTubeLinkParts[youTubeLinkParts.length - 1];
+            embedUrl += id;
+            return $sce.trustAsResourceUrl(embedUrl);
         }
 
         function updateUser(user) {
+            if (user.username === ""){
+                model.error = "Username required";
+                return;
+            }
             userProjectService
                 .updateUser(user._id, user)
                 .then(function () {
@@ -92,6 +55,39 @@
                 });
         }
 
+        function updatePassword(oldPwd, newPwd, verify) {
+            if (oldPwd === null || oldPwd === '' || typeof oldPwd === 'undefined') {
+                model.error = 'Please enter the current Password for verification';
+                return;
+            }
+
+            if (newPwd === null || newPwd === '' || typeof newPwd === 'undefined') {
+                model.error = 'New Password is required';
+                return;
+            }
+
+            if (verify === null || verify === '' || typeof verify === 'undefined') {
+                model.error = 'verify password is required';
+                return;
+            }
+
+            if (newPwd !== verify) {
+                console.log("not matching");
+                model.error = "passwords must match";
+                return;
+            }
+            var info = {
+                oldPwd: oldPwd,
+                newPwd: newPwd,
+                verify: verify
+            };
+            userProjectService
+                .updatePassword(model.userId, info)
+                .then(function (response) {
+                    console.log(response);
+                })
+
+        }
 
         function unregister() {
             userProjectService

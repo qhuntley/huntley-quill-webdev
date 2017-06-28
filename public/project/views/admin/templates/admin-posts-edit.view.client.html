@@ -1,13 +1,86 @@
-{{model.post.postType}}
-<div ng-switch="model.post.postType">
-    <div ng-switch-when="TEXT">
-        text
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand">Edit Post</a>
     </div>
-    <div ng-switch-when="IMAGE">
-       image
-    </div>
-    <div ng-switch-when="YOUTUBE">
-        youtube
-    </div>
+</nav>
+<br>
+<div class="container-fluid">
+    <form>
+        <div ng-switch="model.post.postType">
+            <div ng-switch-when="TEXT">
+                <div>
+                    <h4>Edit Text</h4>
+                    <textarea class="form-control"
+                              rows="3"
+                              placeholder="The movie is great!"
+                              ng-model="model.post.post"
+                              maxlength="500">
+                    </textarea>
+                </div>
+            </div>
+            <div ng-switch-when="IMAGE">
+                <div>
+                    <h4>Edit Image</h4>
+                <label for="name1">Name</label>
+                <input id="name1"
+                       type="text"
+                       ng-model = "model.post.name"
+                       class="form-control">
+                    </input>
+                <label for="url2">URL</label>
+                <input id="url2"
+                       ng-model = "model.post.url"
+                       type="url"
+                       class="form-control"
+                       placeholder="https://www.sitebuilderreport.com/assets/facebook-stock-up-446fff24fb11820517c520c4a5a4c032.jpg">
+                    </input>
+                <label for="width3">Width</label>
+                <input id="width3"
+                       ng-model = "model.post.width"
+                       type="text"
+                       class="form-control"
+                       placeholder="100%">
+                </input>
+                <form action="/api/project/upload"   method="post" enctype="multipart/form-data">
+                    <input  name="myFile"    type="file" class="form-control"/>
+                    <input  name="width"     value="{{model.post.width}}" style="display: none"/>
+                    <input  name="userId"    value="{{model.userId}}"       style="display: none"/>
+                    <input  name="movieId" value="{{model.movieId}}"    style="display: none"/>
+                    <input  name="pageId"    value="{{model.pageId}}"       style="display: none"/>
+                    <input  name="postId"  value="{{model.post._id}}"   style="display: none"/>
+                    <button type="submit"    class="btn btn-block btn-primary">Upload Image</button>
+                </form>
+                </div>
+            </div>
+            <div ng-switch-when="YOUTUBE">
+                <div>
+                    <h4>Edit Video</h4>
+                <label for="description2">Description</label>
+                <input id="description2"
+                       type="text"
+                       ng-model = "model.post.description"
+                       class="form-control">
+                </input>
+                <label for="url3">URL</label>
+                <input id="url3"
+                       class="form-control"
+                       ng-model = "model.post.url"
+                       type="url"
+                       placeholder="https://www.sitebuilderreport.com/assets/facebook-stock-up-446fff24fb11820517c520c4a5a4c032.jpg">
+                </input>
+                <label for="width4">Width</label>
+                <input id="width4"
+                       type="text"
+                       ng-model = "model.post.width"
+                       placeholder="100%"
+                       class="form-control"/>
+                </input>
+            </div>
+            </div>
+        </div>
+    </form>
+    <a href="" class="btn btn-success "
+       ng-click="model.update(model.post)"
+       role="button"><strong>Update It!</strong></a>
 </div>
 

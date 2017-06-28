@@ -1,10 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand">New Video</a>
+    </div>
+</nav>
 
-</body>
-</html>
+<div class="container-fluid">
+    <form>
+        <label for="description" style="font-weight: normal">Description</label>
+        <input id="description"
+               type="text"
+               ng-model = "post.description"
+               class="form-control">
+        </input>
+        <label for="url1" style="font-weight: normal">URL</label>
+        <input id="url1"
+               class="form-control"
+               ng-model = "post.url"
+               type="url"
+               placeholder="https://www.sitebuilderreport.com/assets/facebook-stock-up-446fff24fb11820517c520c4a5a4c032.jpg">
+        </input>
+        <label for="width1" style="font-weight: normal">Width</label>
+        <input id="width1"
+               type="text"
+               ng-model = "post.width"
+               placeholder="100%"
+               class="form-control">
+        </input>
+        <label for="movie">Movie Id</label>
+        <input id="movie"
+               type="text"
+               placeholder="19995"
+               ng-model = "post.movieId"
+               class="form-control">
+        </input>
+        <a class="btn btn-success "
+           ng-click="model.create(post)"
+           role="button"><strong>Post It!</strong>
+        </a>
+    </form>
+</div>
+

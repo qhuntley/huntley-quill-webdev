@@ -16,6 +16,7 @@ userProjectModel.findUserByGoogleId = findUserByGoogleId;
 userProjectModel.followUser = followUser;
 userProjectModel.unfollowUser = unfollowUser;
 userProjectModel.findFollowersById = findFollowersById;
+userProjectModel.updatePassword = updatePassword;
 
 
 module.exports = userProjectModel;
@@ -24,14 +25,15 @@ function findAllUsers() {
     return userProjectModel.find();
 }
 
+function updatePassword(userId, user) {
+    return userProjectModel.update({_id: userId}, {
+        $set: {
+            password: user.password
+        }
+    });
+}
 
 function createUser(user) {
-  /*  if(user.roles) {
-        user.roles = user.roles.split(',');
-    } else {
-        user.roles = ['USER'];
-    }
-    return userProjectModel.create(user);*/
 
     user.roles = ['USER'];
 
@@ -42,6 +44,7 @@ function findUserById(userId) {
     return userProjectModel
         .findById(userId)
         .populate('reviews')
+        .populate('posts')
         .populate('followers')
         .populate('following')
         .exec();
@@ -146,6 +149,3 @@ function updateFacebookToken(userId, facebookId, token) {
             }
         });
 }
-
-
-

@@ -5,7 +5,7 @@ var reviewSchema = mongoose.Schema({
     name: String,
     movieId: Number,
     review: {type: String, require: true},
-    rating: {type: Number, require: true}
+    rating: {type: Number, require: true},
 }, {collection: "review"});
 
 module.exports = reviewSchema;

@@ -43,7 +43,9 @@
                                     </a>
                                 </li>
                             </ul>
+                        </a>
                     </li>
+
                 </ul>
             </div>
 
@@ -58,6 +60,16 @@
 </nav>
 
 <div class="container-fluid user-main">
+
+    <div class="alert alert-info"
+         ng-show="model.message">
+        {{model.message}}
+    </div>
+
+    <div ng-show="model.error"
+         class="alert alert-danger">
+        {{model.error}}
+    </div>
 
     <label for="username">Username</label>
     <input type=text
@@ -85,77 +97,132 @@
            placeholder="last name (Example: Wonderland)"
            id="last"
            class="form-control"/>
+    <details>
+        <summary>Update Password</summary>
+        <div>
+            <label for="password">Old Password</label>
+            <input type="text"
+                   ng-model="password"
+                   placeholder="Enter Current Password"
+                   id="password"
+                   class="form-control"/>
+            <label for="new">New Password</label>
+            <input type="text"
+                   ng-model="newPassword"
+                   placeholder="Enter New Password"
+                   id="new"
+                   class="form-control"/>
+            <label for="verifyNew">Confirm New Password</label>
+            <input type="text"
+                   ng-model="verifyPassword"
+                   placeholder="Confirm New Password"
+                   id="verifyNew"
+                   class="form-control"/>
+            <div class="col">
+                {{i.name}}
+            </div>
+            <a href="" class="btn btn-success "
+               ng-click="model.updatePassword(password, newPassword, verifyPassword)"
+               role="button"><strong>Update Password</strong></a>
+        </div>
+    </details>
 </div>
 <br>
 <br>
 <br>
 
 <div class="container fluid">
-        <ul class="nav nav-tabs">
-            <li ng-init="model.show ='reviews'"
-                ng-click="model.show='reviews'" ng-class="{'active': model.show==='reviews'}">
-                <a>Reviews</a>
-            </li>
-            <li ng-if="(model.user.roles.indexOf('CELEBRITY') > 0) ||
-                       (model.user.roles.indexOf('ADMIN') > 0)"
-                ng-click="model.show ='posts'" ng-class="{'active': model.show==='posts'}">
-                <a>Posts</a>
-            </li>
-            <li ng-if = "!(model.user.roles.indexOf('ADMIN') > 0)"
-                ng-click="model.show='followers'"
-                ng-class="{'active': model.show==='followers'}">
-                <a>Followers</a>
-            </li>
-            <li ng-click="model.show ='following'"
-                ng-class="{'active': model.show==='following'}"
-                ng-if="model.isfollow">
-                <a>Following</a>
+    <ul class="nav nav-tabs">
+        <li ng-init="model.show ='reviews'"
+            ng-click="model.show='reviews'" ng-class="{'active': model.show==='reviews'}">
+            <a>Reviews</a>
+        </li>
+        <li ng-if="(model.user.roles.indexOf('CELEBRITY') >= 0) ||
+                       (model.user.roles.indexOf('ADMIN') >= 0)"
+            ng-click="model.show ='posts'" ng-class="{'active': model.show==='posts'}">
+            <a>Posts</a>
+        </li>
+        <li ng-if = "!(model.user.roles.indexOf('ADMIN') > 0)"
+            ng-click="model.show='followers'" ng-class="{'active': model.show==='followers'}">
+            <a>Followers</a>
+        </li>
+    </ul>
+    <div ng-show="model.show === 'posts'"
+         id="posts"
+         class="tab-pane fade in active">
+        <h3>Posts</h3>
+        <ul class="list-group">
+            <li ng-repeat="post in model.user.posts" class="list-group-item">
+                <div class="well reviewFormat">
+                    <a class="btn btn-success btn-sm pull-right"
+                       ng-click="model.selectMovie(post.movieId)">
+                        Go to review page
+                    </a>
+                    <div ng-switch ="post.postType">
+                        <div ng-switch-when="TEXT">
+                                    <span>
+                                <p>{{post.post}}</p>
+                                </span>
+                        </div>
+                        <div ng-switch-when = "IMAGE">
+                            <!--<label ng-click="model.selectPost(post)"><u>{{post._author.username}}</u></label>-->
+                            <span>
+                                    <p>{{post.name}}</p>
+                                    </span>
+
+                            <img ng-src="{{post.url}}"
+                                 width="{{post.width}}"/>
+
+                        </div>
+                        <div ng-switch-when = "YOUTUBE">
+                            <!--<label ng-click="model.selectPost(post)"><u>{{post._author.username}}</u></label>-->
+                            <span>
+                                <p>{{post.description}}</p>
+                                </span>
+
+                            <div class="youtube-post">
+                                <iframe width="100%" src="{{model.getYouTubeEmbedUrl(post.url)}}"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                    {{review.review}}
+                </div>
             </li>
         </ul>
-        <div class="tab-content">
-            <div ng-show="model.show === 'followers'"
-                 id="followers"
-                 class="tab-pane fade in active">
-                <h3>Followers</h3>
-                <ul class="list-group">
-                    <li ng-repeat="follower in model.user.followers"
-                        class="list-group-item"
-                        ng-click="model.selectFollower(follower)">
-                        {{follower.username}}
-                    </li>
-                </ul>
-            </div>
-            <div ng-show="model.show === 'following'"
-                 id="following"
-                 class="tab-pane fade in active">
-                <h3>Following</h3>
-                <ul class="list-group">
-                    <li ng-repeat="following in model.user.following"
-                        class="list-group-item"
-                        ng-click="model.selectFollower(following)">
-                        {{following.username}}
-                    </li>
-                </ul>
-            </div>
-            <div ng-show="model.show === 'reviews'"
-                 id="reviews"
-                 class="tab-pane fade in active">
-                <h3>Reviews</h3>
-                <ul class="list-group">
-                    <li ng-repeat="review in model.user.reviews" class="list-group-item">
-                        {{review.review}}
-                    </li>
-                </ul>
-            </div>
-            <div ng-show="model.show === 'posts'"
-                 id="posts"
-                 class="tab-pane fade in active">
-                <h3>Posts</h3>
-                <ul class="list-group">
-                    <li ng-repeat="post in model.user.posts" class="list-group-item">
-                        {{post.name}}
-                    </li>
-                </ul>
-            </div>
+    </div>
+    <div ng-show="model.show === 'reviews'"
+         id="reviews"
+         class="tab-pane fade in active">
+        <h3>Reviews</h3>
+        <ul class="list-group">
+            <li ng-repeat="review in model.user.reviews" class="list-group-item">
+                <div class="reviewFormat well">
+                    <a class="btn btn-success btn-sm pull-right"
+                       ng-click="model.selectMovie(review.movieId)">
+                        Go to review page
+                    </a>
+                    <h4>Review : </h4>
+
+                    <p>{{review.review}}</p>
+
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content">
+        <div ng-show="model.show === 'followers'"
+             id="followers"
+             class="tab-pane fade in active">
+            <h3>Followers</h3>
+            <ul class="list-group">
+                <li ng-repeat="follower in model.user.followers" class="list-group-item">
+                    <div>
+                        <a ng-click="model.selectFollower(follower)">
+                            {{follower.username}}
+                        </a>
+                    </div>
+                </li>
+            </ul>
         </div>
+    </div>
 </div>

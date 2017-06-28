@@ -14,11 +14,11 @@ app.get('/api/posts', isAdmin, findAllPosts);
 app.get('/api/project/posts/:movieId', findPostsByMovieId);
 app.post ('/api/project/upload', upload.single('myFile'), uploadImage);
 
-function uploadImage(req, res) {
-    var postId      = req.body.postId;
-    var width         = req.body.width;
-    var myFile        = req.file;
 
+function uploadImage(req, res) {
+    var post =  req.body;
+
+    var myFile        = req.file;
     var userId = req.body.userId;
     var movieId = req.body.movieId;
 
@@ -29,18 +29,18 @@ function uploadImage(req, res) {
     var size          = myFile.size;
     var mimetype      = myFile.mimetype;
 
+    console.log(myFile);
+
+    post.url = "/project/uploads/" + filename;
+    post.postType = 'IMAGE';
+    post.name = '';
     postProjectModel
-        .findPostById(postId)
+        .createPost(userId, movieId, post)
         .then(function (post) {
-            post.url = "/project/uploads/" + filename;
-            postProjectModel
-                .updatePost(postId, post)
-                .then(function () {
-                    var callbackUrl   = "/project/index.html#!/user/" + userId + "/movie/"
-                    + movieId + "/post/" + postId;
-                    res.redirect(callbackUrl);
-                });
-        });
+            var callbackUrl = "/project/index.html#!/page/" + movieId;
+            console.log(post.url);
+            res.redirect(callbackUrl);
+     });
 }
 
 function findPostsByUserId(req, res) {

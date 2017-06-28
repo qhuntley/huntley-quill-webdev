@@ -21,7 +21,8 @@
             unregister: unregister,
             followUser: followUser,
             unfollowUser: unfollowUser,
-            findFollowersById: findFollowersById
+            findFollowersById: findFollowersById,
+            updatePassword: updatePassword
         };
 
         return api;
@@ -49,6 +50,14 @@
                 .then(function (response) {
                     return response.data;
                 });
+        }
+
+        function updatePassword(userId, info) {
+            var url = "/api/project/user/"+ userId + "/updatePassword";
+            return $http.post(url, info)
+                .then(function (response) {
+                    return response.data;
+                })
         }
 
         function deleteUser(userId) {

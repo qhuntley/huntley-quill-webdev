@@ -1,0 +1,49 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand">New Image</a>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <form>
+        <label for="name">Name</label>
+        <input id="name"
+               type="text"
+               ng-model = "post.name"
+               class="form-control">
+        </input>
+        <label for="url">URL</label>
+        <input id="url"
+               ng-model = "post.url"
+               type="url"
+               class="form-control"
+               placeholder="https://www.sitebuilderreport.com/assets/facebook-stock-up-446fff24fb11820517c520c4a5a4c032.jpg">
+        </input>
+        <label for="width">Width</label>
+        <input id="width"
+               ng-model = "post.width"
+               type="text"
+               class="form-control"
+               placeholder="100%">
+        </input>
+        <label for="movie">Movie Id</label>
+        <input id="movie"
+               type="text"
+               placeholder="19995"
+               ng-model = "post.movieId"
+               class="form-control">
+        </input>
+        <form action="/api/project/upload"   method="post" enctype="multipart/form-data">
+            <input  name="myFile"    type="file" class="form-control"/>
+            <input  name="width"     value="{{model.post.width}}" style="display: none"/>
+            <input  name="userId"    value="{{model.userId}}"       style="display: none"/>
+            <input  name="movieId" value="{{model.movieId}}"    style="display: none"/>
+            <input  name="postId"  value="{{model.post._id}}"   style="display: none"/>
+            <button type="submit"    class="btn btn-block btn-primary">Upload Image</button>
+        </form>
+        <a class="btn btn-success "
+           ng-click="model.create(post)"
+           role="button"><strong>Post It!</strong>
+        </a>
+    </form>
+</div>

@@ -16,7 +16,8 @@
         model.canCreate = false;
         model.canEdit = false;
         model.canView = true;
-        model.normal = true;
+        model.normalUser = true;
+        model.currentEdit = false;
         model. getYouTubeEmbedUrl =  getYouTubeEmbedUrl;
 
         function init() {
@@ -62,6 +63,9 @@
                 .findPostsByMovieId(model.movieId)
                 .then(function (response) {
                     model.posts = response;
+                    // if(model.posts.length != 0){
+                    //     model.canEdit = true;
+                    // }
                 });
 
             // reviews
@@ -70,6 +74,42 @@
                 .then(function (response) {
                     model.reviews = response;
                 });
+
+            if(model.loggedUser._id){
+                if(model.loggedUser.roles.indexOf('CELEBRITY') >= 0) {
+                    model.normalUser = false;
+                }
+                else if (model.loggedUser.roles.indexOf('ADMIN') >= 0) {
+                    model.normalUser = false;
+                }
+            }
+            $(document).ready(function() {
+                var maxLength = 500;
+                $('#remainingWrite').html(maxLength + ' characters remaining');
+
+                $('#reviewWrite').keyup(function() {
+                    var textLength = $('#reviewWrite').val().length;
+                    var remainingLength = maxLength - textLength;
+
+                    $('#remainingWrite').html(remainingLength + ' characters remaining');
+                    if(maxLength === remainingLength) {
+                        model.error1 = "Cannot have empty review"
+                    }
+                });
+            });
+
+            $(document).ready(function() {
+                var maxLength = 500;
+                $('#reviewEdit').keyup(function() {
+                    var textLength = $('#reviewEdit').val().length;
+                    var remainingLength = maxLength - textLength;
+
+                $('#remainingEdit').html(remainingLength + ' characters remaining');
+                    if(remainingLength ===maxLength) {
+                        model.error2 = "Cannot have empty review"
+                    }
+                });
+            });
 
             // for reviews
             if(model.loggedUser._id) {
@@ -94,15 +134,6 @@
                 }
             }
             console.log(model.canCreate);
-
-            // if(model.canEdit){
-            //     reviewProjectService
-            //         .findMovieReviewByUserId(model.loggedUser._id,model.movieId);
-            //     // .then(function (response) {
-            //     //     console.log(response);
-            //     //     model.review = response;
-            //     // });
-            // }
         }
         init();
 
@@ -134,15 +165,19 @@
 
         function createReview(review) {
             console.log(review);
-            if(typeof review === 'undefined') {
-                model.error = "Review name required!";
+            if(typeof review === 'undefined' || (!review.rating))  {
+                model.error = "Both fields required!";
                 return;
             }
+            /*if(!review.rating) {
+                model.message = "Please include rating";
+                return;
+            }*/
+
             reviewProjectService
                 .createReview(model.loggedUser._id, model.movieId, review)
                 .then(function () {
                     model.canCreate = false;
-                    //model.canEdit = true;
                     model.canView = false;
                     init();
                 });
@@ -154,20 +189,22 @@
         }
 
         function updateReview(review) {
+            if(typeof review === 'undefined' || !(model.review.rating))  {
+                model.error2 = "Both fields required!";
+                return;
+            }
 
             var reviewId = review._id;
 
             reviewProjectService
                 .updateReview(model.loggedUser._id, model.movieId, reviewId, review)
                 .then(function (review) {
-                    console.log(review);
                     model.message = "Review Updated Successfully";
                     $route.reload();
                 });
         }
 
         function deleteReview(review) {
-            console.log(review);
             var reviewId = review._id;
 
             reviewProjectService
@@ -185,10 +222,8 @@
         //Posts
 
         function selectPost(post) {
-            console.log(post);
             author = post._author;
             var userId = author._id;
-            console.log(userId);
             $location.url('/user/'+ userId + '/profile-public');
         }
 
@@ -197,8 +232,6 @@
                 model.error = "Review name required!";
                 return;
             }
-            console.log("create");
-            console.log(post);
             if(post.post) {
                 post.postType = 'TEXT';
             }
@@ -218,6 +251,7 @@
 
         function editPost(post) {
             model.canEdit = true;
+            model.currentEdit = true;
             model.post = post;
         }
 
@@ -227,14 +261,12 @@
             postProjectService
                 .updatePost(model.loggedUser._id, model.movieId, postId, post)
                 .then(function (post) {
-                    console.log(post);
                     model.message = "Post Updated Successfully";
                     $route.reload();
                 });
         }
 
         function deletePost(post) {
-            console.log(post);
             var postId = post._id;
 
             postProjectService

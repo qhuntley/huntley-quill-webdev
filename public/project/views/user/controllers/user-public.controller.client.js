@@ -3,18 +3,12 @@
         .module('MovieApp')
         .controller('userPublicProjectController', userPublicProjectController);
 
-    function userPublicProjectController( currentUser, $location, userProjectService, $routeParams, $scope, $route) {
+    function userPublicProjectController( currentUser, $location, userProjectService, $routeParams, $scope, $sce) {
 
         var model = this;
         model.userId = $routeParams['userId'];
         model.loggedUser = currentUser;
-        if (model.loggedUser !== 0){
-            //model.followUsers = followUsers;
-            //model.unfollowUsers = unfollowUsers;
-        }
-
-        model.follow = follow;
-        model.unfollow = unfollow;
+        model.isfollow = false;
 
         function init(){
 
@@ -28,7 +22,6 @@
 
             var following = currentUser.following;
 
-            model.isfollow = false;
             if(following){
                 for(i = 0; i < following.length; i++){
                     var currfollower = following[i];
@@ -41,66 +34,54 @@
                     }
                 }
             }
-
-
-            $('button').click(function(){
-                var $this = $(this);
-                $this.toggleClass('following');
-                if($this.is('.following')){
-                    $this.addClass('wait');
-                }
-            }).on('mouseleave',function(){
-                $(this).removeClass('wait');
-            })
-
         }
         init();
 
+        model.follow = follow;
+        model.unfollow = unfollow;
         model.selectFollower = selectFollower;
-        model.isfollowing = isfollowing;
+        model.selectMovie = selectMovie;
+        model.getYouTubeEmbedUrl = getYouTubeEmbedUrl;
+
+        function selectMovie(movieId) {
+            $location.url('/page/' + movieId);
+        }
+
+        function getYouTubeEmbedUrl(youtubeLink) {
+            var embedUrl = "https://www.youtube.com/embed/";
+            var youTubeLinkParts = youtubeLink.split('/');
+            var id = youTubeLinkParts[youTubeLinkParts.length - 1];
+            embedUrl += id;
+            return $sce.trustAsResourceUrl(embedUrl);
+        }
 
         function selectFollower(follower) {
             var userId = follower._id;
-            $location.url('/user/' +userId + '/profile-public');
-        }
-
-        function isfollowing(loggedUser, user) {
-            var following = loggedUser.following;
-            for(i = 0; i < following.length; i++){
-                var currfollower = following[i];
-                console.log("in here");
-                console.log(currfollower);
-                if(currfollower._id === model.userId){
-                    model.isfollow = true;
-                    break;
-                }
-            }
-            model.isfollow = false;
+            $location.url('/user/'+ userId + '/profile-public');
         }
 
         function follow(follow, follower) {
-            console.log("jefelnvkm");
             userProjectService
                 .followUser(follow, follower)
                 .then(function (response) {
                     console.log(response);
-                    model.isfollow = true;
-                    $route.reload();
+                    init();
                 });
+            model.isfollow = true;
+            $location.url('/user/'+ model.userId + '/profile-public');
         }
 
         function unfollow(follow, follower) {
-            console.log("trying to unfollow");
             userProjectService
                 .unfollowUser(follow, follower)
                 .then(function (response) {
                     console.log(response);
-                    model.isfollow = false;
-                    $route.reload();
+                    init();
                 });
-
+            model.isfollow = false;
+            init();
+            $location.url('/user/'+ model.userId + '/profile-public');
         }
-
     }
 
 })();
