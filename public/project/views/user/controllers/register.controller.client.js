@@ -34,11 +34,10 @@
 
             userProjectService
                 .findUserByUsername(username)
-                .then(function (user) {
-                        if (user !== null) {
-                            model.error = "sorry, that username is taken";
-                        }
-                        } ,
+                .then(function () {
+
+                    model.error = "Username is not available";
+                },
                     function () {
                         var newUser = {
                             username: username,

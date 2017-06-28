@@ -29,7 +29,11 @@
     </div>
 </nav>
 <br>
+<div ng-show="model.message"
+     class="alert alert-info">
 
+    {{model.message}}
+</div>
 <div ng-if="!(model.user.roles.indexOf('ADMIN') > 0)">
     <div ng-show="model.loggedUser._id && !model.isfollow"
          ng-if="model.user._id !== model.loggedUser._id">

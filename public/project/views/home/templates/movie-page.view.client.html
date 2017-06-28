@@ -133,13 +133,10 @@
 
                 <div class="well" ng-show="model.canView">
                     <h4>Write a Review:</h4>
+
                     <div ng-show="model.error"
                          class="alert alert-danger">
                         {{model.error}}
-                    </div>
-                    <div ng-show="model.error1"
-                         class="alert alert-danger">
-                        {{model.error1}}
                     </div>
 
                     <form>
@@ -176,13 +173,10 @@
                     </form>
                 </div>
                 <div class="well" ng-show="model.canEdit">
-                    <div ng-show="model.message" class="alert alert-info">
-                        {{model.message}}
-                    </div>
                     <h4>Edit Review:</h4>
-                    <div ng-show="model.error2"
+                    <div ng-show="model.error1"
                          class="alert alert-danger">
-                        {{model.error2}}
+                        {{model.error1}}
                     </div>
                     <form>
                         <div class="form-group">
@@ -268,6 +262,11 @@
                 <div ng-show="!model.currentEdit">
                     <div class="well">
                         <h4>Write a Post:</h4>
+                        <div ng-show="model.error2"
+                             class="alert alert-danger">
+                            {{model.error2}}
+                        </div>
+
                         <select class="div-toggle" data-target=".my-info-1" ng-disabled="model.normalUser">
                             <option value="Text" data-show=".text">Text</option>
                             <option value="Image" data-show=".image">Image</option>

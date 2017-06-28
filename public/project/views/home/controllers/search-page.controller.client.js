@@ -3,7 +3,7 @@
         .module('MovieApp')
         .controller('searchController', searchController);
 
-    function searchController(currentUser, $location, $routeParams, homeService) {
+    function searchController(currentUser, $location, $routeParams, homeService, $route) {
         var model = this;
         model.currentUser = currentUser;
         model.searchTerm = $routeParams['searchTerm'];
@@ -14,17 +14,28 @@
             homeService
                 .searchNewMovies(model.searchTerm)
                 .then(function (response) {
-                    model.movies = response.data.results;
+                    if(response.data.results.length > 0) {
+                        model.movies = response.data.results;
+                    } else {
+                        model.error = "No search results found, please try again";
+                        return;
+                    }
                 });
+
         }
         init();
 
         function searchNewMovies(term) {
-            homeService
-                .searchNewMovies(term)
-                .then(function (response) {
-                    model.movies = response.data.results;
-                });
+                homeService
+                    .searchNewMovies(term)
+                    .then(function (response) {
+                        if(response.data.results.length > 0) {
+                            model.movies = response.data.results;
+                        } else {
+                            model.error = "Please try again";
+                        }
+                        $route.reload;
+                    });
         }
 
         function selectMovie(movieId) {
