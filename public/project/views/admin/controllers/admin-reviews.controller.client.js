@@ -11,11 +11,16 @@
         model.selectReview = selectReview;
         model.createReview = createReview;
         model.updateReview = updateReview;
+        model.goBack = goBack;
 
         function init() {
             findAllReviews();
         }
         init();
+
+        function goBack() {
+            window.history.back();
+        }
 
         function deleteReview(review) {
             reviewProjectService

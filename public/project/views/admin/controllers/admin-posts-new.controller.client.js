@@ -11,6 +11,11 @@
 
         model.loggedUser = currentUser;
         model.create = create;
+        model.goBack = goBack;
+
+        function goBack() {
+            window.history.back();
+        }
 
         function create(post) {
             console.log(post);

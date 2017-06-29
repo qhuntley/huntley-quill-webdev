@@ -16,6 +16,25 @@
                 }
             })
 
+            .when('/experiment1', {
+                templateUrl: 'experiments/project-experiment1.html',
+                controller: 'experimentController',
+                controllerAs: 'model'
+            })
+
+            .when('/experiment2', {
+                templateUrl: 'experiments/project-experiment2.html',
+                controller: 'experimentController',
+                controllerAs: 'model'
+            })
+
+            .when('/experiment/details/:movieId', {
+                templateUrl: 'experiments/project-experiment-details.html',
+                controller: 'experimentController',
+                controllerAs: 'model'
+            })
+
+
             .when('/login', {
                 templateUrl: 'views/user/templates/login.view.client.html',
                 controller: 'loginController',
@@ -45,11 +64,7 @@
                     currentUser: checkCurrentUser
                 }
             })
-        /*    .when('/homefeed', {
-                templateUrl: 'views/user/templates/register.view.client.html',
-                controller: 'registerProjectController',
-                controllerAs: 'model'
-            })*/
+
             .when('/page/:movieId', {
                 templateUrl: 'views/home/templates/movie-page.view.client.html',
                 controller: 'movieController',

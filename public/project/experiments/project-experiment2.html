@@ -1,0 +1,38 @@
+<div class="container-fluid">
+    <h2>Experiment 2</h2>
+    <h5>Some added formatting to make information rendered more readable.
+        Once you search for a movie (e.g. "harry potter"), a list of movies will be returned with the movie title
+    and the movie overview, along with a 'Details' button. Clicking on the 'Details' button will navigate the user
+    to the 'Details' page.</h5>
+    <div class="input-group search-bar">
+        <input type="text"
+               class="form-control"
+               ng-model="searchText"/>
+        <span ng-click="model.searchNewMovies(searchText)"
+              class="input-group-addon glyphicon glyphicon-search">
+        </span>
+    </div>
+
+
+    <ul class="list-group">
+
+        <div class="row content" ng-repeat="movie in model.movies">
+            <div class="col-xs-12">
+                <div class="list-group-item">
+                    <h3>{{movie.title}}</h3>
+
+                    <br>
+                    {{movie.overview}}
+
+                    <a class="btn btn-primary btn-lg pull-down pull-right"
+                        ng-click="model.selectMovie(movie.id)">
+                        Details
+                    </a>
+                </div>
+                <br>
+
+            </div>
+        </div>
+    </ul>
+
+</div>

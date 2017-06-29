@@ -1,6 +1,9 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
+            <a class="nav navbar-text navbar-link pull-left">
+                 <span ng-click="model.goBack()" class="glyphicon glyphicon-hand-left btn-sm"></span>
+               </a>
             <ul class="nav navbar-nav pull-right">
                 <li ng-if="!model.currentUser._id">
                     <a href="#!/register">
@@ -44,8 +47,8 @@
         {{model.error}}
     </div>-->
 
-    <div class="container-fluid">
-        <div class="input-group search-bar">
+    <div class="container-fluid user-main">
+        <div class="searchPadding input-group search-bar">
             <input type="text"
                    class="form-control"
                    ng-model="searchText"/>
@@ -75,7 +78,6 @@
                     </a>
                 </div>
                 <br>
-
             </div>
         </div>
     </ul>

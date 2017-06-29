@@ -9,6 +9,7 @@
         model.searchTerm = $routeParams['searchTerm'];
         model.searchNewMovies = searchNewMovies;
         model.selectMovie = selectMovie;
+        model.goBack = goBack;
 
         function init() {
             homeService
@@ -24,6 +25,10 @@
 
         }
         init();
+
+        function goBack() {
+            window.history.back();
+        }
 
         function searchNewMovies(term) {
                 homeService

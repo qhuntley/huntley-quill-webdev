@@ -1,14 +1,10 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid row">
-
-        <p class="navbar-text pull-left">
-            <a class="navbar-link" href="#!/">
-                <span class="glyphicon glyphicon-hand-left btn"></span>
-            </a>
-        </p>
-
+        <a class="nav navbar-text navbar-link pull-left">
+                 <span ng-click="model.goBack()" class="glyphicon glyphicon-hand-left btn-sm"></span>
+        </a>
         <br>
-        <h3 class="navbar-text" style="color: white">Movie Page</h3>
+        <h3 class="navbar-text">Movie Page</h3>
     </div>
 </nav> <!--navigation ends-->
 
@@ -34,12 +30,12 @@
                  id="info"
                  class="tab-pane fade in active">
                 <ul class="list-group">
-                    <h3>{{model.movie.title}}</h3>
-                    <h4>Release Date: {{model.movie.vote_average}}</h4>
-                    <h4>Release Date: {{model.movie.release_date}}</h4>
-                    <h4>Summary</h4>
-                    <p>{{model.movie.overview}}</p>
-                </ul>
+                <h3>{{model.movie.title}}</h3>
+                <h4>Release Date: {{model.movie.vote_average}}</h4>
+                <h4>Release Date: {{model.movie.release_date}}</h4>
+                <h4>Summary</h4>
+                <p>{{model.movie.overview}}</p>
+            </ul>
             </div>
             <div ng-show="model.show === 'cast'"
                  id="cast"
@@ -218,10 +214,13 @@
 
                 <div ng-show="model.posts.length != 0">
                     <div class="well" ng-repeat="post in model.posts">
-                        <span ng-show="model.loggedUser._id === post._author._id"
+                       <span ng-show="model.loggedUser._id === post._author._id && post.postType != 'IMAGE'"
                               ng-click="model.editPost(post)"
                               class="glyphicon glyphicon-pencil pull-right"></span>
                         <label ng-click="model.selectPost(post)"><u>{{post._author.username}}</u></label>
+                        <span ng-show="model.loggedUser._id === post._author._id && post.postType == 'IMAGE'"
+                              ng-click="model.deletePost(post)"
+                              class="glyphicon glyphicon-remove pull-right"></span>
                         <div ng-switch ="post.postType">
                             <div ng-switch-when="TEXT">
                                     <span>
@@ -236,7 +235,8 @@
                                     <p>{{post.name}}</p>
                                     </span>
 
-                                <img ng-src="{{post.url}}"
+                                <img class="thumbnail img-responsive"
+                                     ng-src="{{post.url}}"
                                      width="{{post.width}}"/>
 
                             </div>
@@ -284,36 +284,68 @@
                                                   ng-disabled="model.normalUser">
                                         </textarea>
                                         </div>
+                                        <a href="" class="btn btn-success "
+                                           ng-click="model.createPost(post)"
+                                           role="button" ng-disabled="model.normalUser"><strong>Post It!</strong></a>
+                                        <a href="" class="btn btn-warning" ng-show="model.normalUser"
+                                           ng-disabled="model.normalUser"
+                                           role="button"><strong>Celebrity? Please login to Post!</strong></a>
                                     </div>
                                     <div class="image hide">
+                                        <h4>Please choose one of options :</h4>
                                         <form>
-                                            <label for="name">Name</label>
-                                            <input id="name"
-                                                   type="text"
-                                                   ng-model="post.name"
-                                                   class="form-control">
-                                            <label for="url">URL</label>
-                                            <input id="url"
-                                                   ng-model="post.url"
-                                                   type="url"
-                                                   class="form-control"
-                                                   placeholder="https://www.sitebuilderreport.com/assets/facebook-stock-up-446fff24fb11820517c520c4a5a4c032.jpg">
-                                            <label for="width">Width</label>
-                                            <input id="width"
-                                                   ng-model="post.width"
-                                                   type="text"
-                                                   class="form-control"
-                                                   placeholder="100%">
+                                            <div class="radio-inline">
+                                                <label>
+                                                    <input ng-click="model.imageType('URL')" type="radio"
+                                                           name="optradio">Image Url
+                                                </label>
+                                            </div>
+                                            <div class="radio-inline">
+                                                <label>
+                                                    <input ng-click="model.imageType(Upload)" type="radio"
+                                                           name="optradio">Upload Image
+                                                </label>
+                                            </div>
                                         </form>
+                                        <div ng-if="model.ok && !model.imageFlag">
+                                            <form>
+                                                <label for="name">Name</label>
+                                                <input id="name"
+                                                       type="text"
+                                                       ng-model="post.name"
+                                                       class="form-control">
+                                                <label for="url">URL</label>
+                                                <input id="url"
+                                                       ng-model="post.url"
+                                                       type="url"
+                                                       class="form-control"
+                                                       placeholder="https://www.sitebuilderreport.com/assets/facebook-stock-up-446fff24fb11820517c520c4a5a4c032.jpg">
+                                                <label for="width">Width</label>
+                                                <input id="width"
+                                                       ng-model="post.width"
+                                                       type="text"
+                                                       class="form-control"
+                                                       placeholder="100%">
+                                            </form>
+                                            <a href="" class="btn btn-success "
+                                               ng-click="model.createPost(post)"
+                                               role="button" ng-disabled="model.normalUser"><strong>Post
+                                                It!</strong></a>
+                                            <a href="" class="btn btn-warning" ng-show="model.normalUser"
+                                               ng-disabled="model.normalUser"
+                                               role="button"><strong>Celebrity? Please login to Post!</strong></a>
+                                        </div>
+                                        <div ng-if="model.ok && model.imageFlag">
                                         <form action="/api/project/upload" method="post" enctype="multipart/form-data">
                                             <input name="myFile" type="file" class="form-control"/>
                                             <input name="width" value="{{model.post.width}}" style="display: none"/>
                                             <input name="userId" value="{{model.userId}}" style="display: none"/>
                                             <input name="movieId" value="{{model.movieId}}" style="display: none"/>
-                                            <input name="postId" value="{{model.post._id}}" style="display: none"/>
+                                            <!--<input name="postId" value="{{model.post._id}}" style="display: none"/>-->
                                             <button type="submit" class="btn btn-block btn-primary">Upload Image
                                             </button>
                                         </form>
+                                    </div>
                                     </div>
                                     <div class="video hide">
                                         <form>
@@ -335,14 +367,15 @@
                                                    placeholder="100%"
                                                    class="form-control">
                                         </form>
+                                        <a href="" class="btn btn-success "
+                                           ng-click="model.createPost(post)"
+                                           role="button" ng-disabled="model.normalUser"><strong>Post It!</strong></a>
+                                        <a href="" class="btn btn-warning" ng-show="model.normalUser"
+                                           ng-disabled="model.normalUser"
+                                           role="button"><strong>Celebrity? Please login to Post!</strong></a>
                                     </div>
                                 </div>
                             </div>
-                            <a href="" class="btn btn-success "
-                               ng-click="model.createPost(post)"
-                               role="button" ng-disabled="model.normalUser"><strong>Post It!</strong></a>
-                            <a href="" class="btn btn-warning" ng-show="model.normalUser" ng-disabled="model.normalUser"
-                               role="button"><strong>Celebrity? Please login to Post!</strong></a>
                         </form>
                     </div>
                 </div>

@@ -1,19 +1,10 @@
-<!--
-// username
-// reviews
-// number of followers
-// ability to follow/unfollow
-//-->
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
 
-            <p class="navbar-text pull-left">
-                <a href="#!/"
-                   class="navbar-link">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                </a>
-            </p>
+            <a class="nav navbar-text navbar-link pull-left">
+              <span ng-click="model.goBack()" class="glyphicon glyphicon-hand-left btn-sm"></span>
+            </a>
 
             <a class="navbar-brand">
                 {{model.user.username}}

@@ -142,9 +142,13 @@
             ng-click="model.show ='posts'" ng-class="{'active': model.show==='posts'}">
             <a>Posts</a>
         </li>
-        <li ng-if = "!(model.user.roles.indexOf('ADMIN') > 0)"
+        <li ng-if="!(model.user.roles.indexOf('ADMIN') >= 0)"
             ng-click="model.show='followers'" ng-class="{'active': model.show==='followers'}">
             <a>Followers</a>
+        </li>
+        <li ng-if="!(model.user.roles.indexOf('ADMIN') >= 0)"
+            ng-click="model.show='following'" ng-class="{'active': model.show==='following'}">
+            <a>Following</a>
         </li>
     </ul>
     <div ng-show="model.show === 'posts'"
@@ -224,5 +228,20 @@
                 </li>
             </ul>
         </div>
+        <div class="tab-content">
+          <div ng-show="model.show === 'following'"
+                                id="following"
+                                class="tab-pane fade in active">
+                           <h3>Following</h3>
+                           <ul class="list-group">
+                                <li ng-repeat="following in model.user.following" class="list-group-item">
+                                    <div>
+                                        <a ng-click="model.selectFollower(following)">
+                                            {{following.username}}
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
     </div>
 </div>

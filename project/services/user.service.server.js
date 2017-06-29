@@ -7,7 +7,7 @@ var LocalStrategy1 = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
-passport.use(new LocalStrategy1(localStrategy1));
+passport.use('local', new LocalStrategy1(localStrategy1));
 
 passport.serializeUser(serializeUser);
 passport.deserializeUser(deserializeUser);
@@ -57,23 +57,25 @@ passport.use(new GoogleStrategy(googleConfig, googleStrategy));
 app.get('/api/project/user/:userId', findUserById);
 // findUserByCredentials and findUserByUsername are combined
 // as a single function findUser since they have the same URL pattern
-//app.get('/api/project/user', isAdmin, findUser);
+app.get('/api/project/user', isAdmin, findUser);
 app.get('/api/project/user', isAdmin, findAllUsers);
 app.post('/api/project/user', isAdmin, createUser);
 app.put('/api/project/user/:userId', updateUser);
 app.delete('/api/project/user/:userId', isAdmin, deleteUser);
-//app.delete('/api/project/unregister', unregister);
 app.post('/api/project/unregister', unregister);
+app.get('/api/user?username=username', findUserByUsername);
 
 function localStrategy1(username, password, done) {
     userProjectModel
         .findUserByUsername(username)
         .then(function (user) {
-            if (bcrypt.compareSync(password, user.password)) {
+            if(!user){
+                return done(null, false);
+            }
+            if (user.username === username && bcrypt.compareSync(password, user.password)) {
                 return userProjectModel
                     .findUserByCredentials(username, user.password)
                     .then(function (user) {
-                        console.log(user);
                         if (user) {
                             return done(null, user);
                         } else {
@@ -81,7 +83,14 @@ function localStrategy1(username, password, done) {
                         }
                     });
             }
+        }, function (err) {
+            if (err) {
+                return done(err);
+            } else {
+                return done(null, false);
+            }
         });
+
 }
 
 function facebookStrategy(token, refreshToken, profile, done) {
@@ -384,6 +393,17 @@ function deleteUser(req, res) {
         .then(function (){
             res.sendStatus(200);
         });
+}
+
+function findUserByUsername(res, username) {
+    for(var u in users) {
+        var user =  users[u];
+        if( user.username === username) {
+            res.json(user);
+            return;
+        }
+    }
+    res.sendStatus(404);
 }
 
 

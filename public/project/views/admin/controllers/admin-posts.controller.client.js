@@ -15,12 +15,16 @@
         model.createPost = createPost;
         model.updatePost = updatePost;
         model.findPost = findPost;
+        model.goBack = goBack;
 
         function init() {
             findAllPosts();
         }
         init();
 
+        function goBack() {
+            window.history.back();
+        }
 
         function findPost(post) {
             console.log(post);

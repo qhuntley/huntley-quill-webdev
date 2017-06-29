@@ -1,0 +1,15 @@
+<div class="container-fluid">
+    <h2>Experiment 1</h2>
+    <h5>Search for particular movie title using TMDb API. For example: "harry potter". Information rendered for this
+    experiment is not formatted. This experiment just tests whether the information is returned.</h5>
+    <div class="input-group search-bar">
+        <input type="text"
+               class="form-control"
+               ng-model="searchText"/>
+        <span ng-click="model.searchNewMovies(searchText)"
+           class="input-group-addon glyphicon glyphicon-search">
+        </span>
+    </div>
+
+    {{model.movies}}
+</div>

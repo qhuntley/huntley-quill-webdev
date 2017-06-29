@@ -35,7 +35,6 @@
             userProjectService
                 .findUserByUsername(username)
                 .then(function () {
-
                     model.error = "Username is not available";
                 },
                     function () {

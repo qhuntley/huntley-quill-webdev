@@ -18,12 +18,15 @@ module.exports = postProjectModel;
 function createPost(userId, movieId, post) {
     post._author = userId;
     post.movieId = movieId;
+    console.log("in hereeeeeeeeeeeeeeeeee");
     return postProjectModel
         .create(post)
         .then(function (post) {
             userProjectModel
                 .findUserById(userId)
                 .then(function (user) {
+                    console.log("hello user");
+                    console.log(user);
                     user.posts.push(post._id);
                     user.save();
                 });

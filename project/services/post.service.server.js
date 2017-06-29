@@ -36,9 +36,9 @@ function uploadImage(req, res) {
     post.name = '';
     postProjectModel
         .createPost(userId, movieId, post)
-        .then(function (post) {
+        .then(function () {
             var callbackUrl = "/project/index.html#!/page/" + movieId;
-            console.log(post.url);
+            console.log(callbackUrl);
             res.redirect(callbackUrl);
      });
 }

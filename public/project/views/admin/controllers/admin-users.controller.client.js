@@ -13,11 +13,16 @@
         model.createUser = createUser;
         model.updateUser = updateUser;
        // model.selectUsername = selectUsername;
+        model.goBack = goBack;
 
         function init() {
             findAllUsers();
         }
         init();
+
+        function goBack() {
+            window.history.back();
+        }
 
         function deleteUser(user) {
             userProjectService
@@ -26,10 +31,10 @@
         }
 
         function createUser(user) {
-            user.password = "password";
-            userProjectService
-                .createUser(user)
-                .then(findAllUsers);
+                user.password = "password";
+                userProjectService
+                    .createUser(user)
+                    .then(findAllUsers);
         }
 
         function selectUser(user) {

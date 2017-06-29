@@ -42,6 +42,11 @@
         model.selectFollower = selectFollower;
         model.selectMovie = selectMovie;
         model.getYouTubeEmbedUrl = getYouTubeEmbedUrl;
+        model.goBack = goBack;
+
+        function goBack() {
+           window.history.back();
+        }
 
         function selectMovie(movieId) {
             $location.url('/page/' + movieId);

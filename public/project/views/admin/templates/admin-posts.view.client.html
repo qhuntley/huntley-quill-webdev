@@ -1,4 +1,31 @@
-<div class ="container-fluid">
+<nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+
+                <a class="nav navbar-text navbar-link pull-left">
+                    <span ng-click="model.goBack()" class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+
+                <ul class="nav navbar-nav pull-right">
+
+                    <li>
+                        <a href="#!/profile">
+                            <u>Profile</u>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a ng-click="model.logout()">
+                            <u>Logout</u>
+                        </a>
+                    </li>
+
+                </ul>
+           </div>
+       </div>
+    </nav>
+
+<div class ="container-fluid user-main">
     <h1>Posts</h1>
 
     <ul class="list-group">

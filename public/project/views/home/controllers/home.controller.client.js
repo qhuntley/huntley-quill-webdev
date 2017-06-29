@@ -10,6 +10,7 @@
         model.searchNewMovies = searchNewMovies;
         model.selectMovie = selectMovie;
         model.searchPage = searchPage;
+
         model.upcomingIndex = 1;
         model.increaseUpcoming = function () {
             if(model.upcomingMovies.length <= model.upcomingIndex){
