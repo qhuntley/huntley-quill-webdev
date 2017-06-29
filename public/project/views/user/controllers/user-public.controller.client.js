@@ -69,7 +69,6 @@
             userProjectService
                 .followUser(follow, follower)
                 .then(function (response) {
-                    model.message = "Follow Successful! Please refresh the page";
                     console.log(response);
                     init();
                 });
@@ -81,7 +80,6 @@
             userProjectService
                 .unfollowUser(follow, follower)
                 .then(function (response) {
-                    model.message = "Unfollow Successful! Please refresh the page";
                     console.log(response);
                     init();
                 });

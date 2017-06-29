@@ -8,12 +8,12 @@
             <ul class="nav navbar-nav pull-right">
             <li ng-if="!model.currentUser._id">
                     <a href="#!/register">
-                        Register
+                        <u>Register</u>
                     </a>
                 </li>
                 <li ng-if="!model.currentUser._id">
                     <a href="#!/login">
-                        Login
+                        <u>Login</u>
                     </a>
                 </li>
                 <li ng-if="model.currentUser._id">
@@ -37,12 +37,6 @@
 </nav>
 
 <div class="container-fluid user-main">
-
-    <div ng-show="model.error"
-         class="alert alert-danger alert-dismissable">
-       <a href="" class="close" data-dismiss="alert" aria-label="close">×</a>
-         {{model.error}}
-    </div>
     
     <div class="container-fluid user-main">
         <div class="input-group search-bar">

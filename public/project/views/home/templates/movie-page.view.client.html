@@ -2,11 +2,11 @@
     <div class="container-fluid row">
 
         <a class="nav navbar-text navbar-link pull-left">
-            <span ng-click="model.goBack()" class="glyphicon glyphicon-chevron-left btn-sm"></span>
+            <span ng-click="model.goBack()" class="glyphicon glyphicon-hand-left btn-sm"></span>
         </a>
 
         <br>
-        <h3>Movie Page</h3>
+        <h3 class="navbar-text"><u>Movie Page</u></h3>
     </div>
 </nav> <!--navigation ends-->
 
@@ -178,9 +178,9 @@
                         {{model.message}}
                     </div>
                     <h4>Edit Review:</h4>
-                    <div ng-show="model.error1"
+                    <div ng-show="model.error2"
                          class="alert alert-danger">
-                        {{model.error1}}
+                        {{model.error2}}
                     </div>
                     <form>
                         <div class="form-group">
@@ -268,12 +268,6 @@
                 <div ng-show="!model.currentEdit">
                     <div class="well">
                         <h4>Write a Post:</h4>
-
-                        <div ng-show="model.error2"
-                             class="alert alert-danger">
-                            {{model.error2}}
-                        </div>
-
                         <select class="div-toggle" data-target=".my-info-1" ng-disabled="model.normalUser">
                             <option value="Text" data-show=".text">Text</option>
                             <option value="Image" data-show=".image">Image</option>

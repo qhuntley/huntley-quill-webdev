@@ -23,6 +23,7 @@
         }
 
         function deleteReview(review) {
+            console.log(review._id);
             reviewProjectService
                 .deleteReview(review._reviewer, review.movieId, review._id, review)
                 .then(findAllReviews);
@@ -30,9 +31,10 @@
 
         function createReview(review) {
             if(typeof review === 'undefined' || review._reviewer === 'undefined' || !review._review == "" ||review.movieId ==="") {
-                 model.error = "Review, Username and MovieId are mandatory fields";
-                       return;
+                model.error = "Review, Username and MovieId are mandatory fields";
+                return;
             }
+
             reviewProjectService
                 .createReview(review._reviewer, review.movieId, review)
                 .then(findAllReviews);
@@ -45,9 +47,9 @@
         function updateReview(review) {
             if(typeof review === 'undefined' || !review.review ||review.review ===""
                 || !review.rating || review.rating < 0 || !review.movieId || !review._reviewer) {
-                  model.error = "All fields must be populated required";
-                        return;
-                  }
+                model.error = "All fields must be populated required";
+                return;
+            }
             reviewProjectService
                 .updateReview(review._reviewer, review.movieId, review._id, review)
                 .then(findAllReviews);
@@ -57,7 +59,6 @@
             reviewProjectService
                 .findAllReviews()
                 .then(function (reviews) {
-                    console.log(reviews[0]._reviewer);
                     model.reviews= reviews;
                 });
         }

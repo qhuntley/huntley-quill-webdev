@@ -76,11 +76,7 @@
         }
 
         function searchPage(searchTerm) {
-            if (searchTerm === null || searchTerm === '' || typeof searchTerm === 'undefined') {
-                model.error = 'Please enter a valid search';
-            } else {
-                $location.url('/search/' + searchTerm);
-            }
+            $location.url('/search/' + searchTerm);
         }
 
         function logout() {

@@ -90,8 +90,8 @@
                     var remainingLength = maxLength - textLength;
 
                     $('#remainingWrite').html(remainingLength + ' characters remaining');
-                    if(remaininglength = maxLength) {
-                        model.error = "Must include a review!"
+                    if(maxLength === remainingLength) {
+                        model.error1 = "Cannot have empty review"
                     }
                 });
             });
@@ -103,6 +103,9 @@
                     var remainingLength = maxLength - textLength;
 
                 $('#remainingEdit').html(remainingLength + ' characters remaining');
+                    if(remainingLength ===maxLength) {
+                        model.error2 = "Cannot have empty review"
+                    }
                 });
             });
 
@@ -173,24 +176,27 @@
             reviewer = review._reviewer;
             var userId = reviewer._id;
             console.log(userId);
-            $location.url('/user/' + userId + '/profile-public');
+            $location.url('/user/'+ userId + '/profile-public');
         }
 
         function createReview(review) {
-            if (typeof review === 'undefined' || typeof review.review === 'undefined' ||
-                review.review === null || review.review === "") {
-                model.error = "Please include a review!";
+            console.log(review);
+            if(typeof review === 'undefined' || (!review.rating))  {
+                model.error = "Both fields required!";
                 return;
-            } else {
-
-                reviewProjectService
-                    .createReview(model.loggedUser._id, model.movieId, review)
-                    .then(function () {
-                        model.canCreate = false;
-                        model.canView = false;
-                        init();
-                    });
             }
+            /*if(!review.rating) {
+                model.message = "Please include rating";
+                return;
+            }*/
+
+            reviewProjectService
+                .createReview(model.loggedUser._id, model.movieId, review)
+                .then(function () {
+                    model.canCreate = false;
+                    model.canView = false;
+                    init();
+                });
         }
 
         function editReview(review) {
@@ -199,10 +205,8 @@
         }
 
         function updateReview(review) {
-            if(typeof review === 'undefined' || review === "" || review === null ||
-                typeof review.review === 'undefined' || review.review === null ||
-                review.review === "" || review.rating === "") {
-                model.error1 = "Must include a review!";
+            if(typeof review === 'undefined' || !(model.review.rating))  {
+                model.error2 = "Both fields required!";
                 return;
             }
 
@@ -240,48 +244,20 @@
         }
 
         function createPost(post) {
-            if(typeof post === 'undefined' || post === null || post === "") {
-                model.error2 = "Please include a post";
+            if(typeof post === 'undefined') {
+                model.error = "Review name required!";
                 return;
             }
             if(post.post) {
-                if (typeof post.post === 'undefined' || post.post === null || post.post === "") {
-
-                    model.error2 = "Please include a text post!";
-                    return;
-
-                } else {
-                    post.postType = 'TEXT';
-                }
+                post.postType = 'TEXT';
             }
-
             if(post.description) {
-                if (typeof post.description === 'undefined' || post.description === null || post.description === "" ||
-                    typeof post.url === 'undefined' || post.url === null || post.url === "" ||
-                    typeof post.width === 'undefined' || post.width === null || post.width === "") {
-
-                    model.error2 = "Please include a video post!";
-                    return;
-
-                } else {
-                    post.postType = 'YOUTUBE';
-                }
-
+                post.postType = 'YOUTUBE';
             }
-
             if(post.name) {
-                if (typeof post.name === 'undefined' || post.name === null || post.name === "" ||
-                    typeof post.url === 'undefined' || post.url === null || post.url === "" ||
-                    typeof post.width === 'undefined' || post.width === null || post.width === "") {
-
-                    model.error2 = "Please include an image post!";
-                    return;
-
-                } else {
-                    post.postType = 'IMAGE';
-                }
+                //post = {"postType": "", "pageId": "", "width": "", "url": ""};
+                post.postType = 'IMAGE';
             }
-
             postProjectService
                 .createPost(model.loggedUser._id, model.movieId, post)
                 .then(function () {
@@ -296,20 +272,14 @@
         }
 
         function updatePost(post) {
-            if(typeof post === 'undefined' || post === null || post === "") {
-                model.error3 = "Must include post";
-                return;
-            }
-            else {
-                var postId = post._id;
+            var postId = post._id;
 
-                postProjectService
-                    .updatePost(model.loggedUser._id, model.movieId, postId, post)
-                    .then(function (post) {
-                        model.message = "Post Updated Successfully";
-                        $route.reload();
-                    });
-            }
+            postProjectService
+                .updatePost(model.loggedUser._id, model.movieId, postId, post)
+                .then(function (post) {
+                    model.message = "Post Updated Successfully";
+                    $route.reload();
+                });
         }
 
         function deletePost(post) {
