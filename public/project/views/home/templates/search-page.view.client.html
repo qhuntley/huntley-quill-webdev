@@ -6,7 +6,7 @@
             </a>
 
             <ul class="nav navbar-nav pull-right">
-                <li ng-if="!model.currentUser._id">
+            <li ng-if="!model.currentUser._id">
                     <a href="#!/register">
                         Register
                     </a>
@@ -38,6 +38,12 @@
 
 <div class="container-fluid user-main">
 
+    <div ng-show="model.error"
+         class="alert alert-danger alert-dismissable">
+       <a href="" class="close" data-dismiss="alert" aria-label="close">×</a>
+         {{model.error}}
+    </div>
+    
     <div class="container-fluid user-main">
         <div class="input-group search-bar">
             <input type="text"

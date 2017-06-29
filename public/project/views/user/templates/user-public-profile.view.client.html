@@ -3,7 +3,7 @@
         <div class="navbar-header">
 
             <a class="nav navbar-text navbar-link pull-left">
-              <span ng-click="model.goBack()" class="glyphicon glyphicon-hand-left btn-sm"></span>
+                <span ng-click="model.goBack()" class="glyphicon glyphicon-chevron-left btn-sm"></span>
             </a>
 
             <a class="navbar-brand">
@@ -20,11 +20,12 @@
     </div>
 </nav>
 <br>
+
 <div ng-show="model.message"
      class="alert alert-info">
-
     {{model.message}}
 </div>
+
 <div ng-if="!(model.user.roles.indexOf('ADMIN') > 0)">
     <div ng-show="model.loggedUser._id && !model.isfollow"
          ng-if="model.user._id !== model.loggedUser._id">
@@ -44,23 +45,23 @@
     <ul class="nav nav-tabs">
         <li ng-init="model.show ='reviews'"
             ng-click="model.show='reviews'" ng-class="{'active': model.show==='reviews'}">
-            <a>Reviews</a>
+            <a><b>Reviews</b></a>
         </li>
         <li ng-if="(model.user.roles.indexOf('CELEBRITY') >= 0)"
             ng-click="model.show='posts'" ng-class="{'active': model.show==='posts'}">
-            <a>Posts</a>
+            <a><b>Posts</b></a>
         </li>
         <li ng-if="(model.user.roles.indexOf('ADMIN') >= 0)"
             ng-click="model.show='posts'" ng-class="{'active': model.show==='posts'}">
-            <a>Posts</a>
+            <a><b>Posts</b></a>
         </li>
         <li ng-click="model.show ='followers'" ng-class="{'active': model.show==='followers'}">
-            <a>Followers</a>
+            <a><b>Followers</b></a>
         </li>
         <li ng-click="model.show ='following'"
             ng-class="{'active': model.show==='following'}"
             ng-show="model.loggedUser._id && model.isfollow">
-            <a>Following</a>
+            <a><b>Following</b></a>
         </li>
 
     </ul>

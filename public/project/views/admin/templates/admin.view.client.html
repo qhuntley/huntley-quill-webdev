@@ -1,48 +1,47 @@
 <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
+    <div class="container-fluid">
+        <div class="navbar-header">
 
-                <a class="nav navbar-text navbar-link pull-left">
-                    <span onclick="goBack()" class="glyphicon glyphicon-chevron-left"></span>
-                </a>
+            <a class="nav navbar-text navbar-link pull-left">
+                <span onclick="goBack()" class="glyphicon glyphicon-chevron-left"></span>
+            </a>
 
-               <ul class="nav navbar-nav pull-right">
+            <ul class="nav navbar-nav pull-right">
 
-                    <li>
-                        <a href="#!/profile">
-                            <u>Profile</u>
-                        </a>
-                    </li>
+                <li>
+                    <a href="#!/profile">
+                        <u>Profile</u>
+                    </a>
+                </li>
 
-                    <li>
-                        <a ng-click="model.logout()">
-                            <u>Logout</u>
-                        </a>
-                    </li>
+                <li>
+                    <a ng-click="model.logout()">
+                        <u>Logout</u>
+                    </a>
+                </li>
 
-                </ul>
-            </div>
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
 
 <div class ="container-fluid user-main">
     <h1>Admin</h1>
     <ul class="list-group">
         <li class="list-group-item">
-            <a href="#!/admin/users">Users</a>
+            <a class="goBack" href="#!/admin/users">Users</a>
         </li>
         <li class="list-group-item">
-            <a href="#!/admin/reviews">Reviews</a>
+            <a class="goBack" href="#!/admin/reviews">Reviews</a>
         </li>
         <li class="list-group-item">
-            <a href="#!/admin/posts">Posts</a>
+            <a class="goBack" href="#!/admin/posts">Posts</a>
         </li>
     </ul>
 </div>
 
-
 <script>
-  function goBack() {
-           window.history.back();
-     }
+    function goBack() {
+        window.history.back();
+    }
 </script>

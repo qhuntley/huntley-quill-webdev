@@ -101,19 +101,19 @@
         <summary>Update Password</summary>
         <div>
             <label for="password">Old Password</label>
-            <input type="password"
+            <input type="text"
                    ng-model="password"
                    placeholder="Enter Current Password"
                    id="password"
                    class="form-control"/>
             <label for="new">New Password</label>
-            <input type="password"
+            <input type="text"
                    ng-model="newPassword"
                    placeholder="Enter New Password"
                    id="new"
                    class="form-control"/>
             <label for="verifyNew">Confirm New Password</label>
-            <input type="password"
+            <input type="text"
                    ng-model="verifyPassword"
                    placeholder="Confirm New Password"
                    id="verifyNew"
@@ -135,20 +135,20 @@
     <ul class="nav nav-tabs">
         <li ng-init="model.show ='reviews'"
             ng-click="model.show='reviews'" ng-class="{'active': model.show==='reviews'}">
-            <a>Reviews</a>
+            <a><b>Reviews</b></a>
         </li>
         <li ng-if="(model.user.roles.indexOf('CELEBRITY') >= 0) ||
                        (model.user.roles.indexOf('ADMIN') >= 0)"
             ng-click="model.show ='posts'" ng-class="{'active': model.show==='posts'}">
-            <a>Posts</a>
+            <a><b>Posts</b></a>
         </li>
-        <li ng-if="!(model.user.roles.indexOf('ADMIN') >= 0)"
+        <li ng-if = "!(model.user.roles.indexOf('ADMIN') >= 0)"
             ng-click="model.show='followers'" ng-class="{'active': model.show==='followers'}">
-            <a>Followers</a>
+            <a><b>Followers</b></a>
         </li>
-        <li ng-if="!(model.user.roles.indexOf('ADMIN') >= 0)"
+        <li ng-if = "!(model.user.roles.indexOf('ADMIN') >= 0)"
             ng-click="model.show='following'" ng-class="{'active': model.show==='following'}">
-            <a>Following</a>
+            <a><b>Following</b></a>
         </li>
     </ul>
     <div ng-show="model.show === 'posts'"
@@ -229,19 +229,19 @@
             </ul>
         </div>
         <div class="tab-content">
-          <div ng-show="model.show === 'following'"
-                                id="following"
-                                class="tab-pane fade in active">
-                           <h3>Following</h3>
-                           <ul class="list-group">
-                                <li ng-repeat="following in model.user.following" class="list-group-item">
-                                    <div>
-                                        <a ng-click="model.selectFollower(following)">
-                                            {{following.username}}
-                                        </a>
-                                    </div>
-                                </li>
-                            </ul>
+            <div ng-show="model.show === 'following'"
+                 id="following"
+                 class="tab-pane fade in active">
+                <h3>Following</h3>
+                <ul class="list-group">
+                    <li ng-repeat="following in model.user.following" class="list-group-item">
+                        <div>
+                            <a ng-click="model.selectFollower(following)">
+                                {{following.username}}
+                            </a>
                         </div>
+                    </li>
+                </ul>
+            </div>
     </div>
 </div>

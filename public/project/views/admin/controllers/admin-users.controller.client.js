@@ -12,7 +12,6 @@
         model.selectUser = selectUser;
         model.createUser = createUser;
         model.updateUser = updateUser;
-       // model.selectUsername = selectUsername;
         model.goBack = goBack;
 
         function init() {
@@ -31,10 +30,15 @@
         }
 
         function createUser(user) {
-                user.password = "password";
-                userProjectService
-                    .createUser(user)
-                    .then(findAllUsers);
+            if(typeof user === 'undefined' || !user.username ||user.username ==="") {
+                  model.error = "Username field required";
+                return;
+                  }
+            console.log(user);
+            user.password = "password";
+            userProjectService
+                .createUser(user)
+                .then(findAllUsers);
         }
 
         function selectUser(user) {
@@ -42,6 +46,10 @@
         }
 
         function updateUser(user) {
+            if(typeof user === 'undefined' || !user.username ||user.username ==="") {
+                 model.error = "Username field required";
+                return;
+            }
             userProjectService
                 .updateUser(user._id, user)
                 .then(findAllUsers);

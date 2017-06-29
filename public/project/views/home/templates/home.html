@@ -4,12 +4,12 @@
             <ul class="nav navbar-nav pull-right">
                 <li ng-if="!model.currentUser._id">
                     <a href="#!/register">
-                        Register
+                        <u>Register</u>
                     </a>
                 </li>
                 <li ng-if="!model.currentUser._id">
                     <a href="#!/login">
-                        Login
+                        <u>Login</u>
                     </a>
                 </li>
                 <li ng-if="model.currentUser._id">
@@ -48,12 +48,17 @@
             </h4>
         </div>
 
+        <div ng-show="model.error"
+             class="alert alert-danger">
+             {{model.error}}
+        </div>
+
         <div class="container-fluid user-main">
             <div class="input-group search-bar">
                 <input type="text"
                        class="form-control center"
                        ng-model="searchText"
-                       placeholder="Search movie here..."/>
+                        placeholder="Search movie here..."/>
                 <span ng-click="model.searchPage(searchText)" class="input-group-addon glyphicon glyphicon-search"></span>
             </div>
         </div>
@@ -65,11 +70,14 @@
 
         <div ng-repeat="movie in model.upcomingMovies | limitTo: 4">
             <div class="col-sm-6 col-md-3 thumbnail">
-                <img class="img-responsive"
-                     ng-click="model.selectMovie(movie.id)"
-                     ng-src="http://image.tmdb.org/t/p/original{{movie.poster_path}}"/>
+                    <img class="img-responsive"
+                         ng-click="model.selectMovie(movie.id)"
+                         ng-src="http://image.tmdb.org/t/p/original{{movie.poster_path}}"/>
             </div>
         </div>
+    </div>
+
+    <div class="container-fluid user-main">
 
         <h4>Current Movies</h4>
 
@@ -80,20 +88,26 @@
                      ng-src="http://image.tmdb.org/t/p/original{{movie.poster_path}}"/>
             </div>
         </div>
+    </div>
 
-        <h4>Popular Movies</h4>
+    <div class="container-fluid user-main">
 
-        <div ng-repeat="movie in model.popularMovies | limitTo: 4">
+        <h4>Top Rated Movies</h4>
+
+        <div ng-repeat="movie in model.topRatedMovies | limitTo: 4">
             <div class="col-sm-6 col-md-3 thumbnail">
                 <img class="img-responsive"
                      ng-click="model.selectMovie(movie.id)"
                      ng-src="http://image.tmdb.org/t/p/original{{movie.poster_path}}"/>
             </div>
         </div>
+    </div>
 
-        <h4>Top Rated Movies</h4>
+    <div class="container-fluid user-main">
 
-        <div ng-repeat="movie in model.topRatedMovies | limitTo: 4">
+        <h4>Popular Movies</h4>
+
+        <div ng-repeat="movie in model.popularMovies | limitTo: 4">
             <div class="col-sm-6 col-md-3 thumbnail">
                 <img class="img-responsive"
                      ng-click="model.selectMovie(movie.id)"

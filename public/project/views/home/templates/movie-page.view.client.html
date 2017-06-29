@@ -1,10 +1,12 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid row">
+
         <a class="nav navbar-text navbar-link pull-left">
-                 <span ng-click="model.goBack()" class="glyphicon glyphicon-hand-left btn-sm"></span>
+            <span ng-click="model.goBack()" class="glyphicon glyphicon-chevron-left btn-sm"></span>
         </a>
+
         <br>
-        <h3 class="navbar-text">Movie Page</h3>
+        <h3>Movie Page</h3>
     </div>
 </nav> <!--navigation ends-->
 
@@ -20,22 +22,22 @@
                 <li ng-init="model.show ='info'"
                     class="active"
                     ng-click="model.show='info'" ng-class="{'active': model.show==='info'}">
-                    <a>Basic Info</a>
+                    <a><b>Basic Info</b></a>
                 </li>
                 <li ng-click="model.show='cast'" ng-class="{'active': model.show==='cast'}">
-                    <a>Cast and Genre</a>
+                    <a><b>Cast and Genre</b></a>
                 </li>
             </ul>
             <div ng-show="model.show === 'info'"
                  id="info"
                  class="tab-pane fade in active">
                 <ul class="list-group">
-                <h3>{{model.movie.title}}</h3>
-                <h4>Release Date: {{model.movie.vote_average}}</h4>
-                <h4>Release Date: {{model.movie.release_date}}</h4>
-                <h4>Summary</h4>
-                <p>{{model.movie.overview}}</p>
-            </ul>
+                    <h3>{{model.movie.title}}</h3>
+                    <h4>Vote Average: {{model.movie.vote_average}}</h4>
+                    <h4>Release Date: {{model.movie.release_date}}</h4>
+                    <h4>Summary</h4>
+                    <p>{{model.movie.overview}}</p>
+                </ul>
             </div>
             <div ng-show="model.show === 'cast'"
                  id="cast"
@@ -100,10 +102,10 @@
         <div>
             <ul class="nav nav-tabs">
                 <li ng-click="model.show='reviews'" ng-class="{'active': model.show==='reviews'}">
-                    <a>Reviews</a>
+                    <a><b>Reviews</b></a>
                 </li>
                 <li ng-click="model.show='Posts'" ng-class="{'active': model.show==='Posts'}">
-                    <a>Posts</a>
+                    <a><b>Posts</b></a>
                 </li>
             </ul>
             <div ng-show="model.show === 'reviews'"
@@ -116,7 +118,7 @@
                               ng-click="model.editReview(review)"
                               class="glyphicon glyphicon-pencil pull-right"></span>
                         <p>
-                            <label ng-click="model.selectReview(review)"><u>{{review._reviewer.username}}</u></label>
+                            <label ng-click="model.selectReview(review)"><b>{{review._reviewer.username}}</b></label>
                         <h4>Rating : {{review.rating}}</h4>
                         <h4>Review : </h4>
                         <span><p>{{review.review}}</p></span>
@@ -129,10 +131,13 @@
 
                 <div class="well" ng-show="model.canView">
                     <h4>Write a Review:</h4>
-
                     <div ng-show="model.error"
                          class="alert alert-danger">
                         {{model.error}}
+                    </div>
+                    <div ng-show="model.error1"
+                         class="alert alert-danger">
+                        {{model.error1}}
                     </div>
 
                     <form>
@@ -169,6 +174,9 @@
                     </form>
                 </div>
                 <div class="well" ng-show="model.canEdit">
+                    <div ng-show="model.message" class="alert alert-info">
+                        {{model.message}}
+                    </div>
                     <h4>Edit Review:</h4>
                     <div ng-show="model.error1"
                          class="alert alert-danger">
@@ -214,10 +222,10 @@
 
                 <div ng-show="model.posts.length != 0">
                     <div class="well" ng-repeat="post in model.posts">
-                       <span ng-show="model.loggedUser._id === post._author._id && post.postType != 'IMAGE'"
+                        <span ng-show="model.loggedUser._id === post._author._id && post.postType != 'IMAGE'"
                               ng-click="model.editPost(post)"
                               class="glyphicon glyphicon-pencil pull-right"></span>
-                        <label ng-click="model.selectPost(post)"><u>{{post._author.username}}</u></label>
+                        <label ng-click="model.selectPost(post)"><b>{{post._author.username}}</b></label>
                         <span ng-show="model.loggedUser._id === post._author._id && post.postType == 'IMAGE'"
                               ng-click="model.deletePost(post)"
                               class="glyphicon glyphicon-remove pull-right"></span>
@@ -235,10 +243,8 @@
                                     <p>{{post.name}}</p>
                                     </span>
 
-                                <img class="thumbnail img-responsive"
-                                     ng-src="{{post.url}}"
-                                     width="{{post.width}}"/>
-
+                                <img ng-src="{{post.url}}"
+                                     width="{{post.width}}" class="thumbnail img-responsive"/>
                             </div>
 
                             <div ng-switch-when = "YOUTUBE">
@@ -262,6 +268,7 @@
                 <div ng-show="!model.currentEdit">
                     <div class="well">
                         <h4>Write a Post:</h4>
+
                         <div ng-show="model.error2"
                              class="alert alert-danger">
                             {{model.error2}}
@@ -287,8 +294,7 @@
                                         <a href="" class="btn btn-success "
                                            ng-click="model.createPost(post)"
                                            role="button" ng-disabled="model.normalUser"><strong>Post It!</strong></a>
-                                        <a href="" class="btn btn-warning" ng-show="model.normalUser"
-                                           ng-disabled="model.normalUser"
+                                        <a href="" class="btn btn-warning" ng-show="model.normalUser" ng-disabled="model.normalUser"
                                            role="button"><strong>Celebrity? Please login to Post!</strong></a>
                                     </div>
                                     <div class="image hide">
@@ -296,15 +302,11 @@
                                         <form>
                                             <div class="radio-inline">
                                                 <label>
-                                                    <input ng-click="model.imageType('URL')" type="radio"
-                                                           name="optradio">Image Url
+                                                    <input ng-click="model.imageType('URL')" type="radio" name="optradio">Image Url
                                                 </label>
                                             </div>
                                             <div class="radio-inline">
-                                                <label>
-                                                    <input ng-click="model.imageType(Upload)" type="radio"
-                                                           name="optradio">Upload Image
-                                                </label>
+                                                <label><input ng-click="model.imageType(Upload)" type="radio" name="optradio">Upload Image</label>
                                             </div>
                                         </form>
                                         <div ng-if="model.ok && !model.imageFlag">
@@ -329,10 +331,8 @@
                                             </form>
                                             <a href="" class="btn btn-success "
                                                ng-click="model.createPost(post)"
-                                               role="button" ng-disabled="model.normalUser"><strong>Post
-                                                It!</strong></a>
-                                            <a href="" class="btn btn-warning" ng-show="model.normalUser"
-                                               ng-disabled="model.normalUser"
+                                               role="button" ng-disabled="model.normalUser"><strong>Post It!</strong></a>
+                                            <a href="" class="btn btn-warning" ng-show="model.normalUser" ng-disabled="model.normalUser"
                                                role="button"><strong>Celebrity? Please login to Post!</strong></a>
                                         </div>
                                         <div ng-if="model.ok && model.imageFlag">
@@ -345,7 +345,7 @@
                                             <button type="submit" class="btn btn-block btn-primary">Upload Image
                                             </button>
                                         </form>
-                                    </div>
+                                        </div>
                                     </div>
                                     <div class="video hide">
                                         <form>
@@ -370,8 +370,7 @@
                                         <a href="" class="btn btn-success "
                                            ng-click="model.createPost(post)"
                                            role="button" ng-disabled="model.normalUser"><strong>Post It!</strong></a>
-                                        <a href="" class="btn btn-warning" ng-show="model.normalUser"
-                                           ng-disabled="model.normalUser"
+                                        <a href="" class="btn btn-warning" ng-show="model.normalUser" ng-disabled="model.normalUser"
                                            role="button"><strong>Celebrity? Please login to Post!</strong></a>
                                     </div>
                                 </div>

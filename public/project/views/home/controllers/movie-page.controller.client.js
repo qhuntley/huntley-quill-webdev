@@ -10,7 +10,6 @@
         model.userId = currentUser._id;
         model.movieId = $routeParams['movieId'];
         model.postId = $routeParams['postId'];
-
         model.loggedUser = currentUser;
         model.upcomingIndex = 1;
         model.canCreate = false;
@@ -91,10 +90,9 @@
                     var remainingLength = maxLength - textLength;
 
                     $('#remainingWrite').html(remainingLength + ' characters remaining');
-                    if(remaininglength = maxLength){
-                        model.error="Must include a review!"
+                    if(remaininglength = maxLength) {
+                        model.error = "Must include a review!"
                     }
-
                 });
             });
 
@@ -156,10 +154,10 @@
 
         function imageType(flag) {
             model.ok = true;
-            if (flag === 'URL') {
+            if (flag === 'URL'){
                 model.imageFlag = false;
             }
-            else {
+            else{
                 model.imageFlag = true;
             }
         }
@@ -175,18 +173,16 @@
             reviewer = review._reviewer;
             var userId = reviewer._id;
             console.log(userId);
-            $location.url('/user/'+ userId + '/profile-public');
+            $location.url('/user/' + userId + '/profile-public');
         }
 
         function createReview(review) {
-            console.log(review);
-
-            if(typeof review === 'undefined' || typeof review.review === 'undefined' ||
-            review.review === null || review.review === "") {
+            if (typeof review === 'undefined' || typeof review.review === 'undefined' ||
+                review.review === null || review.review === "") {
                 model.error = "Please include a review!";
                 return;
-            }
-            else{
+            } else {
+
                 reviewProjectService
                     .createReview(model.loggedUser._id, model.movieId, review)
                     .then(function () {
@@ -209,6 +205,7 @@
                 model.error1 = "Must include a review!";
                 return;
             }
+
             var reviewId = review._id;
 
             reviewProjectService

@@ -13,6 +13,7 @@ p.ng-binding{
     float: left;
 }
 
+
 div.well.ng-scope{
     min-block-size: 250px;
 }
@@ -36,7 +37,11 @@ div.reviewFormat{
 
 .glyphicon-hand-left{
     font-size: xx-large;
-    color: white;
+    color: black;
+}
+
+.goBack{
+    color: black;
 }
 
 head {
@@ -70,6 +75,16 @@ summary{
     font-size: large;
 }
 
+u{
+    font-size: large;
+    color: white;
+}
+
+a.navbar-link{
+    color: white;
+}
+
+
 
 div.container-fluid.main {
     margin-left: 20px;
@@ -88,9 +103,16 @@ body {
     border: none;
 }
 
-a:hover {
-    text-decoration: none;
-    background-color: transparent;
+a {
+    color: black;
+}
+
+b {
+    color:black;
+}
+
+h3 {
+    color:black;
 }
 
 .dropdown .dropdown-menu .dropdown-toggle {
@@ -98,28 +120,41 @@ a:hover {
     background-color: transparent;
 }
 
+.dropdown-menu .dropdown-toggle {
+    background-color: transparent ;
+    text-decoration: none;
+
+}
+
 .glyphicon-cog {
     color: white;
 }
 
-
-.glyphicon-home {
-    color:white;
+.glyphicon-plus {
+    color:black;
 }
-
-.glyphicon-chevron-left {
-    color:white;
-}
-
-
-.nav.navbar {
-    color:white;
-}
-
 .navbar-default,
 a.dropdown-toggle,
 ul.dropdown-menu.dropdown-menu-right{
     background-color: #94618e;
+}
+
+
+
+.navbar-text, a {
+    color: white;
+}
+
+.navbar-default .navbar-brand {
+    color: white;
+}
+
+.navbar-header {
+    width: 100%;
+}
+
+.navbar-default .navbar-link {
+    color: white;
 }
 
 nav.navbar.navbar-default.navbar-fixed-top {
@@ -130,6 +165,10 @@ nav.navbar.navbar-default.navbar-fixed-bottom {
     position: fixed;
 }
 
+.navbar.navbar-default a {
+    color: white;
+}
+
 
 .scrollable-left {
     position: absolute;
@@ -138,6 +177,28 @@ nav.navbar.navbar-default.navbar-fixed-bottom {
     overflow: scroll;
     padding-top: 15px;
     padding-bottom: 30px;
+}
+
+.wd-widget {
+    position: relative;
+    margin-bottom: 10px;
+    padding-bottom: 2px;
+}
+
+.wd-toolbar {
+    position: absolute;
+    background-color: white;
+    top: 0px;
+    right: 0px;
+    padding-left: 5px;
+    padding-bottom: 5px;
+    border-bottom-left-radius: 10px;
+    opacity: 0.8;
+}
+
+.wd-choose {
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .div .container {
@@ -188,6 +249,7 @@ nav.navbar.navbar-default.navbar-fixed-bottom {
 .cog{
     z-index: 1;
 }
+
 .nav>li>a:hover, .nav>li>a:focus, .nav .open>a, .nav .open>a:hover, .nav .open>a:focus {
     background:#fff;
 }

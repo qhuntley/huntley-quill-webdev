@@ -45,7 +45,7 @@
         model.goBack = goBack;
 
         function goBack() {
-           window.history.back();
+            window.history.back();
         }
 
         function selectMovie(movieId) {
