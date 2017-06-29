@@ -142,6 +142,24 @@
                 }
             })
 
+            .when('/experiment1', {
+                templateUrl: 'experiments/project-experiment1.html',
+                controller: 'experimentController',
+                controllerAs: 'model'
+            })
+
+            .when('/experiment2', {
+                templateUrl: 'experiments/project-experiment2.html',
+                controller: 'experimentController',
+                controllerAs: 'model'
+            })
+
+            .when('/experiment/details/:movieId', {
+                templateUrl: 'experiments/project-experiment-details.html',
+                controller: 'experimentController',
+                controllerAs: 'model'
+            })
+
             .when('/user/:userId/post', {
                 templateUrl: 'views/post/templates/post-list.view.client.html',
                 controller: 'adminController',
